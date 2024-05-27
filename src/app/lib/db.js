@@ -1,6 +1,6 @@
 import mysql from 'mysql2/promise';
 
-export async function connectToDatabase() {
+export async function connectToAppDatabase() {
   const connection = await mysql.createConnection({
     host: process.env.MYSQL_HOST,
     port: process.env.MYSQL_PORT,
@@ -8,6 +8,5 @@ export async function connectToDatabase() {
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
   });
-
   return connection;
 }

@@ -1,4 +1,4 @@
-import { connectToDatabase } from "../app/lib/db";
+import { connectToAppDatabase } from "../app/lib/db";
 import { v4 as uuidv4 } from 'uuid';
 import User from "./User";
 
@@ -9,7 +9,7 @@ class Schoolchild{
 
     static async add(email, phoneNumber, firstname, lastname, paternalName, password, birthdayDate, classNumber, classLetter) {
         const schoolchildId = this.generateUUID();
-        const connection = await connectToDatabase();
+        const connection = await connectToAppDatabase();
         try{
             const userInsertResult = await User.add(email, phoneNumber, firstname, lastname, paternalName, password);
             if (userInsertResult.success){

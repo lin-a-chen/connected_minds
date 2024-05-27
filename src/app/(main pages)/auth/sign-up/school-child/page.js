@@ -1,10 +1,13 @@
 'use client'
-import styles from "../../../../styles/main pages/auth/Auth.module.scss";
-import ButtonRegular from "@/components/UI/buttons/ButtonRegular";
-import { useForm } from "react-hook-form";
-import { TbMail, TbPhone, TbUserHexagon, TbCalendar, TbPasswordUser} from "react-icons/tb";
-import { ErrorMessage } from 'react-hook-form';
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+
+import standartStyles from "@/styles/Styles.module.scss";
+import styles from "@/styles/main pages/auth/Auth.module.scss";
+
+import { LuMail, LuPhone } from "react-icons/lu";
+import { MdOutlinePassword, MdOutlineAddLocationAlt } from "react-icons/md";
+import { TbMail, TbPhone, TbUserHexagon, TbCalendar, TbPasswordUser, TbCodeAsterisk, TbLink, TbUserDollar, TbSchool, TbPencilMinus } from "react-icons/tb";
 
 const sign_up = () => {
     const classLetters = ['А', 'Б', 'В', 'Г'];
@@ -21,15 +24,6 @@ const sign_up = () => {
             console.error(result.data);
         }
     }
-
-    const handlePasswordChange = (e) => {
-        setValue("password", e.target.value);
-        if (e.target.value.length < 8) {
-          setError("password", { type: "custom", message: "Password must be at least 8 characters" });
-        } else {
-          clearErrors("password");
-        }
-      };
 
     const {
         register,
@@ -48,7 +42,7 @@ const sign_up = () => {
                 <h3>Маєш акаунт?</h3>
                 <Link className={styles.link} href="/auth/sign-in">Увійти</Link>
             </div>
-            <form encType="application/json" className={styles.inputForm} method="POST">
+            <form encType="application/json" className={standartStyles.form} method="POST">
                 <fieldset>
                     <label>Ім'я*</label>
                     <input defaultValue="Тетяна" placeholder="Тетяна" {...register("firstname", { required: true })}/>
@@ -70,9 +64,14 @@ const sign_up = () => {
                     {errors.birthdayDate && <span className={styles.errorMessage}>Birthday date is invalid</span>}
                 </fieldset>
                 <fieldset>
-                   <div><TbPhone className={styles.icon}/><label>Телефон*</label></div>
-                    <input defaultValue="+38(067)9998877" type="tel" placeholder="+38(067)9998877" {...register("phoneNumber", { required: true })}/>
-                    {errors.phoneNumber && <span className={styles.errorMessage}>Phone number is invalid</span>}
+                    <div><LuPhone className={styles.icon} /><label>Телефон*</label></div>
+                        <input type="tel" className={`${standartStyles.inputRegular}`} placeholder="+38(067)9998877" {...register("phoneNumber", { required: "Ви пропустили номер телефону",
+                            pattern: {
+                                value: /^\+38\(\d{3}\)\d{3}-\d{2}-\d{2}$/,
+                                message: "Формат номеру невірний"
+                            }
+                        })} />
+                    {errors.phoneNumber && <span className={styles.errorMessage}>{errors.phoneNumber.message}</span>}
                 </fieldset>
                 <fieldset>
                     <div><TbMail className={styles.icon}/><label>Email*</label></div>
@@ -80,17 +79,28 @@ const sign_up = () => {
                     {errors.email && <span className={styles.errorMessage}>Email is invalid</span>}
                 </fieldset>
                 <fieldset>
-                    <label>Пароль*</label>
-                    <input onChange={handlePasswordChange} defaultValue="12345678" type="password" {...register("password", { required: true })}/>
-                    {errors.password && <span className={styles.errorMessage}>Password is invalid</span>}
+                    <div><MdOutlinePassword className={styles.icon} /><label>Пароль*</label></div>
+                    <input className={`${standartStyles.inputRegular}`} type="password" {...register("password", { required: "Ви пропустили пароль",
+                        minLength: {
+                            value: 8,
+                            message: "Пароль не може бути коротшим за 8 символів"
+                        },
+                        validate: {
+                            hasUpperCase: value => /[A-Z]/.test(value) || "Пароль повинен містити хоч одну велику літеру",
+                            hasLowerCase: value => /[a-z]/.test(value) || "Пароль повинен містити хоч одну маленьку літеру",
+                            hasNumber: value => /\d/.test(value) || "Пароль повинен містити хоч одну цифру",
+                            hasSpecialChar: value => /[!@#$%^&*]/.test(value) || "Пароль повинен містити хоч один спеціальний символ"
+                        }
+                    })} />
+                    {errors.password && <span className={styles.errorMessage}>{errors.password.message}</span>}
                 </fieldset>
                 <fieldset>
-                    <label>Повторіть пароль*</label>
-                    <input defaultValue="12345678" type="password" {...register("repeatPassword", { required: true, 
-                    validate: (value) =>
-                    value === getValues("password") || "Passwords do not match", }, )}/>
-                    {errors.repeatPassword && <span className={styles.errorMessage}>Passwords do not match</span>}
-
+                    <div><MdOutlinePassword className={styles.icon} /><label>Повторіть пароль*</label></div>
+                    <input className={`${standartStyles.inputRegular}`} type="password" {...register("repeatPassword", {
+                        required: "Повторіть пароль",
+                        validate: (value) => value === watch("password") || "Паролі не сходяться",
+                    })} />
+                    {errors.repeatPassword && <span className={styles.errorMessage}>{errors.repeatPassword.message}</span>}
                 </fieldset>
                 <fieldset>
                     <label>Клас</label>
@@ -106,29 +116,7 @@ const sign_up = () => {
                     </div>
                     
                 </fieldset>
-                {/* <h3>Інформація про законного опікуна:</h3>
-                <fieldset>
-                    <label>Email*</label>
-                    <input defaultValue="maria.marienko@mail.com" type="email" placeholder="maria.marienko@mail.com" name="parentEmail" {...register("parentEmail", { required: true })}/>
-                    <span>Якщо опікун вже має акаунт, вказуйте пошту, на яку цей акаунт зареєстровано</span>
-                </fieldset>
-                <fieldset>
-                    <label>Ім'я*</label>
-                    <input defaultValue="Марія" placeholder="Марія" name="parentFirstname" {...register("parentFirstname", { required: true })}/>
-                </fieldset>
-                <fieldset>
-                    <label>Прізвище*</label>
-                    <input defaultValue="Марієнко" placeholder="Марієнко" name="parentLastname" {...register("parentLastname", { required: true })}/>
-                </fieldset>
-                <fieldset>
-                    <label>По-батькові*</label>
-                    <input defaultValue="Маріївна" placeholder="Маріївна" name="parentPaternalName" {...register("parentPaternalName", { required: true })}/>
-                </fieldset>
-                <fieldset>
-                    <label>Телефон*</label>
-                    <input defaultValue="+38(067)6665544" type="tel" placeholder="+38(067)6665544" name="parentPhoneNumber" {...register("parentPhoneNumber", { required: true })}/>
-                </fieldset> */}
-                <ButtonRegular type="submit" onClick={handleSubmit(onSubmit)} label="Зареєструватись"></ButtonRegular>
+                <button type="submit" onClick={handleSubmit(onSubmit)}>Зареєструватись</button>
             </form> 
         </div>     
     );

@@ -1,4 +1,4 @@
-import {connectToDatabase} from "../app/lib/db";
+import {connectToAppDatabase} from "../app/lib/db";
 import { v4 as uuidv4 } from 'uuid';
 
 class User{
@@ -7,7 +7,7 @@ class User{
     };
 
     static async findById(userId){
-        const connection = await connectToDatabase();
+        const connection = await connectToAppDatabase();
         try{
             const userData = await connection.query(`SELECT * FROM users WHERE user_id = '${userId}'`);
             await connection.end();
@@ -21,11 +21,11 @@ class User{
     }
 
     static async findByEmail(email){
-        const connection = await connectToDatabase();
+        const connection = await connectToAppDatabase();
         try{
             const userData = await connection.query(`SELECT * FROM users WHERE email = '${email}'`);
             await connection.end();
-            return {success: true, data: userData[0]};
+            return {success: true, data: userData[0][0]};
         }
         catch(error){
             await connection.end();
@@ -35,7 +35,7 @@ class User{
     }
 
     static async add(email, phoneNumber, firstname, lastname, paternalName, password) {
-        const connection = await connectToDatabase();
+        const connection = await connectToAppDatabase();
         const user_id = this.generateUUID();        
 
         try{
