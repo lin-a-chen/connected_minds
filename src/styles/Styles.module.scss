@@ -1,11 +1,22 @@
 $bg-main-sea-salt: #f8fbfb;
-$bg-cherry-blossom: #f9b0c3;
-$cl-rose-red: #cb2655;
-$bg-accent-blueviolet: #5135c1;
-$cl-accent-blueviolet: #2b2156;
+$cl-sea-salt: #f8fbfb;
+$bg-alice-blue: #ECF6FF;
+$cl-alice-blue: #ECF6FF;
 $bg-columbia-blue: #C6EDFF;
-
-
+$bg-wisteria: #BFA7F0;
+$cl-wisteria: #BFA7F0;
+$bg-slate-blue: #7766C6;
+$cl-slate-blue: #7766C6;
+$cl-accent-chrysler-blue: #4c2cb6;
+$bg-accent-chrysler-blue: #4c2cb6;
+$bg-marian-blue: #46467A;
+$cl-marian-blue: #46467A;
+$cl-accent-rose-red: #cb2655;
+$bg-accent-rose-red: #cb2655;
+$bg-cherry-blossom: #f9b0c3;
+$cl-cherry-blossom: #f9b0c3;
+$bg-peach: #FFB887;
+$cl-peach: #FFB887;
 
 .buttonRegular{
     background-color: black;
@@ -133,6 +144,33 @@ $bg-columbia-blue: #C6EDFF;
     text-align: left;
     margin: 2rem 0 1rem .5rem;
     font-weight: 600;
+}
+
+.buttonIconNoText{
+    padding: .5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: large;
+    background-color: transparent;
+}
+
+.buttonEdit, .buttonSave{
+    color: $cl-accent-chrysler-blue;
+
+    &:hover{
+        background-color: $bg-accent-chrysler-blue;
+        color: $cl-sea-salt;
+    }
+}
+  
+.buttonDelete{
+    color: $cl-accent-rose-red;
+
+    &:hover{
+        background-color: $bg-accent-rose-red;
+        color: $cl-sea-salt;
+    }
 }
   
 

@@ -1,9 +1,9 @@
 'use client'
-import styles from "../../../../styles/main pages/auth/Auth.module.scss";
-import ButtonRegular from "@/components/UI/buttons/ButtonRegular";
+import authStyles from "@/styles/main pages/auth/Auth.module.scss";
 import { useForm } from "react-hook-form";
 import { TbMail, TbPasswordUser} from "react-icons/tb";
 import Link from "next/link";
+import standartStyles from '@/styles/Styles.module.scss';
 
 const sign_in = () => {
     const onSubmit = async(data) => {        
@@ -29,26 +29,26 @@ const sign_in = () => {
     } = useForm();
 
     return(
-        <div className={styles.authPage}>
+        <div className={authStyles.authPage}>
             <div>
-                <div className={styles.logo}>
+                <div className={authStyles.logo}>
                     <img src="\images\Logo.svg"></img><h1>ConnectedMinds</h1>
                 </div>
                 <h3>Ще немає акаунту?</h3>
-                <Link className={styles.link} href="/auth/sign-up">Зареєструйся зараз</Link>
+                <Link className={authStyles.link} href="/auth/sign-up">Зареєструйся зараз</Link>
             </div>
-            <form encType="application/json" className={styles.inputForm} method="POST">
+            <form encType="application/json" className={standartStyles.form} method="POST">
                 <fieldset>
-                    <div><TbMail className={styles.icon}/><label>Email*</label></div>
+                    <div><TbMail className={standartStyles.icon}/><label>Email*</label></div>
                     <input defaultValue="maria.marchenko@mail.com" type="email" placeholder="maria.marienko@mail.com" {...register("email", { required: true })}/>
-                    {errors.email && <span className={styles.errorMessage}>{errors.email.message}</span>}
+                    {errors.email && <span className={standartStyles.errorMessage}>{errors.email.message}</span>}
                 </fieldset>
                 <fieldset>
-                    <div><TbPasswordUser className={styles.icon}/><label>Пароль*</label></div>
+                    <div><TbPasswordUser className={standartStyles.icon}/><label>Пароль*</label></div>
                     <input defaultValue="12345678" type="password" {...register("password", { required: true })}/>
-                    {errors.password && <span className={styles.errorMessage}>{errors.password.message}</span>}
+                    {errors.password && <span className={standartStyles.errorMessage}>{errors.password.message}</span>}
                 </fieldset>
-                <ButtonRegular type="submit" onClick={handleSubmit(onSubmit)} label="Увійти"></ButtonRegular>
+                <button type="submit" onClick={handleSubmit(onSubmit)} label="Увійти">Увійти</button>
             </form> 
         </div>     
     );

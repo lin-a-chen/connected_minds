@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './AutocompleteInput.module.scss';
 import standartStyles from "@/styles/Styles.module.scss";
 
-const AutocompleteInput = ({ onChange, dataToSearch, defaultValue }) => {
+const AutocompleteInput = ({ onChange, dataToSearch, defaultValue, className }) => {
   const dropdownRef = useRef(null);
   const mainInputRef = useRef(null);
 
@@ -57,7 +57,7 @@ const AutocompleteInput = ({ onChange, dataToSearch, defaultValue }) => {
   }, [defaultValue]);
 
   return (
-    <div className={styles.secCenter} ref={dropdownRef}>
+    <div className={`${styles.secCenter} ${className}`} ref={dropdownRef}>
       <input
        className={`${standartStyles.inputRegular} ${styles.dropdownInput}`}
         type="text"

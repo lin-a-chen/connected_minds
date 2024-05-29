@@ -2,7 +2,9 @@ import 'server-only'
  
 import { cookies } from 'next/headers'
 import { decrypt } from './session'
-import User from "../../models/User";
+import User from "@/models/User";
+import Role from "@/models/Role";
+
 import {cache} from 'react';
 export const verifySession = cache(async () => {
   if (cookies().get('session')?.value){
@@ -35,3 +37,13 @@ export const getUser = cache(async () => {
       return null;
     }
 });
+
+export const getUserRole = async () => {
+  const user = await getUser();
+  if (user){
+    const userRoles = await User.getUserRolesByUserId(user.user_id);
+    const role = await Role.findById(userRoles.data.role_id);
+    return role.data[0];
+  }
+  else return null;
+}

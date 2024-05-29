@@ -89,7 +89,7 @@
       margin-bottom: 8px;
 
       & .active{
-        color: $cl-rose-red;
+        color: $cl-accent-rose-red;
         transition: 0.2s linear;
       }
     }
@@ -134,12 +134,12 @@
     }
 
     .activeBullet{
-      border-color: $cl-rose-red;
+      border-color: $cl-accent-rose-red;
       background: $bg-cherry-blossom;
       transition: margin-left 0.3s ease-in-out;
 
       span{
-        color: $cl-rose-red;
+        color: $cl-accent-rose-red;
       }
     }
   }
@@ -159,7 +159,7 @@
 
     &:hover{
       background-color: $bg-cherry-blossom;
-      color: $cl-rose-red;
+      color: $cl-accent-rose-red;
     }
   }
 

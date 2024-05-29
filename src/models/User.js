@@ -25,7 +25,22 @@ class User{
         try{
             const userData = await connection.query(`SELECT * FROM users WHERE email = '${email}'`);
             await connection.end();
-            return {success: true, data: userData[0][0]};
+            return {success: true, data: userData[0]};
+        }
+        catch(error){
+            await connection.end();
+            console.error(error);
+            return {success: false, data: error};
+        }
+    }
+
+    static async getUserRolesByUserId(userId){
+        const connection = await connectToAppDatabase();
+        try{
+            const userRoles = await connection.query(`SELECT * FROM user_roles
+            WHERE user_id = '${userId}';`);
+            await connection.end();
+            return {success: true, data: userRoles[0][0]};
         }
         catch(error){
             await connection.end();

@@ -1,15 +1,18 @@
 import NavbarUnauthed from "../components/layout/NavbarUnauthed";
 import NavbarAuthed from "../components/layout/NavbarAuthed";
-import { getUser } from "@/app/lib/dal";
-import "@/styles/styles_basic.css";
+import { getUser, getUserRole } from "@/app/lib/dal";
+import NavbarAdmin from "@/components/layout/NavbarAdmin";
 
 export default async function RootLayout({ children }) {
   const user = await getUser();
+  const role = await getUserRole();
 
   return (
     <html lang="en">
       <body>
-        {user ? <NavbarAuthed /> : <NavbarUnauthed />}
+        {!user && !role && <NavbarUnauthed />}
+        {user && !role && <NavbarAuthed /> }
+        {user && role.role_name === 'MAIN_ADMIN' && <NavbarAdmin/>}
         {children}
       </body>
     </html>
