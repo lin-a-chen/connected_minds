@@ -144,6 +144,68 @@ class Institution{
         }
     }
 
+    static async addPending (
+        useedCode,
+        fullname,
+        institutionType,
+        shortname,
+        ownershipForm,
+        coatsuuCode,
+        region,
+        settlement,
+        address,
+        governingBodyInChargeOfEducation,
+        phoneNumber,
+        email,
+        website,
+        principalFullname,
+        principalUserId
+      ) {
+        const connection = await connectToAppDatabase();
+
+        try{
+            const sql = `INSERT INTO pending_institutions(principal_fullname, principal_user_id, ` +
+                `address, coatsuu_code, ` +
+                `email, fullname, governing_body_in_charge_of_education, ` + 
+                `institution_type, ownership_form, phone_number, ` +
+                `region, settlement, shortname, website, useed_code, state) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+            const result = await connection.query(sql, [
+                principalFullname, principalUserId,
+                address, coatsuuCode,
+                email, fullname,
+                governingBodyInChargeOfEducation,
+                institutionType, ownershipForm,
+                phoneNumber, region,
+                settlement, shortname,
+                website, useedCode, 'працює'
+            ]);
+            await connection.end();
+            console.log('result', result);
+
+            if (result){
+                console.log(result[0].info);
+                if (result[0].affectedRows){
+                    return {success: true, data: result[0]};
+                }
+                else{
+                    return {success: false, data: result[0].info}
+                }
+                
+            }
+            else{
+                console.error('No data updated');
+                return {success: false, data: 'No data updated'};
+            }
+        }
+        catch(error){
+            if (connection){
+                connection.end();
+            }
+            console.error(error);
+            return {success: false, data: error};
+        }
+    }
+
 
 }
 

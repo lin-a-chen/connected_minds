@@ -9,11 +9,11 @@ export default function Home() {
             <div className={styles.image}>
               <img src="/images/sign-up_institution.png" alt="Sign up institution" />
             </div>
-            <p>Я хочу зареєструвати школу</p>
+            <p>Я хочу зареєструвати навчальний заклад</p>
         </Link>
       </section>
       <section>
-        <Link href="/auth//sign-up/user">
+        <Link href="/auth/sign-up/choice">
             <div className={styles.image}>
               <img src="/images/sign-up_school-child.png" alt="Sign up school child" />
             </div>

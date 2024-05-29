@@ -19,7 +19,6 @@ export const POST = async (req) => {
     else{
         const isPassCorrect = await bcrypt.compare(body.principalPassword, user.data.password);
         if (isPassCorrect){
-            const emailToken = generateUUID();
             const principalFullname = body.lastname + ' ' + body.firstname + ' ' + body.antroponym;
             const updateInstitution = await Institution.updateByUseed(body.useedCode,
                 body.fullname,
@@ -40,7 +39,7 @@ export const POST = async (req) => {
                 user.data.user_id
             );
             if (updateInstitution.success){
-                console.log("UPdated successfully")
+                console.log("Updated successfully")
             }
 
         }
@@ -52,9 +51,6 @@ export const POST = async (req) => {
             });
         }
     }
-    // const institutionAddition
-    // const result = await Institu
-    // await sendVerificationEmail(email, emailToken);
     return new Response(JSON.stringify({success: true, data: 'User has been created and verification email sent.' }), {
       status: 201,
       headers: { 'Content-Type': 'application/json' },

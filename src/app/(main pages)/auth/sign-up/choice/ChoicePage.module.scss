@@ -1,7 +1,9 @@
-@import "../styles/Styles.module.scss";
+@import "../../../../../styles/Styles.module.scss";
 
-.container{
-    margin: 10% auto;
+.page{
+    display: flex;
+    flex-direction: column;
+    margin: 5% auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,12 +11,16 @@
     height: 100%;
     width: 100%;
 
+    & > div{
+        display: flex;
+    }
+
     & *{
         user-select: none;
         text-decoration: none;
     }
 
-    & section{
+    section{
         width: fit-content;
         height: fit-content;
         padding: 1rem;
@@ -36,7 +42,7 @@
             
             & img{
                 max-width: 100%;
-                max-height: 12rem;
+                max-height: 17rem;
                 
             }
         }
@@ -49,6 +55,5 @@
         }
          
     }
-
 
 }

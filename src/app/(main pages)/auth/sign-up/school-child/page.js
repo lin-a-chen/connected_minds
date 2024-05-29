@@ -1,6 +1,7 @@
 'use client'
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import AutocompleteInput from "@/components/UI/AutocompleteInput/AutocompleteInput";
 
 import standartStyles from "@/styles/Styles.module.scss";
 import styles from "@/styles/main pages/auth/Auth.module.scss";
@@ -11,8 +12,19 @@ import { TbMail, TbPhone, TbUserHexagon, TbCalendar, TbPasswordUser, TbCodeAster
 
 const sign_up = () => {
     const classLetters = ['А', 'Б', 'В', 'Г'];
+    const [regions, setRegions] = useState([]);
+    const [region, setRegion] = useState(null);
+    const [settlements, setSettlements] = useState([]);
+    const [showPopup, setShowPopup] = useState(false);
 
-    const onSubmit = async(data) => {
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm();
+
+    const submitionHandler = async(data) => {
         const response = await fetch('/api/auth/sign-up', {method: "POST", 
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)
@@ -25,13 +37,42 @@ const sign_up = () => {
         }
     }
 
-    const {
-        register,
-        handleSubmit,
-        watch,
-        getValues,
-        formState: { errors },
-    } = useForm();
+    const fetchRegions = async () => {
+        const response = await fetch(`/api/settlements`, { method: "GET" });
+        const result = await response.json();
+        if (result.success) {
+            setRegions(result.data);
+        } else {
+            console.error(result.data);
+        }
+    };
+
+    const handleRegionSelection = (e) => {
+        setRegion(e.target.value);
+    }
+
+    useEffect(() => {
+        fetchRegions();
+    }, []);
+
+    useEffect(() => {
+        if (region){
+            const fetchSettlements = async () => {
+                const response = await fetch(`/api/settlements?region=${region}`);
+                const result = await response.json();
+                if (result.success) {
+                    const settlements = result.data.map(el => `${el.category} ${el.name} (${el.district})`);
+                    setSettlements(settlements);
+                } else {
+                    console.error(result.data);
+                }
+            };
+            fetchSettlements();
+        }
+        
+    }, [region]);
+
+
 
     return(
         <div className={styles.authPage}>
@@ -42,7 +83,7 @@ const sign_up = () => {
                 <h3>Маєш акаунт?</h3>
                 <Link className={styles.link} href="/auth/sign-in">Увійти</Link>
             </div>
-            <form encType="application/json" className={standartStyles.form} method="POST">
+            <form onSubmit={handleSubmit(submitionHandler)} encType="application/json" className={standartStyles.form} method="POST">
                 <fieldset>
                     <label>Ім'я*</label>
                     <input defaultValue="Тетяна" placeholder="Тетяна" {...register("firstname", { required: true })}/>
@@ -114,9 +155,35 @@ const sign_up = () => {
                         </select>
                         {errors.classLetter && <span className={styles.errorMessage}>Classletter is invalid</span>}
                     </div>
-                    
                 </fieldset>
-                <button type="submit" onClick={handleSubmit(onSubmit)}>Зареєструватись</button>
+                <fieldset>
+                        <div><MdOutlineAddLocationAlt className={styles.icon} /><label>Регіон*</label></div>
+                        <select className={`${standartStyles.selectRegular}`} {...register("region", { required: "Регіон обов'язковий" })} onChange={handleRegionSelection}>
+                            <option value="">Оберіть регіон</option>
+                            {regions && regions.map((el, index) => (
+                                <option key={index} value={el}>{el}</option>
+                            ))}
+                        </select>
+                        {errors.region && <span className={standartStyles.errorMessage}>{errors.region.message}</span>}
+                    </fieldset>
+                    <fieldset>
+                        <div><MdOutlineAddLocationAlt className={styles.icon} /><label>Населений пункт*</label></div>
+                        <Controller
+                            name="settlement"
+                            control={control}
+                            rules={{ required: "Населений пункт не може бути пустим" }}
+                            render={({ field: { onChange, value } }) => (
+                                <AutocompleteInput
+                                    dataToSearch={settlements}
+                                    value={value}
+                                    onChange={onChange}
+                                    defaultValue={watch().settlement ? watch().settlement : null}
+                                />
+                            )}
+                        />
+                        {errors.settlement && <span className={standartStyles.errorMessage}>{errors.settlement.message}</span>}
+                    </fieldset>
+                <button type="submit" onClick={handleSubmit(submitionHandler)}>Зареєструватись</button>
             </form> 
         </div>     
     );

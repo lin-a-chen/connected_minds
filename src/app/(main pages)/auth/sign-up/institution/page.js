@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from "next/link";
 import { useForm, Controller } from "react-hook-form";
 import AutocompleteInput from "@/components/UI/AutocompleteInput/AutocompleteInput";
+import { InfoPopup } from '@/components/modals/Popups';
 
 //icons
 import { LuMail, LuPhone } from "react-icons/lu";
@@ -21,16 +22,13 @@ export default function InstitutionMultiStepForm() {
     const [region, setRegion] = useState(null);
     const [settlements, setSettlements] = useState([]);
     const [institutionData, setInstitutionData] = useState({});
-    const [maintainerUserData, setMaintainerUserData] = useState({});
-
+    const [showPopup, setShowPopup] = useState(false);
 
     const {
         register,
         watch,
         setValue,
         formState: { errors },
-        setError,
-        clearErrors,
         control,
         handleSubmit,
         reset
@@ -124,13 +122,10 @@ export default function InstitutionMultiStepForm() {
     const parsePrincipalFullname = (fullname) => {
         const regex = /([А-Яа-яЇїІіЄє\'\’\-]+)\s([А-Яа-яЇїІіЄє'’\-]+)\s([А-Яа-яЇїІіЄє\'\’\-]+)/g;
         const match = regex.exec(fullname);
-        console.log('matchhh', match)
         return {firstname: match[2], lastname: match[1], antroponym: match[3]};
     }
 
     useEffect(() => {
-        console.log('i watch!');
-        console.log('useed', watch().useedCode);
         const useedCode = parseInt(watch().useedCode);
         if (useedCode && useedCode > 100000) {
             const fetchInstitutionInfo = async () => {
@@ -206,18 +201,25 @@ export default function InstitutionMultiStepForm() {
     const steps = ["Створення акаунту", "Заповнення інформації"];
 
     const handleSubmition = async (data) => {
-        console.log('formdata', data)
-        const response = await fetch(`/api/auth/sign-up/institution`, {
+        const response = await fetch(`/api/requests`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
-        // const result = await response.json();
-        // console.log('result', result.data);
+        const result = await response.json();
+        if (result.success){
+            setShowPopup(true);
+        }
+        else{
+            console.error(result.data);
+        }
     };
 
     return (
+        
         <div className={authStyles.authPage}>
+            {showPopup && <InfoPopup linkForButtonOkay={'/'} pictureSource={"\\images\\checklist.png"} text={'Ваша заявка була відправлена адміністратору. У разі її схвалення на вашу електронну пошту надійде лист з подальшими інструкціями'} 
+            heading={'Заявку успішно створено'}/>}
             <div>
                 <div className={authStyles.logo}>
                     <img src="\images\Logo.svg" alt="Logo" /><h1>ConnectedMinds</h1>
@@ -393,7 +395,7 @@ export default function InstitutionMultiStepForm() {
                     </fieldset>
                     
                     
-                    <label className={multiStepFormStyles.labelTitle}>Інформація про керівницю/керівника*</label>
+                    <label className={multiStepFormStyles.labelTitle}>Інформація про директорку/директора*</label>
                     <fieldset>
                         <div><TbPencilMinus className={authStyles.icon} /><label>Ім'я*</label></div>
                         <input className={`${standartStyles.inputRegular}`} placeholder="Марія" {...register("firstname", { required: "Ім'я обов'язкове" })} />
@@ -423,11 +425,6 @@ export default function InstitutionMultiStepForm() {
                                     className={multiStepFormStyles.buttons}
                                     value="Далі 👉🏻"
                                     type="button"
-                                    // disabled={errors.password || 
-                                    //     errors.principalEmail ||
-                                    //     !watch().password || 
-                                    //     !watch().principalEmail  
-                                    //     ? true : false}
                                 />}
                             </div>
                             {

@@ -29,7 +29,8 @@ export const getUser = cache(async () => {
    
     try {
       const result = await User.findById(session.userId);
-      const user = result.data[0];
+
+      const user = result.data;
 
       return user;
     } catch (error) {
