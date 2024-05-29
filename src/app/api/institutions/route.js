@@ -3,7 +3,6 @@ import Institution from "@/models/Institution";
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const useed = searchParams.get("useed");
-  console.log(useed);
   if (useed){
     try{
       const result = await Institution.findByUseed(useed);
@@ -38,6 +37,9 @@ export async function GET(req) {
 
 export const PUT = async (req) => {
   const body = await req.json();
+
+  console.log(body);
+
   try {
       const updateInstitution = await Institution.updateByUseed(body.useed_code,
           body.fullname,
@@ -53,7 +55,7 @@ export const PUT = async (req) => {
           body.email,
           body.website,
           body.principal_fullname,
-          body.principal_user_id
+          body.principal_user_id,
       );
       if (updateInstitution.success){
         return new Response(JSON.stringify({success: true, data: 'Institution has been updated successfully.' }), {
@@ -79,10 +81,9 @@ export const PUT = async (req) => {
 
 export const DELETE = async (req) => {
   const { searchParams } = new URL(req.url);
-  const useed = searchParams.get("useed");
-  console.log(useed);
+  const useedCode = searchParams.get("useed_code");
   try {
-      const deleteInstitution = await Institution.deleteByUseed(useed);
+      const deleteInstitution = await Institution.deleteByUseed(useedCode);
       if (deleteInstitution.success){
         return new Response(JSON.stringify({success: true, data: 'Institution has been successfully deleted.' }), {
           status: 201,

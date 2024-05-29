@@ -1,4 +1,4 @@
-import {connectToAppDatabase} from "../app/lib/db";
+import {connectToAppDatabase} from "../lib/db";
 
 class Role{
 

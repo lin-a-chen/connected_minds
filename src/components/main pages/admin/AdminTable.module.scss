@@ -1,16 +1,6 @@
-@import "../../../../styles/Styles.module.scss";
+@import "../../../styles/Styles.module.scss";
 
-.container {
-  display: flex;
-  flex-direction: column;
-  font-family: "Arial";
-  background-color: $bg-main-sea-salt;
-
-  & > div:nth-child(3){
-    margin: 2rem auto;
-  }
-
-  & table {
+.table {
     border-collapse: collapse;
     max-width: 100vw;
     overflow-x: auto;
@@ -73,9 +63,3 @@
       width: min-content;
     }
   }
-
-  & .autocompleteInput {
-    margin: 5% 10% 5% auto;
-  }
-}
-  

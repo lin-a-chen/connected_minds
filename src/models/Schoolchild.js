@@ -1,4 +1,4 @@
-import { connectToAppDatabase } from "../app/lib/db";
+import { connectToAppDatabase } from "../lib/db";
 import { v4 as uuidv4 } from 'uuid';
 import User from "./User";
 

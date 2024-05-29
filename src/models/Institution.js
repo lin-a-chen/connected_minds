@@ -1,4 +1,4 @@
-import { connectToAppDatabase } from "@/app/lib/db";
+import { connectToAppDatabase } from "@/lib/db";
 
 class Institution{
 
@@ -61,7 +61,6 @@ class Institution{
             const sql = `DELETE FROM institutions WHERE useed_code="${useed}"`;
             const result = await connection.query(sql);
             await connection.end();
-            console.log('useed', useed)
 
             if (result){
                 const institution = result[0];
@@ -99,22 +98,6 @@ class Institution{
         principalUserId
       ) {
         const connection = await connectToAppDatabase();
-
-        console.log('bodysql', useedCode,
-        fullname,
-        institutionType,
-        shortname,
-        ownershipForm,
-        coatsuuCode,
-        region,
-        settlement,
-        address,
-        governingBodyInChargeOfEducation,
-        phoneNumber,
-        email,
-        website,
-        principalFullname,
-        principalUserId)
 
         try{
             const sql = `UPDATE institutions SET 

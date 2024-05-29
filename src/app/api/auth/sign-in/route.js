@@ -1,6 +1,6 @@
 import User from "../../../../models/User";
 import bcrypt from "bcrypt";
-import { createSession } from "@/app/lib/session";
+import { createSession } from "@/lib/session";
 
 export async function POST(request) {
     const body = await request.json();

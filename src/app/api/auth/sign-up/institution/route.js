@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import User from '@/models/User'
-import { sendVerificationEmail } from '@/app/lib/mail';
+import { sendVerificationEmail } from '@/lib/mail';
 import { v4 as uuidv4 } from 'uuid';
 import Institution from '@/models/Institution';
 
