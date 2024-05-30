@@ -54,8 +54,8 @@ export const PUT = async (req) => {
           body.phone_number,
           body.email,
           body.website,
-          body.principal_fullname,
-          body.principal_user_id,
+          body.admin_user_fullname,
+          body.admin_user_id,
       );
       if (updateInstitution.success){
         return new Response(JSON.stringify({success: true, data: 'Institution has been updated successfully.' }), {

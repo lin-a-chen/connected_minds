@@ -27,6 +27,14 @@
       }
     }
 
+    & tr.rowApproved{
+      background-color: rgb(118, 175, 158);
+    }
+
+    & tr.rowDenied{
+      background-color: $bg-cherry-blossom;
+    }
+
     & td {
       font-size: .8rem;
       border: 1px solid gray;

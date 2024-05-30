@@ -56,7 +56,7 @@ export default function Institutions() {
       <Search
         className={styles.autocompleteInput}
         dataToSearch={institutions}
-        searchFields={['shortname', 'fullname', 'useed_code', 'principal_fullname']}
+        searchFields={['shortname', 'fullname', 'useed_code', 'admin_user_fullname']}
         onChange={handleSearchChange}
         placeholder="Шукати заклад..."
       />
@@ -69,6 +69,7 @@ export default function Institutions() {
         items={currentInstitutions}
         onUpdateItems={handleCurrentItemsChange}
         uniqueField={'useed_code'}
+        immutableFields={['id']}
       />
       <Pagination
         onCurrentItemsChange={handleCurrentItemsChange}

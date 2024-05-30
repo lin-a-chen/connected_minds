@@ -25,7 +25,7 @@
 //   };
 
 //   const handleSelection = (result) => {
-//     setSearchTerm(result.shortname || result.fullname || result.useedCode || result.principalFullname);
+//     setSearchTerm(result.shortname || result.fullname || result.useedCode || result.adminUserFullname);
 //     onChange(result);
 //     setDropdownVisible(false);
 //   };
@@ -41,7 +41,7 @@
 //       el.shortname?.toLowerCase().includes(term.toLowerCase()) ||
 //       el.fullname?.toLowerCase().includes(term.toLowerCase()) ||
 //       el.useedCode?.toLowerCase().includes(term.toLowerCase()) ||
-//       el.principalFullname?.toLowerCase().includes(term.toLowerCase())
+//       el.adminUserFullname?.toLowerCase().includes(term.toLowerCase())
 //     );
 //     setResults(filteredResults.slice(0, 10)); // Limit results to improve performance
 //     setDropdownVisible(filteredResults.length > 0);
@@ -81,7 +81,7 @@
 //           {results.map((result, index) => (
 //             <div key={index}>
 //               <span onClick={() => handleSelection(result)} className={styles.a}>
-//                 {result.shortname || result.fullname || result.useedCode || result.principalFullname} <i className="uil uil-arrow-right"></i>
+//                 {result.shortname || result.fullname || result.useedCode || result.adminUserFullname} <i className="uil uil-arrow-right"></i>
 //               </span>
 //             </div>
 //           ))}

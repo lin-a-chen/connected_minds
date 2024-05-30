@@ -11,15 +11,15 @@ const generateUUID = () => {
 export const POST = async (req) => {
   const body = await req.json();
   try {
-    const user = await User.findByEmail(body.principalEmail);
+    const user = await User.findByEmail(body.adminUserEmail);
     if (!user.success){
         return new Response(JSON.stringify({success: false, data: "User does not exist or not found" }), {
         status: 500});
     }
     else{
-        const isPassCorrect = await bcrypt.compare(body.principalPassword, user.data.password);
+        const isPassCorrect = await bcrypt.compare(body.adminUserPassword, user.data.password);
         if (isPassCorrect){
-            const principalFullname = body.lastname + ' ' + body.firstname + ' ' + body.antroponym;
+            const adminUserFullname = body.lastname + ' ' + body.firstname + ' ' + body.antroponym;
             const updateInstitution = await Institution.updateByUseed(body.useedCode,
                 body.fullname,
                 body.institutionType,
@@ -33,13 +33,13 @@ export const POST = async (req) => {
                 body.phoneNumber,
                 body.email,
                 body.website,
-                principalFullname,
-                body.principalEmail,
-                body.principalPassword,
-                user.data.user_id
+                adminUserFullname,
+                body.adminUserEmail,
+                body.adminUserPassword,
+                user.data.id
             );
             if (updateInstitution.success){
-                console.log("Updated successfully")
+                console.log("Updated successfully");
             }
 
         }

@@ -119,7 +119,7 @@ export default function InstitutionMultiStepForm() {
         return settlementParsed;
     }
 
-    const parsePrincipalFullname = (fullname) => {
+    const parseAdminUserFullname = (fullname) => {
         const regex = /([А-Яа-яЇїІіЄє\'\’\-]+)\s([А-Яа-яЇїІіЄє'’\-]+)\s([А-Яа-яЇїІіЄє\'\’\-]+)/g;
         const match = regex.exec(fullname);
         return {firstname: match[2], lastname: match[1], antroponym: match[3]};
@@ -161,10 +161,10 @@ export default function InstitutionMultiStepForm() {
                         const regex = /(смт|с\.|с\-ще)?\s?([А-Яа-яЇїІіЄє'’\s\-]+)(?:\,?\s?([А-Яа-яЇїІіЄє'’\s\-]*\s?район)?)?(?:\,?\s?([А-Яа-яЇїІіЄє'’\s\-]*\s?область)?)?(?:\n)?/g;
                         const match = regex.exec(unparsedSettlement);
 
-                        const {firstname: principalFirstname, lastname: principalLastname, antroponym: principalAntroponym} = parsePrincipalFullname(data.principal_fullname);
-                        institutionDataObj.firstname = principalFirstname;
-                        institutionDataObj.lastname = principalLastname;
-                        institutionDataObj.antroponym = principalAntroponym;
+                        const {firstname: adminUserFirstname, lastname: adminUserLastname, antroponym: adminUserAntroponym} = parseAdminUserFullname(data.admin_user_fullname);
+                        institutionDataObj.firstname = adminUserFirstname;
+                        institutionDataObj.lastname = adminUserLastname;
+                        institutionDataObj.antroponym = adminUserAntroponym;
 
                         if (match){
                             const settlementParsed = parseSettlement(match);
@@ -252,19 +252,19 @@ export default function InstitutionMultiStepForm() {
                         </p>
                         <fieldset>
                             <div><LuMail className={multiStepFormStyles.icon} /><label>Email*</label></div>
-                            <input type="email" className={`${standartStyles.inputRegular}`} placeholder="maria.marienko@mail.com" {...register("principalEmail", { required: "Ви пропустили email",
+                            <input type="email" className={`${standartStyles.inputRegular}`} placeholder="maria.marienko@mail.com" {...register("adminUserEmail", { required: "Ви пропустили email",
                                 pattern: {
                                     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                                     message: "Формат email невірний"
                                 } 
                             })} />
-                            {errors.principalEmail && <span className={multiStepFormStyles.errorMessage}>{errors.principalEmail.message}</span>}
+                            {errors.adminUserEmail && <span className={multiStepFormStyles.errorMessage}>{errors.adminUserEmail.message}</span>}
                         </fieldset>
                         <fieldset>
                             <div><MdOutlinePassword className={multiStepFormStyles.icon} /><label>Пароль*</label></div>
-                            <input className={`${standartStyles.inputRegular}`} type="password" {...register("principalPassword", { required: "Ви пропустили пароль",
+                            <input className={`${standartStyles.inputRegular}`} type="password" {...register("adminUserPassword", { required: "Ви пропустили пароль",
                             })} />
-                            {errors.principalPassword && <span className={multiStepFormStyles.errorMessage}>{errors.principalPassword.message}</span>}
+                            {errors.adminUserPassword && <span className={multiStepFormStyles.errorMessage}>{errors.adminUserPassword.message}</span>}
                         </fieldset>
                         </div>
                     <div className={activeTab !== 1 ? multiStepFormStyles.visibilityCollapse : ''}>
@@ -336,9 +336,9 @@ export default function InstitutionMultiStepForm() {
                         {errors.governingBodyInChargeOfEducation && <span className={multiStepFormStyles.errorMessage}>{errors.governingBodyInChargeOfEducation.message}</span>}
                     </fieldset>
                     <fieldset>
-                        <div><MdOutlineAddLocationAlt className={authStyles.icon} /><label>Регіон*</label></div>
+                        <div><MdOutlineAddLocationAlt className={authStyles.icon} /><label>Область*</label></div>
                         <select className={`${standartStyles.selectRegular}`} {...register("region", { required: "Регіон обов'язковий" })} onChange={handleRegionSelection}>
-                            <option value="">Оберіть регіон</option>
+                            <option value="">Оберіть ол</option>
                             {regions && regions.map((el, index) => (
                                 <option key={index} value={el}>{el}</option>
                             ))}

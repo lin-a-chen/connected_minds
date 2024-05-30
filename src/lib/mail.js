@@ -5,255 +5,732 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: "user69@gmail.com",
-    pass: "password",
+    user: "ipz202_gaa@student.ztu.edu.ua",
+    pass: "sutupziwvkvpwjqm ",
   },
 });
 
 export async function sendVerificationEmail(email, token) {
-  const verificationUrl = `http://localhost:3000/activate/${token}`; // Nowy format URL
+  const verificationUrl = `http://localhost:3000/auth/activate/${token}`;
+  const html = `<!DOCTYPE html>
+
+<html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+<title></title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><!--[if mso]><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:AllowPNG/></o:OfficeDocumentSettings></xml><![endif]--><!--[if !mso]><!--><!--<![endif]-->
+<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		a[x-apple-data-detectors] {
+			color: inherit !important;
+			text-decoration: inherit !important;
+		}
+
+		#MessageViewBody a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		p {
+			line-height: inherit
+		}
+
+		.desktop_hide,
+		.desktop_hide table {
+			mso-hide: all;
+			display: none;
+			max-height: 0px;
+			overflow: hidden;
+		}
+
+		.image_block img+div {
+			display: none;
+		}
+
+		@media (max-width:700px) {
+
+			.desktop_hide table.icons-inner,
+			.row-3 .column-1 .block-3.button_block .alignment a,
+			.row-3 .column-1 .block-3.button_block .alignment div,
+			.social_block.desktop_hide .social-table {
+				display: inline-block !important;
+			}
+
+			.icons-inner {
+				text-align: center;
+			}
+
+			.icons-inner td {
+				margin: 0 auto;
+			}
+
+			.image_block div.fullWidth {
+				max-width: 100% !important;
+			}
+
+			.mobile_hide {
+				display: none;
+			}
+
+			.row-content {
+				width: 100% !important;
+			}
+
+			.stack .column {
+				width: 100%;
+				display: block;
+			}
+
+			.mobile_hide {
+				min-height: 0;
+				max-height: 0;
+				max-width: 0;
+				overflow: hidden;
+				font-size: 0px;
+			}
+
+			.desktop_hide,
+			.desktop_hide table {
+				display: table !important;
+				max-height: none !important;
+			}
+
+			.row-3 .column-1 .block-1.heading_block h1,
+			.row-3 .column-1 .block-3.button_block .alignment {
+				text-align: left !important;
+			}
+
+			.row-3 .column-1 .block-1.heading_block h1 {
+				font-size: 20px !important;
+			}
+
+			.row-1 .column-1 .block-1.paragraph_block td.pad>div {
+				text-align: center !important;
+				font-size: 18px !important;
+			}
+
+			.row-3 .column-1 .block-2.paragraph_block td.pad>div {
+				text-align: left !important;
+				font-size: 14px !important;
+			}
+
+			.row-3 .column-1 .block-3.button_block a,
+			.row-3 .column-1 .block-3.button_block div,
+			.row-3 .column-1 .block-3.button_block span {
+				font-size: 14px !important;
+				line-height: 28px !important;
+			}
+
+			.row-3 .column-1 {
+				padding: 0 24px 48px !important;
+			}
+
+			.row-4 .column-1 {
+				padding: 32px 16px 48px !important;
+			}
+		}
+	</style>
+</head>
+<body class="body" style="background-color: #f8f6ff; margin: 0; padding: 0; -webkit-text-size-adjust: none; text-size-adjust: none;">
+<table border="0" cellpadding="0" cellspacing="0" class="nl-container" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f8f6ff; background-image: none; background-position: top left; background-size: auto; background-repeat: no-repeat;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #a797ff; color: #000000; width: 680px; margin: 0 auto;" width="680">
+<tbody>
+<tr>
+<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 32px; padding-left: 48px; padding-right: 48px; padding-top: 32px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" class="paragraph_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td class="pad">
+<div style="color:#ffffff;direction:ltr;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:24px;font-weight:700;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:28.799999999999997px;">
+<p style="margin: 0;">ConnectedMinds</p>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #a797ff; border-radius: 0; color: #000000; width: 680px; margin: 0 auto;" width="680">
+<tbody>
+<tr>
+<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" class="image_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tr>
+<td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
+<div align="center" class="alignment" style="line-height:10px">
+<!-- <div class="fullWidth" style="max-width: 639.2px;"><img alt="https://cdn3.iconfinder.com/data/icons/internet-security-124/512/InternetSecurity01.png" height="auto" src="/images/Email-Illustration.png" style="display: block; height: auto; border: 0; width: 100%;" title="An open email illustration" width="639.2"/></div> -->
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-3" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; color: #000000; width: 680px; margin: 0 auto;" width="680">
+<tbody>
+<tr>
+<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 48px; padding-left: 48px; padding-right: 48px; padding-top: 48px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" class="heading_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td class="pad" style="text-align:center;width:100%;padding-top:24px;">
+<h1 style="margin: 0; color: #555555; font-size: 48px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: 700; line-height: 150%; text-align: center; direction: ltr; letter-spacing: normal; margin-top: 0; margin-bottom: 0;">Привіт!</h1>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="paragraph_block block-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td class="pad">
+<div style="color:#555555;direction:ltr;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:left;mso-line-height-alt:24px;">
+<p style="margin: 0; margin-bottom: 16px;">Дякуємо, що зареєструвались на ConnectedMinds. Для завершення реєстрації натисність, будь ласка, кнопку нижче, щоб підтвердити вашу електронну пошту:</p>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="button_block block-3" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tr>
+<td class="pad" style="text-align:left;">
+<div align="left" class="alignment">
+<!--[if mso]>
+<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${verificationUrl}" style="height:42px;width:174px;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#f6a988">
+<w:anchorlock/>
+<center style="color:#ffffff;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;font-weight:700;">Verify Email</center>
+</v:roundrect>
+<![endif]-->
+<!--[if !mso]><!-- -->
+<a href="${verificationUrl}" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#f6a988;border-radius:4px;width:auto;border-top:1px solid #f6a988;font-weight:700;border-right:1px solid #f6a988;border-bottom:1px solid #f6a988;border-left:1px solid #f6a988;padding-top:10px;padding-bottom:10px;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;text-align:center;mso-border-alt:none;word-break:keep-all;" target="_blank"><span style="padding-left:24px;padding-right:24px;font-size:16px;display:inline-block;letter-spacing:normal;"><span dir="ltr" style="word-break: break-word; line-height: 32px;">Підтвердити email</span></span></a>
+<!--<![endif]-->
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-4" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; color: #000000; width: 680px; margin: 0 auto;" width="680">
+<tbody>
+<tr>
+<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 48px; padding-left: 48px; padding-right: 48px; padding-top: 48px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" class="paragraph_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td class="pad">
+<div style="color:#555555;direction:ltr;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:left;mso-line-height-alt:24px;">
+<p style="margin: 0; margin-bottom: 16px;">Якщо ви не реєструвались, просто проігноруйте цей лист.</p>
+</div>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="paragraph_block block-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td class="pad">
+<div style="color:#555555;direction:ltr;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:left;mso-line-height-alt:24px;">
+<p style="margin: 0;"><br/>від команди ConnectedMinds</p>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-5" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 680px; margin: 0 auto;" width="680">
+<tbody>
+<tr>
+<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 24px; padding-left: 48px; padding-right: 48px; padding-top: 24px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" class="icons_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tr>
+<td class="pad" style="vertical-align: middle; color: #9d9d9d; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 16px; padding-bottom: 24px; padding-top: 24px; text-align: center;">
+<table cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tr>
+<td class="alignment" style="vertical-align: middle; text-align: center;">
+<!-- <div class="img-container center fixedwidth" style="padding-right: 20px;display:inline;float:none;">
+<div class="fullWidth" style="max-width: 48px;"><img align="center" alt="LinkedIn" class="center" height="auto" src="/images/LinkedIn-Logo.png" style="display: block; height: auto; border: 0; width: 100%;" title="LinkedIn" width="48"/></div>
+</div> -->
+<!-- <div class="img-container center fixedwidth" style="padding-right: 20px;display:inline;float:none;">
+<div class="fullWidth" style="max-width: 48px;"><img align="center" alt="Facebook" class="center" height="auto" src="/images/Facebook-Logo.png" style="display: block; height: auto; border: 0; width: 100%;" title="Facebook" width="48"/></div>
+</div> -->
+<!-- <div class="img-container center fixedwidth" style="padding-right: 20px;display:inline;float:none;">
+<div class="fullWidth" style="max-width: 48px;"><img align="center" alt="Twitter" class="center" height="auto" src="/images/Twitter-Logo.png" style="display: block; height: auto; border: 0; width: 100%;" title="Twitter" width="48"/></div>
+</div> -->
+<!-- <div class="img-container center fixedwidth" style="padding-right: 20px;display:inline;float:none;">
+<div class="fullWidth" style="max-width: 48px;"><img align="center" alt="Instagram" class="center" height="auto" src="/images/Instagram-Logo.png" style="display: block; height: auto; border: 0; width: 100%;" title="Instagram" width="48"/></div>
+</div> -->
+<!-- <div class="img-container center fixedwidth" style="padding-right: 20px;display:inline;float:none;">
+<div class="fullWidth" style="max-width: 48px;"><img align="center" alt="YouTube" class="center" height="auto" src="/images/YouTube-Logo.png" style="display: block; height: auto; border: 0; width: 100%;" title="YouTube" width="48"/></div>
+</div> -->
+</td>
+</tr>
+</table>
+<table cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tr>
+<td class="alignment" style="vertical-align: middle; text-align: center;">
+<!-- <div class="fullWidth" style="max-width: 100px;"><img align="center" alt="Company logo" class="center fullWidth" height="auto" src="" style="display: block; height: auto; border: 0; width: 100%; max-width: 100px;" title="Company logo" width="100"/></div> -->
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" class="paragraph_block block-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td class="pad">
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-6" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+<tbody>
+<tr>
+<td>
+<table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 680px; margin: 0 auto;" width="680">
+<tbody>
+<tr>
+<td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 24px; padding-left: 48px; padding-right: 48px; padding-top: 24px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+<table border="0" cellpadding="0" cellspacing="0" class="paragraph_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+<tr>
+<td class="pad">
+<div style="color:#555555;direction:ltr;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:12px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:center;mso-line-height-alt:18px;">
+<p style="margin: 0;">ConnectedMinds, 1234 Street, City, State, 12345</p>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+</code></pre>
+</body>
+</html>`;
+
   await transporter.sendMail({
     from: '"ConnectedMinds" <ipz202@student.ztu.edu.ua>',
     to: email,
     subject: "Підтвердіть свою пошту",
-    html: `
-    <!--
-* This email was built using Tabular.
-* For more information, visit https://tabular.email
--->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
-<head>
-<title></title>
-<meta charset="UTF-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<!--[if !mso]>-->
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<!--<![endif]-->
-<meta name="x-apple-disable-message-reformatting" content="" />
-<meta content="target-densitydpi=device-dpi" name="viewport" />
-<meta content="true" name="HandheldFriendly" />
-<meta content="width=device-width" name="viewport" />
-<meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no" />
-<style type="text/css">
-table {
-border-collapse: separate;
-table-layout: fixed;
-mso-table-lspace: 0pt;
-mso-table-rspace: 0pt
-}
-table td {
-border-collapse: collapse
-}
-.ExternalClass {
-width: 100%
-}
-.ExternalClass,
-.ExternalClass p,
-.ExternalClass span,
-.ExternalClass font,
-.ExternalClass td,
-.ExternalClass div {
-line-height: 100%
-}
-body, a, li, p, h1, h2, h3 {
--ms-text-size-adjust: 100%;
--webkit-text-size-adjust: 100%;
-}
-html {
--webkit-text-size-adjust: none !important
-}
-body, #innerTable {
--webkit-font-smoothing: antialiased;
--moz-osx-font-smoothing: grayscale
-}
-#innerTable img+div {
-display: none;
-display: none !important
-}
-img {
-Margin: 0;
-padding: 0;
--ms-interpolation-mode: bicubic
-}
-h1, h2, h3, p, a {
-line-height: inherit;
-overflow-wrap: normal;
-white-space: normal;
-word-break: break-word
-}
-a {
-text-decoration: none
-}
-h1, h2, h3, p {
-min-width: 100%!important;
-width: 100%!important;
-max-width: 100%!important;
-display: inline-block!important;
-border: 0;
-padding: 0;
-margin: 0
-}
-a[x-apple-data-detectors] {
-color: inherit !important;
-text-decoration: none !important;
-font-size: inherit !important;
-font-family: inherit !important;
-font-weight: inherit !important;
-line-height: inherit !important
-}
-u + #body a {
-color: inherit;
-text-decoration: none;
-font-size: inherit;
-font-family: inherit;
-font-weight: inherit;
-line-height: inherit;
-}
-a[href^="mailto"],
-a[href^="tel"],
-a[href^="sms"] {
-color: inherit;
-text-decoration: none
-}
-img,p{margin:0;Margin:0;font-family:Lato,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:400;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}h1{margin:0;Margin:0;font-family:Roboto,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:34px;font-weight:400;font-style:normal;font-size:28px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}h2{margin:0;Margin:0;font-family:Lato,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:30px;font-weight:400;font-style:normal;font-size:24px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}h3{margin:0;Margin:0;font-family:Lato,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:26px;font-weight:400;font-style:normal;font-size:20px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}
-</style>
-<style type="text/css">
-@media (min-width: 481px) {
-.hd { display: none!important }
-}
-</style>
-<style type="text/css">
-@media (max-width: 480px) {
-.hm { display: none!important }
-}
-</style>
-<style type="text/css">
-@media (min-width: 481px) {
-h1,img,p{margin:0;Margin:0}.t18,.t21,.t5,.t9{width:480px!important}img,p{font-family:Lato,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:400;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}h1{font-family:Roboto,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:34px;font-weight:400;font-style:normal;font-size:28px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}h2,h3{margin:0;Margin:0;font-family:Lato,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;font-weight:400;font-style:normal;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}h2{line-height:30px;font-size:24px}h3{line-height:26px;font-size:20px}.t20,.t23{mso-line-height-alt:60px!important;line-height:60px!important;display:block!important}.t21{padding:60px!important;border-radius:8px!important;overflow:hidden!important}
-}
-</style>
-<style type="text/css" media="screen and (min-width:481px)">.moz-text-html img,.moz-text-html p{margin:0;Margin:0;font-family:Lato,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:400;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}.moz-text-html h1{margin:0;Margin:0;font-family:Roboto,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:34px;font-weight:400;font-style:normal;font-size:28px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}.moz-text-html h2{margin:0;Margin:0;font-family:Lato,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:30px;font-weight:400;font-style:normal;font-size:24px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}.moz-text-html h3{margin:0;Margin:0;font-family:Lato,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:26px;font-weight:400;font-style:normal;font-size:20px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}.moz-text-html .t20,.moz-text-html .t23{mso-line-height-alt:60px!important;line-height:60px!important;display:block!important}.moz-text-html .t21{padding:60px!important;border-radius:8px!important;overflow:hidden!important;width:480px!important}.moz-text-html .t18,.moz-text-html .t5,.moz-text-html .t9{width:480px!important}</style>
-<!--[if !mso]>-->
-<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;700;800&amp;family=Inter+Tight:wght@900&amp;display=swap" rel="stylesheet" type="text/css" />
-<!--<![endif]-->
-<!--[if mso]>
-<style type="text/css">
-img,p{margin:0;Margin:0;font-family:Lato,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:22px;font-weight:400;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}h1{margin:0;Margin:0;font-family:Roboto,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:34px;font-weight:400;font-style:normal;font-size:28px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}h2{margin:0;Margin:0;font-family:Lato,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:30px;font-weight:400;font-style:normal;font-size:24px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}h3{margin:0;Margin:0;font-family:Lato,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:26px;font-weight:400;font-style:normal;font-size:20px;text-decoration:none;text-transform:none;letter-spacing:0;direction:ltr;color:#333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px}div.t20,div.t23{mso-line-height-alt:60px !important;line-height:60px !important;display:block !important}td.t21{padding:60px !important;border-radius:8px !important;overflow:hidden !important}
-</style>
-<![endif]-->
-<!--[if mso]>
-<xml>
-<o:OfficeDocumentSettings>
-<o:AllowPNG/>
-<o:PixelsPerInch>96</o:PixelsPerInch>
-</o:OfficeDocumentSettings>
-</xml>
-<![endif]-->
-</head>
-<body id="body" class="t26" style="min-width:100%;Margin:0px;padding:0px;background-color:#F4F4F4;"><div class="t25" style="background-color:#F4F4F4;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td class="t24" style="font-size:0;line-height:0;mso-line-height-rule:exactly;background-color:#F4F4F4;" valign="top" align="center">
-<!--[if mso]>
-<v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false">
-<v:fill color="#F4F4F4"/>
-</v:background>
-<![endif]-->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" align="center" id="innerTable"><tr><td><div class="t20" style="mso-line-height-rule:exactly;font-size:1px;display:none;">&nbsp;&nbsp;</div></td></tr><tr><td>
-<!--[if mso]>
-<table class="t22" role="presentation" cellpadding="0" cellspacing="0" align="center">
-<![endif]-->
-<!--[if !mso]>-->
-<table class="t22" role="presentation" cellpadding="0" cellspacing="0" style="Margin-left:auto;Margin-right:auto;">
-<!--<![endif]-->
-<tr>
-<!--[if mso]>
-<td class="t21" style="background-color:#FFFFFF;width:600px;padding:40px 40px 40px 40px;">
-<![endif]-->
-<!--[if !mso]>-->
-<td class="t21" style="background-color:#FFFFFF;width:400px;padding:40px 40px 40px 40px;">
-<!--<![endif]-->
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td>
-<!--[if mso]>
-<table class="t2" role="presentation" cellpadding="0" cellspacing="0" align="left">
-<![endif]-->
-<!--[if !mso]>-->
-<table class="t2" role="presentation" cellpadding="0" cellspacing="0" style="Margin-right:auto;">
-<!--<![endif]-->
-<tr>
-<!--[if mso]>
-<td class="t1" style="width:70px;padding:0 15px 0 0;">
-<![endif]-->
-<!--[if !mso]>-->
-<td class="t1" style="width:55px;padding:0 15px 0 0;">
-<!--<![endif]-->
-<div style="font-size:0px;"><img class="t0" style="display:block;border:0;height:auto;width:100%;Margin:0;max-width:100%;" width="55" height="35.78125" alt="" src="https://3f3748ae-fe8d-491a-aaf2-e15f3fb40d3d.b-cdn.net/e/ae5f1d9c-6cb2-41aa-88c0-1cd409c559c3/4da02b19-8ba0-4ab5-b2dd-14f45f2704d1.png"/></div></td>
-</tr></table>
-</td></tr><tr><td><div class="t3" style="mso-line-height-rule:exactly;mso-line-height-alt:42px;line-height:42px;font-size:1px;display:block;">&nbsp;&nbsp;</div></td></tr><tr><td>
-<!--[if mso]>
-<table class="t6" role="presentation" cellpadding="0" cellspacing="0" align="center">
-<![endif]-->
-<!--[if !mso]>-->
-<table class="t6" role="presentation" cellpadding="0" cellspacing="0" style="Margin-left:auto;Margin-right:auto;">
-<!--<![endif]-->
-<tr>
-<!--[if mso]>
-<td class="t5" style="width:480px;">
-<![endif]-->
-<!--[if !mso]>-->
-<td class="t5" style="width:400px;">
-<!--<![endif]-->
-<h1 class="t4" style="margin:0;Margin:0;font-family:Albert Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:41px;font-weight:800;font-style:normal;font-size:39px;text-decoration:none;text-transform:none;letter-spacing:-1.56px;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:1px;">Confirm your account</h1></td>
-</tr></table>
-</td></tr><tr><td><div class="t7" style="mso-line-height-rule:exactly;mso-line-height-alt:16px;line-height:16px;font-size:1px;display:block;">&nbsp;&nbsp;</div></td></tr><tr><td>
-<!--[if mso]>
-<table class="t10" role="presentation" cellpadding="0" cellspacing="0" align="center">
-<![endif]-->
-<!--[if !mso]>-->
-<table class="t10" role="presentation" cellpadding="0" cellspacing="0" style="Margin-left:auto;Margin-right:auto;">
-<!--<![endif]-->
-<tr>
-<!--[if mso]>
-<td class="t9" style="width:480px;">
-<![endif]-->
-<!--[if !mso]>-->
-<td class="t9" style="width:400px;">
-<!--<![endif]-->
-<p class="t8" style="margin:0;Margin:0;font-family:Albert Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:21px;font-weight:400;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;letter-spacing:-0.64px;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;">Будь ласка, перейдіть за посиланням нижче для підтвердження електронної пошти:</p></td>
-</tr></table>
-</td></tr><tr><td><div class="t12" style="mso-line-height-rule:exactly;mso-line-height-alt:35px;line-height:35px;font-size:1px;display:block;">&nbsp;&nbsp;</div></td></tr><tr><td>
-<!--[if mso]>
-<table class="t14" role="presentation" cellpadding="0" cellspacing="0" align="left">
-<![endif]-->
-<!--[if !mso]>-->
-<table class="t14" role="presentation" cellpadding="0" cellspacing="0" style="Margin-right:auto;">
-<!--<![endif]-->
-<tr>
-<!--[if mso]>
-<td class="t13" style="background-color:#000000;overflow:hidden;width:105px;text-align:center;line-height:34px;mso-line-height-rule:exactly;mso-text-raise:6px;border-radius:40px 40px 40px 40px;">
-<![endif]-->
-<!--[if !mso]>-->
-<td class="t13" style="background-color:#000000;overflow:hidden;width:105px;text-align:center;line-height:34px;mso-line-height-rule:exactly;mso-text-raise:6px;border-radius:40px 40px 40px 40px;">
-<!--<![endif]-->
-<span class="t11" style="display:block;margin:0;Margin:0;font-family:Inter Tight,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:34px;font-weight:900;font-style:normal;font-size:13px;text-decoration:none;text-transform:uppercase;direction:ltr;color:#FFFFFF;text-align:center;mso-line-height-rule:exactly;mso-text-raise:6px;"><a href="${verificationUrl}">${verificationUrl}</a></span></td>
-</tr></table>
-</td></tr><tr><td><div class="t17" style="mso-line-height-rule:exactly;mso-line-height-alt:35px;line-height:35px;font-size:1px;display:block;">&nbsp;&nbsp;</div></td></tr><tr><td>
-<!--[if mso]>
-<table class="t19" role="presentation" cellpadding="0" cellspacing="0" align="center">
-<![endif]-->
-<!--[if !mso]>-->
-<table class="t19" role="presentation" cellpadding="0" cellspacing="0" style="Margin-left:auto;Margin-right:auto;">
-<!--<![endif]-->
-<tr>
-<!--[if mso]>
-<td class="t18" style="width:480px;">
-<![endif]-->
-<!--[if !mso]>-->
-<td class="t18" style="width:400px;">
-<!--<![endif]-->
-<p class="t16" style="margin:0;Margin:0;font-family:Albert Sans,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;line-height:21px;font-weight:400;font-style:normal;font-size:16px;text-decoration:none;text-transform:none;letter-spacing:-0.64px;direction:ltr;color:#333333;text-align:left;mso-line-height-rule:exactly;mso-text-raise:2px;">Не реєструвались на ConnectedMinds? <a class="t15" href="http://localhost:3000/contact" style="margin:0;Margin:0;font-weight:700;font-style:normal;text-decoration:none;direction:ltr;color:#2F353D;mso-line-height-rule:exactly;" target="_blank">Натисніть, щоб зв'язатись з нами.</a></p></td>
-</tr></table>
-</td></tr></table></td>
-</tr></table>
-</td></tr><tr><td><div class="t23" style="mso-line-height-rule:exactly;font-size:1px;display:none;">&nbsp;&nbsp;</div></td></tr></table></td></tr></table></div></body>
-</html>`,
+    html: html
   });
 }
+
+
+export async function sendInstitutionApprovalEmail(email) {
+	const url = `http://localhost:3000`;
+	const html = `<!DOCTYPE html>
+  
+  <html lang="en" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
+  <head>
+  <title></title>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/><!--[if mso]><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:AllowPNG/></o:OfficeDocumentSettings></xml><![endif]--><!--[if !mso]><!--><!--<![endif]-->
+  <style>
+		  * {
+			  box-sizing: border-box;
+		  }
+  
+		  body {
+			  margin: 0;
+			  padding: 0;
+		  }
+  
+		  a[x-apple-data-detectors] {
+			  color: inherit !important;
+			  text-decoration: inherit !important;
+		  }
+  
+		  #MessageViewBody a {
+			  color: inherit;
+			  text-decoration: none;
+		  }
+  
+		  p {
+			  line-height: inherit
+		  }
+  
+		  .desktop_hide,
+		  .desktop_hide table {
+			  mso-hide: all;
+			  display: none;
+			  max-height: 0px;
+			  overflow: hidden;
+		  }
+  
+		  .image_block img+div {
+			  display: none;
+		  }
+  
+		  @media (max-width:700px) {
+  
+			  .desktop_hide table.icons-inner,
+			  .row-3 .column-1 .block-3.button_block .alignment a,
+			  .row-3 .column-1 .block-3.button_block .alignment div,
+			  .social_block.desktop_hide .social-table {
+				  display: inline-block !important;
+			  }
+  
+			  .icons-inner {
+				  text-align: center;
+			  }
+  
+			  .icons-inner td {
+				  margin: 0 auto;
+			  }
+  
+			  .image_block div.fullWidth {
+				  max-width: 100% !important;
+			  }
+  
+			  .mobile_hide {
+				  display: none;
+			  }
+  
+			  .row-content {
+				  width: 100% !important;
+			  }
+  
+			  .stack .column {
+				  width: 100%;
+				  display: block;
+			  }
+  
+			  .mobile_hide {
+				  min-height: 0;
+				  max-height: 0;
+				  max-width: 0;
+				  overflow: hidden;
+				  font-size: 0px;
+			  }
+  
+			  .desktop_hide,
+			  .desktop_hide table {
+				  display: table !important;
+				  max-height: none !important;
+			  }
+  
+			  .row-3 .column-1 .block-1.heading_block h1,
+			  .row-3 .column-1 .block-3.button_block .alignment {
+				  text-align: left !important;
+			  }
+  
+			  .row-3 .column-1 .block-1.heading_block h1 {
+				  font-size: 20px !important;
+			  }
+  
+			  .row-1 .column-1 .block-1.paragraph_block td.pad>div {
+				  text-align: center !important;
+				  font-size: 18px !important;
+			  }
+  
+			  .row-3 .column-1 .block-2.paragraph_block td.pad>div {
+				  text-align: left !important;
+				  font-size: 14px !important;
+			  }
+  
+			  .row-3 .column-1 .block-3.button_block a,
+			  .row-3 .column-1 .block-3.button_block div,
+			  .row-3 .column-1 .block-3.button_block span {
+				  font-size: 14px !important;
+				  line-height: 28px !important;
+			  }
+  
+			  .row-3 .column-1 {
+				  padding: 0 24px 48px !important;
+			  }
+  
+			  .row-4 .column-1 {
+				  padding: 32px 16px 48px !important;
+			  }
+		  }
+	  </style>
+  </head>
+  <body class="body" style="background-color: #f8f6ff; margin: 0; padding: 0; -webkit-text-size-adjust: none; text-size-adjust: none;">
+  <table border="0" cellpadding="0" cellspacing="0" class="nl-container" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f8f6ff; background-image: none; background-position: top left; background-size: auto; background-repeat: no-repeat;" width="100%">
+  <tbody>
+  <tr>
+  <td>
+  <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+  <tbody>
+  <tr>
+  <td>
+  <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #a797ff; color: #000000; width: 680px; margin: 0 auto;" width="680">
+  <tbody>
+  <tr>
+  <td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 32px; padding-left: 48px; padding-right: 48px; padding-top: 32px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+  <table border="0" cellpadding="0" cellspacing="0" class="paragraph_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+  <tr>
+  <td class="pad">
+  <div style="color:#ffffff;direction:ltr;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:24px;font-weight:700;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:28.799999999999997px;">
+  <p style="margin: 0;">ConnectedMinds</p>
+  </div>
+  </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+  <tbody>
+  <tr>
+  <td>
+  <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #a797ff; border-radius: 0; color: #000000; width: 680px; margin: 0 auto;" width="680">
+  <tbody>
+  <tr>
+  <td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+  <table border="0" cellpadding="0" cellspacing="0" class="image_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+  <tr>
+  <td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
+  <div align="center" class="alignment" style="line-height:10px">
+  <!-- <div class="fullWidth" style="max-width: 639.2px;"><img alt="https://cdn3.iconfinder.com/data/icons/internet-security-124/512/InternetSecurity01.png" height="auto" src="/images/Email-Illustration.png" style="display: block; height: auto; border: 0; width: 100%;" title="An open email illustration" width="639.2"/></div> -->
+  </div>
+  </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-3" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+  <tbody>
+  <tr>
+  <td>
+  <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; color: #000000; width: 680px; margin: 0 auto;" width="680">
+  <tbody>
+  <tr>
+  <td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 48px; padding-left: 48px; padding-right: 48px; padding-top: 48px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+  <table border="0" cellpadding="0" cellspacing="0" class="heading_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+  <tr>
+  <td class="pad" style="text-align:center;width:100%;padding-top:24px;">
+  <h1 style="margin: 0; color: #555555; font-size: 48px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: 700; line-height: 150%; text-align: center; direction: ltr; letter-spacing: normal; margin-top: 0; margin-bottom: 0;">Привіт!</h1>
+  </td>
+  </tr>
+  </table>
+  <table border="0" cellpadding="0" cellspacing="0" class="paragraph_block block-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+  <tr>
+  <td class="pad">
+  <div style="color:#555555;direction:ltr;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:left;mso-line-height-alt:24px;">
+  <p style="margin: 0; margin-bottom: 16px;">Дякуємо, що зареєстрували навчальний заклад на ConnectedMinds! Тепер ви можете керувати закладом з власного акаунту. Натисніть на кнопку нижче, щоб перейти на сайт</p>
+  </div>
+  </td>
+  </tr>
+  </table>
+  <table border="0" cellpadding="0" cellspacing="0" class="button_block block-3" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+  <tr>
+  <td class="pad" style="text-align:left;">
+  <div align="left" class="alignment">
+  <!--[if mso]>
+  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${url}" style="height:42px;width:174px;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#f6a988">
+  <w:anchorlock/>
+  <center style="color:#ffffff;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;font-weight:700;">Перейти на сайт</center>
+  </v:roundrect>
+  <![endif]-->
+  <!--[if !mso]><!-- -->
+  <a href="${url}" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#f6a988;border-radius:4px;width:auto;border-top:1px solid #f6a988;font-weight:700;border-right:1px solid #f6a988;border-bottom:1px solid #f6a988;border-left:1px solid #f6a988;padding-top:10px;padding-bottom:10px;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;text-align:center;mso-border-alt:none;word-break:keep-all;" target="_blank"><span style="padding-left:24px;padding-right:24px;font-size:16px;display:inline-block;letter-spacing:normal;"><span dir="ltr" style="word-break: break-word; line-height: 32px;">Перейти на сайт</span></span></a>
+  <!--<![endif]-->
+  </div>
+  </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-4" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+  <tbody>
+  <tr>
+  <td>
+  <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; color: #000000; width: 680px; margin: 0 auto;" width="680">
+  <tbody>
+  <tr>
+  <td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 48px; padding-left: 48px; padding-right: 48px; padding-top: 48px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+  <table border="0" cellpadding="0" cellspacing="0" class="paragraph_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+  <tr>
+  <td class="pad">
+  <div style="color:#555555;direction:ltr;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:left;mso-line-height-alt:24px;">
+  <p style="margin: 0; margin-bottom: 16px;">Якщо ви не реєстрували навчальний заклад, просто проігноруйте цей лист.</p>
+  </div>
+  </td>
+  </tr>
+  </table>
+  <table border="0" cellpadding="0" cellspacing="0" class="paragraph_block block-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+  <tr>
+  <td class="pad">
+  <div style="color:#555555;direction:ltr;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:left;mso-line-height-alt:24px;">
+  <p style="margin: 0;"><br/>від команди ConnectedMinds</p>
+  </div>
+  </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-5" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+  <tbody>
+  <tr>
+  <td>
+  <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 680px; margin: 0 auto;" width="680">
+  <tbody>
+  <tr>
+  <td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 24px; padding-left: 48px; padding-right: 48px; padding-top: 24px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+  <table border="0" cellpadding="0" cellspacing="0" class="icons_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+  <tr>
+  <td class="pad" style="vertical-align: middle; color: #9d9d9d; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 16px; padding-bottom: 24px; padding-top: 24px; text-align: center;">
+  <table cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+  <tr>
+  <td class="alignment" style="vertical-align: middle; text-align: center;">
+  <!-- <div class="img-container center fixedwidth" style="padding-right: 20px;display:inline;float:none;">
+  <div class="fullWidth" style="max-width: 48px;"><img align="center" alt="LinkedIn" class="center" height="auto" src="/images/LinkedIn-Logo.png" style="display: block; height: auto; border: 0; width: 100%;" title="LinkedIn" width="48"/></div>
+  </div> -->
+  <!-- <div class="img-container center fixedwidth" style="padding-right: 20px;display:inline;float:none;">
+  <div class="fullWidth" style="max-width: 48px;"><img align="center" alt="Facebook" class="center" height="auto" src="/images/Facebook-Logo.png" style="display: block; height: auto; border: 0; width: 100%;" title="Facebook" width="48"/></div>
+  </div> -->
+  <!-- <div class="img-container center fixedwidth" style="padding-right: 20px;display:inline;float:none;">
+  <div class="fullWidth" style="max-width: 48px;"><img align="center" alt="Twitter" class="center" height="auto" src="/images/Twitter-Logo.png" style="display: block; height: auto; border: 0; width: 100%;" title="Twitter" width="48"/></div>
+  </div> -->
+  <!-- <div class="img-container center fixedwidth" style="padding-right: 20px;display:inline;float:none;">
+  <div class="fullWidth" style="max-width: 48px;"><img align="center" alt="Instagram" class="center" height="auto" src="/images/Instagram-Logo.png" style="display: block; height: auto; border: 0; width: 100%;" title="Instagram" width="48"/></div>
+  </div> -->
+  <!-- <div class="img-container center fixedwidth" style="padding-right: 20px;display:inline;float:none;">
+  <div class="fullWidth" style="max-width: 48px;"><img align="center" alt="YouTube" class="center" height="auto" src="/images/YouTube-Logo.png" style="display: block; height: auto; border: 0; width: 100%;" title="YouTube" width="48"/></div>
+  </div> -->
+  </td>
+  </tr>
+  </table>
+  <table cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+  <tr>
+  <td class="alignment" style="vertical-align: middle; text-align: center;">
+  <!-- <div class="fullWidth" style="max-width: 100px;"><img align="center" alt="Company logo" class="center fullWidth" height="auto" src="" style="display: block; height: auto; border: 0; width: 100%; max-width: 100px;" title="Company logo" width="100"/></div> -->
+  </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+  </table>
+  <table border="0" cellpadding="0" cellspacing="0" class="paragraph_block block-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+  <tr>
+  <td class="pad">
+  </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  <table align="center" border="0" cellpadding="0" cellspacing="0" class="row row-6" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
+  <tbody>
+  <tr>
+  <td>
+  <table align="center" border="0" cellpadding="0" cellspacing="0" class="row-content stack" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #000000; width: 680px; margin: 0 auto;" width="680">
+  <tbody>
+  <tr>
+  <td class="column column-1" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 24px; padding-left: 48px; padding-right: 48px; padding-top: 24px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;" width="100%">
+  <table border="0" cellpadding="0" cellspacing="0" class="paragraph_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
+  <tr>
+  <td class="pad">
+  <div style="color:#555555;direction:ltr;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:12px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:center;mso-line-height-alt:18px;">
+  <p style="margin: 0;">ConnectedMinds, 1234 Street, City, State, 12345</p>
+  </div>
+  </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  </body>
+  </html>
+  </code></pre>
+  </body>
+  </html>`;
+  
+	await transporter.sendMail({
+	  from: '"ConnectedMinds" <ipz202@student.ztu.edu.ua>',
+	  to: email,
+	  subject: "Вас призначено адміністратором",
+	  html: html
+	});
+  }

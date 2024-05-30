@@ -94,21 +94,21 @@ class Institution{
         phoneNumber,
         email,
         website,
-        principalFullname,
-        principalUserId
+        adminUserFullname,
+        adminUserUserId
       ) {
         const connection = await connectToAppDatabase();
 
         try{
             const sql = `UPDATE institutions SET 
-            principal_fullname=?, principal_user_id=?, 
+            admin_user_fullname=?, admin_user_id=?, 
             address=?, coatsuu_code=?, 
             email=?, fullname=?, governing_body_in_charge_of_education=?, 
             institution_type=?, ownership_form=?, phone_number=?, 
             region=?, settlement=?, shortname=?, website=?
             WHERE useed_code=?`;
             const result = await connection.query(sql, [
-                principalFullname, principalUserId,
+                adminUserFullname, adminUserUserId,
                 address, coatsuuCode,
                 email, fullname,
                 governingBodyInChargeOfEducation,
@@ -158,29 +158,23 @@ class Institution{
         phoneNumber,
         email,
         website,
-        principalFullname,
-        principalUserId
+        adminUserFullname,
+        adminUserId
       ) {
         const connection = await connectToAppDatabase();
+        console.log('adminUserId', adminUserId)
 
         try{
-            const sql = `INSERT INTO pending_institutions(principal_fullname, principal_user_id, ` +
-                `address, coatsuu_code, ` +
-                `email, fullname, governing_body_in_charge_of_education, ` + 
-                `institution_type, ownership_form, phone_number, ` +
-                `region, settlement, shortname, website, useed_code, state) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-            const result = await connection.query(sql, [
-                principalFullname, principalUserId,
-                address, coatsuuCode,
-                email, fullname,
-                governingBodyInChargeOfEducation,
-                institutionType, ownershipForm,
-                phoneNumber, region,
-                settlement, shortname,
-                website, useedCode, 'працює'
+            const sql = `INSERT INTO pending_institutions(fullname, useed_code, ` +
+                `shortname, state, institution_type, ownership_form, coatsuu_code, ` +
+                `region, settlement, address, governing_body_in_charge_of_education, ` + 
+                `phone_number, email, website, admin_user_fullname, admin_user_id) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+            const result = await connection.query(sql, [fullname, useedCode, shortname,
+                'працює', institutionType, ownershipForm, coatsuuCode, region, settlement, address,
+                governingBodyInChargeOfEducation, phoneNumber, email, website, adminUserFullname, adminUserId
             ]);
             await connection.end();
-            console.log('result', result);
 
             if (result){
                 console.log(result[0].info);
@@ -206,6 +200,58 @@ class Institution{
         }
     }
 
+    static async findPendingByUserId(user_id){
+        const connection = await connectToAppDatabase();
+
+        try{
+            const sql = `SELECT * FROM pending_institutions WHERE admin_user_id='${user_id}'`;
+            const result = await connection.query(sql);
+            console.log('uid', user_id)
+            console.log('penmod', result[0])
+            await connection.end();
+
+            if (result){
+                const institutions = result[0][0];
+                return {success: true, data: institutions};
+            }
+            else{
+                console.error('No data selected');
+                return {success: false, data: 'No data selected'};
+            }
+        }
+        catch(error){
+            if (connection){
+                connection.end();
+            }
+            console.error(error);
+            return {success: false, data: error};
+        }
+    }
+
+    static async deletePendingByUseed(useed_code){
+        const connection = await connectToAppDatabase();
+
+        try{
+            const sql = `DELETE FROM pending_institutions WHERE useed_code='${useed_code}'`;
+            const result = await connection.query(sql);
+            await connection.end();
+
+            if (result){
+                return {success: true, data: result[0][0]};
+            }
+            else{
+                console.error('No data selected');
+                return {success: false, data: 'No data selected'};
+            }
+        }
+        catch(error){
+            if (connection){
+                connection.end();
+            }
+            console.error(error);
+            return {success: false, data: error};
+        }
+    }
 
 }
 

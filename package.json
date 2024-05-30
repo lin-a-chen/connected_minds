@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "cors-anywhere": "^0.4.4",
     "express": "^4.19.2",
+    "fs": "^0.0.1-security",
     "jose": "^5.2.4",
     "mysql": "^2.18.1",
     "mysql2": "^3.9.7",
@@ -31,5 +32,10 @@
   "devDependencies": {
     "eslint": "^8",
     "eslint-config-next": "14.2.3"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }

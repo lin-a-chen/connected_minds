@@ -19,11 +19,8 @@ export default function Users() {
         const result = await response.json();
 
         if (result.success) {
-          const formattedUsers = result.data.map(el => {
-            return {user_id: el.user_id, firstname: el.firstname, lastname: el.lastname, antroponym: el.antroponym, username: el.username, email: el.email, phone_number: el.phone_number, region: el.region, settlement: el.settlement, district: el.district, address: el.address};
-          });
-          setUsers(formattedUsers);
-          handleCurrentItemsChange(formattedUsers.slice(0, 10));
+          setUsers(result.data);
+          handleCurrentItemsChange(result.data.slice(0, 10));
         } else {
           console.error("Error fetching users:", result.data);
         }
@@ -58,16 +55,17 @@ export default function Users() {
       <Search
         className={styles.autocompleteInput}
         dataToSearch={users}
-        searchFields={['firstname', 'lastname', 'antroponym', 'email', 'phone_number', 'username']}
+        searchFields={['username', 'email', 'phone_number']}
         onChange={handleSearchChange}
         placeholder="Шукати користувача..."
       />
       <AdminTable
-        tableHeaders={['ID в базі даних', 'Ім\'я', 'Прізвище', 'По-батькові', 'Username', 'Email', 'Номер телефону', 'Область', 'Населений пункт', 'Район', 'Адреса']}
+        tableHeaders={['ID в базі даних', 'Username', 'Email', 'Номер телефону', 'Пароль', 'Статус (чи активовано)', 'Дата створення', 'Email токен', 'Email токен дійсний до:']}
         crudLink={'/api/users'}
         items={currentUsers}
         onUpdateItems={handleCurrentItemsChange}
-        uniqueField={'user_id'}
+        uniqueField={'id'}
+        immutableFields={['id', 'password', 'created_at']}
       />
       <Pagination
         onCurrentItemsChange={handleCurrentItemsChange}

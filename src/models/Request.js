@@ -23,11 +23,40 @@ class Request{
         }
     }
 
-    static async add(userId, requestType, subject, description, status,){
+    static async add(userId, requestType, subject, description, status){
+        console.log('userIdmodel', userId);
         const connection = await connectToAppDatabase();
         try{
             const requestData = await connection.query(`INSERT INTO admin_requests(user_id, request_type, subject, description, status, created_at, updated_at) ` + 
             `VALUES(?, ?, ?, ?, ?, ?, ?)`, [userId, requestType, subject, description, status, this.getLocalDatetime(), null]);
+            await connection.end();
+            return {success: true, data: requestData[0]};
+        }
+        catch(error){
+            await connection.end();
+            console.error(error);
+            return {success: false, data: error};
+        }
+    }
+
+    static async updateAll(userId, requestType, subject, description, status, createdAt, updatedAt){
+        const connection = await connectToAppDatabase();
+        try{
+            const requestData = await connection.query(`UPDATE admin_requests SET request_type=?, subject=?, description=?, status=?, updated_at=? WHERE user_id=?`,[requestType, subject, description, status, this.getLocalDatetime(), userId]);
+            await connection.end();
+            return {success: true, data: requestData[0]};
+        }
+        catch(error){
+            await connection.end();
+            console.error(error);
+            return {success: false, data: error};
+        }
+    }
+
+    static async updateStatus(id, status){
+        const connection = await connectToAppDatabase();
+        try{
+            const requestData = await connection.query(`UPDATE admin_requests SET status=?, updated_at=? WHERE id=?`, [status, this.getLocalDatetime(), id]);
             await connection.end();
             return {success: true, data: requestData[0]};
         }

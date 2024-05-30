@@ -29,7 +29,6 @@ export const getUser = cache(async () => {
    
     try {
       const result = await User.findById(session.userId);
-
       const user = result.data;
 
       return user;
@@ -39,12 +38,22 @@ export const getUser = cache(async () => {
     }
 });
 
-export const getUserRole = async () => {
+// export const getUserRole = async () => {
+//   const user = await getUser();
+//   if (user){
+//     const userRoles = await Role.getUserRolesByUserId(user.id);
+//     const role = await Role.findBy(userRoles.data.role_id);
+//     return role.data[0];
+//   }
+//   else return null;
+// }
+
+export const checkIfMainAdmin = async () => {
   const user = await getUser();
   if (user){
-    const userRoles = await User.getUserRolesByUserId(user.user_id);
-    const role = await Role.findById(userRoles.data.role_id);
-    return role.data[0];
+    const role = await Role.findByName('MAIN_ADMIN');
+    const userRoleResult = await Role.findByIdAndUserId(user.id, role.id);
+    return userRoleResult ? true : false;
   }
   else return null;
 }

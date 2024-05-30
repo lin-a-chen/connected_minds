@@ -7,15 +7,16 @@
     width: 100vw;
     height: 100vh;
     z-index: 10000;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(5px);
     
     & .popupWindow{
+        font-family: "Evolventa";
         width: 400px;
         height: min-content;
         border-radius: 15px;
-        border: 3px solid $bg-wisteria;
+        border: 3px solid;
         background-color: $bg-main-sea-salt;
-        margin: 20% auto;
+        margin: 10% auto;
         display: flex;
         flex-direction: column;
         padding: 2rem 1rem 1rem 2rem;
@@ -25,6 +26,10 @@
             font-size: 2.5rem;
             cursor: pointer;
             line-height: 0%;
+
+            &:hover{
+                color: $bg-wisteria;
+            }
         }
 
         & .header{
@@ -69,7 +74,7 @@
             width: 100%;
             margin-top: 2rem;
 
-            &:first-child{
+            & > *:first-child{
                 margin-right: 2rem;
             }
 
@@ -86,13 +91,42 @@
                 font-weight: 600;
                 color: $cl-sea-salt;
             }
+        }
+    }
 
+    & .popupWindow.infoPopup{
+        border-color: $bg-wisteria;
+        & .buttons{
             & .approve{
                 background-color: $bg-wisteria;
 
                 &:hover{
                     background-color: $bg-slate-blue;
                 }
+            } 
+        }
+    }
+
+    & .popupWindow.errorPopup{
+        border-color: $bg-cherry-blossom;
+        & .approve{
+            background-color: $bg-slate-blue;
+            color: $cl-sea-salt;
+
+            &:hover{
+                background-color: $bg-wisteria;
+            }
+        }
+
+        & .cancel{
+            background-color: $bg-main-sea-salt;
+                color: $cl-cherry-blossom;
+                border: 2px solid $bg-cherry-blossom;
+
+            &:hover{
+                background-color: $bg-cherry-blossom;
+                color: $cl-sea-salt;
+                border: 2px solid $bg-cherry-blossom;
             }
         }
     }

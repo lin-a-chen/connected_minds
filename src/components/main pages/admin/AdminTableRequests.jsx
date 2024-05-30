@@ -1,10 +1,10 @@
 import styles from "@/components/main pages/admin/AdminTable.module.scss";
 import standartStyles from "@/styles/Styles.module.scss";
 import { TbPencilMinus, TbCheck } from "react-icons/tb";
-import { LuTrash2 } from "react-icons/lu";
+import { LuBadgeCheck, LuBadgeMinus, LuTrash2 } from "react-icons/lu";
 import { useState } from "react";
 
-export default function AdminTable({tableHeaders, items, crudLink, uniqueField, onUpdateItems, immutableFields }) {
+export default function AdminTableRequests({tableHeaders, items, crudLink, uniqueField, onUpdateItems, immutableFields, onApprove }) {
   const [editableRow, setEditableRow] = useState(null);
 
   const handleEdit = (itemsUniqueField) => {
@@ -46,7 +46,7 @@ export default function AdminTable({tableHeaders, items, crudLink, uniqueField, 
   };
   
   const handleInputChange = (e, itemsUniqueField, field) => {
-    if (immutableFields.includes(field)) return; // Skip if field is immutable
+    if (immutableFields.includes(field)) return;
 
     const updatedItems = items.map((item) => {
       if (item[uniqueField] === itemsUniqueField) {
@@ -55,6 +55,42 @@ export default function AdminTable({tableHeaders, items, crudLink, uniqueField, 
       return item;
     });
     onUpdateItems(updatedItems);
+  };
+
+  const handleApprove = async (item) => {
+    setEditableRow(null);
+
+    const response = await fetch(crudLink, {
+      method: "PATCH",
+      headers: {
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({item: item.id, status: 'approved', user_id: item.user_id, request_type: item.request_type})
+    });
+    const result = await response.json();
+    if (result.success) {
+      onApprove(item.user_id);
+    } else {
+      console.error(result.data);
+    }
+  };
+
+  const handleDeny = async (item) => {
+    setEditableRow(null);
+
+    const response = await fetch(crudLink, {
+      method: "PATCH",
+      headers: {
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({id: item.id, status: 'denied', user_id: item.user_id, request_type: item.request_type})
+    });
+    const result = await response.json();
+    if (result.success) {
+      console.log('success');
+    } else {
+      console.error(result.data);
+    }
   };
 
   return (
@@ -69,7 +105,7 @@ export default function AdminTable({tableHeaders, items, crudLink, uniqueField, 
       </thead>
       <tbody>
         {items.map((item) => (
-          <tr key={item[uniqueField]}>
+          <tr key={item[uniqueField]} className={`${item.status === 'approved' ? styles.rowApproved : item.status === 'denied' ? styles.rowDenied : ''}`}>
             <td className={styles.buttons}>
               {editableRow === item[uniqueField] ? (
                 <button
@@ -91,6 +127,18 @@ export default function AdminTable({tableHeaders, items, crudLink, uniqueField, 
                 onClick={() => handleDelete(item[uniqueField])}
               >
                 <LuTrash2 />
+              </button>
+              <button
+                className={`${standartStyles.buttonSave} ${standartStyles.buttonIconNoText}`}
+                onClick={() => handleApprove(item)}
+              >
+                <LuBadgeCheck />
+              </button>
+              <button
+                className={`${standartStyles.buttonDelete} ${standartStyles.buttonIconNoText}`}
+                onClick={() => handleDeny(item)}
+              >
+                <LuBadgeMinus />
               </button>
             </td>
             {Object.keys(item).map((field, index) => (
