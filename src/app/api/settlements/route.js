@@ -11,7 +11,7 @@ export async function GET(req) {
         return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});
       }
       else{
-        return new Response(JSON.stringify({success: false, data: 'No settlements found'}), {status: 500});
+        return new Response(JSON.stringify({success: false, data: 'No settlements found'}), {status: 404});
       }
     }
     catch(error){
@@ -28,7 +28,7 @@ export async function GET(req) {
         return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});
       }
       else{
-        return new Response(JSON.stringify({success: false, data: 'No regions found'}), {status: 500});
+        return new Response(JSON.stringify({success: false, data: 'No regions found'}), {status: 404});
       }
     }
     catch(error){

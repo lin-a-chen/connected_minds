@@ -40,12 +40,16 @@ const sign_in = () => {
             <form encType="application/json" className={standartStyles.form} method="POST">
                 <fieldset>
                     <div><TbMail className={standartStyles.icon}/><label>Email*</label></div>
-                    <input defaultValue="maria.marchenko@mail.com" type="email" placeholder="maria.marienko@mail.com" {...register("email", { required: true })}/>
+                    <input defaultValue="maria.marchenko@mail.com" type="email" placeholder="maria.marienko@mail.com" {...register("email", { required: "Пошта обов'язкова",
+                    pattern: {
+                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                        message: "Формат email невірний"
+                    }})}/>
                     {errors.email && <span className={standartStyles.errorMessage}>{errors.email.message}</span>}
                 </fieldset>
                 <fieldset>
                     <div><TbPasswordUser className={standartStyles.icon}/><label>Пароль*</label></div>
-                    <input defaultValue="12345678" type="password" {...register("password", { required: true })}/>
+                    <input defaultValue="12345678" type="password" {...register("password", { required: "Пароль обов'язковий" })}/>
                     {errors.password && <span className={standartStyles.errorMessage}>{errors.password.message}</span>}
                 </fieldset>
                 <button type="submit" onClick={handleSubmit(onSubmit)} label="Увійти">Увійти</button>

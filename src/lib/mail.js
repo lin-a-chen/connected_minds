@@ -373,7 +373,7 @@ export async function sendVerificationEmail(email, token) {
 }
 
 
-export async function sendInstitutionApprovalEmail(email) {
+export async function sendMail(email, heading, ifWrongUserMessage, text) {
 	const url = `http://localhost:3000`;
 	const html = `<!DOCTYPE html>
   
@@ -568,7 +568,7 @@ export async function sendInstitutionApprovalEmail(email) {
   <table border="0" cellpadding="0" cellspacing="0" class="heading_block block-1" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
   <tr>
   <td class="pad" style="text-align:center;width:100%;padding-top:24px;">
-  <h1 style="margin: 0; color: #555555; font-size: 48px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: 700; line-height: 150%; text-align: center; direction: ltr; letter-spacing: normal; margin-top: 0; margin-bottom: 0;">Привіт!</h1>
+  <h1 style="margin: 0; color: #555555; font-size: 48px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-weight: 700; line-height: 150%; text-align: center; direction: ltr; letter-spacing: normal; margin-top: 0; margin-bottom: 0;">${heading}</h1>
   </td>
   </tr>
   </table>
@@ -576,7 +576,7 @@ export async function sendInstitutionApprovalEmail(email) {
   <tr>
   <td class="pad">
   <div style="color:#555555;direction:ltr;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:left;mso-line-height-alt:24px;">
-  <p style="margin: 0; margin-bottom: 16px;">Дякуємо, що зареєстрували навчальний заклад на ConnectedMinds! Тепер ви можете керувати закладом з власного акаунту. Натисніть на кнопку нижче, щоб перейти на сайт</p>
+  <p style="margin: 0; margin-bottom: 16px;">${text}</p>
   </div>
   </td>
   </tr>
@@ -618,7 +618,7 @@ export async function sendInstitutionApprovalEmail(email) {
   <tr>
   <td class="pad">
   <div style="color:#555555;direction:ltr;font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:left;mso-line-height-alt:24px;">
-  <p style="margin: 0; margin-bottom: 16px;">Якщо ви не реєстрували навчальний заклад, просто проігноруйте цей лист.</p>
+  <p style="margin: 0; margin-bottom: 16px;">${ifWrongUserMessage}</p>
   </div>
   </td>
   </tr>

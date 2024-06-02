@@ -37,9 +37,9 @@ export const ErrorPopup = ({ pictureSource, heading, text, actionForButtonOkay }
     return(
         <div className={styles.popupBackdrop}>
             <div className={`${styles.popupWindow} ${styles.errorPopup}`}>
-                <div className={styles.cross}>
+                {/* <div className={styles.cross}>
                     <IoIosClose/>
-                </div>
+                </div> */}
                 <div className={styles.header}>
                     <div className={styles.picture}>
                         <img src={pictureSource} />

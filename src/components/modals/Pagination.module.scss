@@ -3,9 +3,11 @@
 .pagination{
     display: flex;
     align-items: center;
+    margin: 1rem auto;
     & > * {
         color: $cl-marian-blue;
     }
+
 
     .buttonPrev, .buttonNext{
         display: flex;

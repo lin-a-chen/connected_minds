@@ -7,23 +7,23 @@ import Pagination from "@/components/modals/Pagination";
 import AdminTable from "@/components/main pages/admin/AdminTable";
 import Search from "@/components/UI/AutocompleteInput/Search";
 
-export default function Institutions() {
-  const [institutions, setInstitutions] = useState([]);
-  const [currentInstitutions, setCurrenInstitutions] = useState([]);
+export default function PendingInstitutions() {
+  const [pendingInstitutions, setPendingInstitutions] = useState([]);
+  const [currentPendingInstitutions, setCurrenPendingInstitutions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
 
-    const fetchInstitutions = async () => {
+    const fetchPendingInstitutions = async () => {
       try {
-        const response = await fetch(`/api/institutions`, { method: "GET" });
+        const response = await fetch(`/api/institutions/pending`, { method: "GET" });
         const result = await response.json();
 
         if (result.success) {
-          setInstitutions(result.data);
+          setPendingInstitutions(result.data);
           handleCurrentItemsChange(result.data.slice(0, 10));
         } else {
-          console.error("Error fetching institutions:", result.data);
+          console.error("Error fetching pending institutions:", result.data);
         }
       } catch (error) {
         console.error("Fetch error:", error);
@@ -32,18 +32,18 @@ export default function Institutions() {
       }
     };
 
-    fetchInstitutions();
+    fetchPendingInstitutions();
   }, []);
 
   const handleCurrentItemsChange = (currentItems) => {
-    setCurrenInstitutions(currentItems);
+    setCurrenPendingInstitutions(currentItems);
   };
 
   const handleSearchChange = (result) => {
     if (result) {
-      setCurrenInstitutions([result]);
+      setCurrenPendingInstitutions([result]);
     } else {
-      handleCurrentItemsChange(institutions.slice(0, 10));
+      handleCurrentItemsChange(pendingInstitutions.slice(0, 10));
     }
   };
 
@@ -55,7 +55,7 @@ export default function Institutions() {
     <div className={styles.container}>
       <Search
         className={styles.autocompleteInput}
-        dataToSearch={institutions}
+        dataToSearch={pendingInstitutions}
         searchFields={['user_id', 'shortname', 'fullname', 'useed_code', 'admin_user_fullname']}
         onChange={handleSearchChange}
         placeholder="Шукати заклад..."
@@ -64,16 +64,16 @@ export default function Institutions() {
         tableHeaders={['ID в базі даних', 'Повна назва', 'Код ЄДЕБО', 'Коротка назва', 'Стан', 'Тип закладу', 
         'Форма власності', 'Код КОАТУУ', 'Область', 'Населений пункт', 'Адреса', 'Орган, до сфери управління його належить заклад освіти', 'Телефон', 
         'Email', 'Веб-сайт', 'ПІБ директорки/директора', 'Акаунт адміністратора НЗ']}
-        institutions={currentInstitutions}
-        crudLink={'/api/institutions'}
-        items={currentInstitutions}
+        institutions={currentPendingInstitutions}
+        crudLink={'/api/institutions/pending'}
+        items={currentPendingInstitutions}
         onUpdateItems={handleCurrentItemsChange}
         uniqueField={'useed_code'}
         immutableFields={['id']}
       />
       <Pagination
         onCurrentItemsChange={handleCurrentItemsChange}
-        items={institutions}
+        items={pendingInstitutions}
         itemsPerPage={10}
         maxVisiblePages={7}
       />

@@ -34,8 +34,7 @@ class User{
     static async findById(userId){
         const connection = await connectToAppDatabase();
         try{
-            const userData = await connection.query(`SELECT * FROM users WHERE id = '${userId}';`);
-
+            const userData = await connection.query(`SELECT * FROM users WHERE id=?`, [userId]);
             await connection.end();
             return {success: true, data: userData[0][0]};
         }

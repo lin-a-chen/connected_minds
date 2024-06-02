@@ -6,12 +6,12 @@ import styles from "@/components/main pages/admin/AdminTablePage.module.scss";
 import Pagination from "@/components/modals/Pagination";
 import AdminTableRequests from "@/components/main pages/admin/AdminTableRequests";
 import Search from "@/components/UI/AutocompleteInput/Search";
-// import {sendInstitutionApprovalEmail} from "@/lib/mail";
 
 export default function Requests() {
   const [requests, setRequests] = useState([]);
   const [currentRequests, setCurrentRequests] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [requestUpdateSuccessful, setRequestUpdateSuccessful] = useState(null);
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -33,7 +33,7 @@ export default function Requests() {
     };
 
     fetchRequests();
-  }, []);
+  }, [requestUpdateSuccessful]);
 
   const handleCurrentItemsChange = (currentItems) => {
     setCurrentRequests(currentItems);
@@ -51,13 +51,9 @@ export default function Requests() {
     return <Loading />;
   }
 
-  const handleApproveRequest = async (user_id) => {
-    const response = await fetch(`/api/users?id=${user_id}`);
-    const result = await response.json();
-    console.log(result.data);
-    // sendInstitutionApprovalEmail(result.data.email);
+  const handleRequestStatusChange = async (success) => {
+    setRequestUpdateSuccessful(success);
   }
-
 
   return (
     <div className={styles.container}>
@@ -75,7 +71,8 @@ export default function Requests() {
         onUpdateItems={handleCurrentItemsChange}
         uniqueField={'id'}
         immutableFields={['id', 'user_id', 'created_at', 'updated_at' ]}
-        onApprove={() => handleApproveRequest(user_id)}
+        onApprove={handleRequestStatusChange}
+        onDeny={handleRequestStatusChange}
       />
       <Pagination
         onCurrentItemsChange={handleCurrentItemsChange}

@@ -25,6 +25,10 @@ $cl-peach: #FFB887;
     border-radius: 10px;
     padding: 16px 16px;
     max-width: 10rem;
+    cursor: pointer;
+    &:hover{
+        background-color: $bg-cherry-blossom;
+    }
 }
 
 .inputRegular, .selectRegular{
@@ -173,4 +177,7 @@ $cl-peach: #FFB887;
     }
 }
   
-
+/* Add this to your global CSS or a specific stylesheet */
+.Toastify__toast-container {
+    z-index: 9999; /* Ensure this value is higher than any other z-index in your application */
+}

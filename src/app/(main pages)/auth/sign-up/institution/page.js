@@ -4,7 +4,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from "next/link";
 import { useForm, Controller } from "react-hook-form";
 import AutocompleteInput from "@/components/UI/AutocompleteInput/AutocompleteInput";
-import { InfoPopup } from '@/components/modals/Popups';
+import { InfoPopup, ErrorPopup } from '@/components/modals/Popups';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //icons
 import { LuMail, LuPhone } from "react-icons/lu";
@@ -99,11 +101,6 @@ export default function InstitutionMultiStepForm() {
         }
         else district = null;
 
-        // console.log('unparsed', unparsedSettlement)
-        // console.log('type', settlementType);
-        // console.log('name', settlementName);
-        // console.log('distict', district);
-
         const settlementParsed = settlements.map((el) => {
             if(!district && el.toLowerCase().includes(settlementType.toLowerCase()) && el.toLowerCase().includes(settlementName.toLowerCase())){
                 return el;
@@ -134,8 +131,6 @@ export default function InstitutionMultiStepForm() {
                 if (result.success) {
                     const data = result.data;
 
-                    console.log('res.data', result.data)
-
                     if (result.data){
                         const institutionDataObj = {
                             useedCode: data.useed_code,
@@ -153,7 +148,8 @@ export default function InstitutionMultiStepForm() {
                             website: data.website,
                             firstname: null,
                             lastname: null,
-                            antroponym: null
+                            antroponym: null,
+                            adminUserId: data.admin_user_id
                         };
                         setRegion(institutionDataObj.region);
     
@@ -201,18 +197,22 @@ export default function InstitutionMultiStepForm() {
     const steps = ["Створення акаунту", "Заповнення інформації"];
 
     const handleSubmition = async (data) => {
-        const response = await fetch(`/api/requests`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-        const result = await response.json();
-        if (result.success){
-            setShowPopup(true);
+        if (institutionData){
+            const validateResponse = await fetch(`/api/auth/sign-up/institution/validate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({userEmail: data.email, useedCode: institutionData.useedCode, institutionAdminUserId: institutionData.adminUserId})
+            });
+            const validateResult = await validateResponse.json();
+            if (!validateResult.success){
+                console.error(validateResult.data)
+                toast.error(validateResult.data);
+            }
+            else{
+                setShowPopup(true);
+            }
         }
-        else{
-            console.error(result.data);
-        }
+
     };
 
     return (

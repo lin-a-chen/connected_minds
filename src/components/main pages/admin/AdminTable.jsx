@@ -3,6 +3,7 @@ import standartStyles from "@/styles/Styles.module.scss";
 import { TbPencilMinus, TbCheck } from "react-icons/tb";
 import { LuTrash2 } from "react-icons/lu";
 import { useState } from "react";
+import NothingToShow from "@/components/modals/NothingToShow";
 
 export default function AdminTable({tableHeaders, items, crudLink, uniqueField, onUpdateItems, immutableFields }) {
   const [editableRow, setEditableRow] = useState(null);
@@ -46,7 +47,7 @@ export default function AdminTable({tableHeaders, items, crudLink, uniqueField, 
   };
   
   const handleInputChange = (e, itemsUniqueField, field) => {
-    if (immutableFields.includes(field)) return; // Skip if field is immutable
+    if (immutableFields.includes(field)) return;
 
     const updatedItems = items.map((item) => {
       if (item[uniqueField] === itemsUniqueField) {
@@ -58,7 +59,8 @@ export default function AdminTable({tableHeaders, items, crudLink, uniqueField, 
   };
 
   return (
-    <table className={styles.table}>
+    <div className={styles.tableContainer}>
+      <table className={styles.table}>
       <thead>
         <tr>
           <th></th>
@@ -68,7 +70,7 @@ export default function AdminTable({tableHeaders, items, crudLink, uniqueField, 
         </tr>
       </thead>
       <tbody>
-        {items.map((item) => (
+      {items.length > 0 && items.map((item) => (
           <tr key={item[uniqueField]}>
             <td className={styles.buttons}>
               {editableRow === item[uniqueField] ? (
@@ -109,5 +111,7 @@ export default function AdminTable({tableHeaders, items, crudLink, uniqueField, 
         ))}
       </tbody>
     </table>
+    {items.length <= 0 && <NothingToShow imageSource={'images/nothing.png'}/>}
+    </div>
   );
 }

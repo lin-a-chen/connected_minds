@@ -55,7 +55,7 @@ export default function Users() {
       <Search
         className={styles.autocompleteInput}
         dataToSearch={users}
-        searchFields={['username', 'email', 'phone_number']}
+        searchFields={['id', 'username', 'email', 'phone_number']}
         onChange={handleSearchChange}
         placeholder="Шукати користувача..."
       />

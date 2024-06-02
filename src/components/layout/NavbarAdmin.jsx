@@ -24,7 +24,13 @@ const NavbarAdmin = () =>{
                         <Link href="/admin/requests">Заявки</Link>
                     </li>
                     <li>
+                        <Link href="/admin/institutions/pending">НЗ на підтвердженні</Link>
+                    </li>
+                    <li>
                         <Link href="/admin/users">Користувачі</Link>
+                    </li>
+                    <li>
+                        <Link href="/admin/user-roles">Ролі користувачів</Link>
                     </li>
                     <li>
                         <Link href="/admin/institutions">Навчальні заклади</Link>

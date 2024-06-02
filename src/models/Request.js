@@ -23,6 +23,34 @@ class Request{
         }
     }
 
+    static async findById(id){
+        const connection = await connectToAppDatabase();
+        try{
+            const requestData = await connection.query(`SELECT * FROM admin_requests WHERE id=?`, [id]);
+            await connection.end();
+            return {success: true, data: requestData[0][0]};
+        }
+        catch(error){
+            await connection.end();
+            console.error(error);
+            return {success: false, data: error};
+        }
+    }
+
+    static async findByUserId(userId){
+        const connection = await connectToAppDatabase();
+        try{
+            const requestData = await connection.query(`SELECT * FROM admin_requests WHERE user_id=?`, [userId]);
+            await connection.end();
+            return {success: true, data: requestData[0][0]};
+        }
+        catch(error){
+            await connection.end();
+            console.error(error);
+            return {success: false, data: error};
+        }
+    }
+
     static async add(userId, requestType, subject, description, status){
         console.log('userIdmodel', userId);
         const connection = await connectToAppDatabase();
@@ -56,7 +84,37 @@ class Request{
     static async updateStatus(id, status){
         const connection = await connectToAppDatabase();
         try{
+            console.log(id, status)
             const requestData = await connection.query(`UPDATE admin_requests SET status=?, updated_at=? WHERE id=?`, [status, this.getLocalDatetime(), id]);
+            await connection.end();
+            return {success: true, data: requestData[0]};
+        }
+        catch(error){
+            await connection.end();
+            console.error(error);
+            return {success: false, data: error};
+        }
+    }
+
+    static async deleteById(id){
+        const connection = await connectToAppDatabase();
+        try{
+            console.log(id)
+            const requestData = await connection.query(`DELETE FROM admin_requests WHERE id=?`, [id]);
+            await connection.end();
+            return {success: true, data: requestData[0]};
+        }
+        catch(error){
+            await connection.end();
+            console.error(error);
+            return {success: false, data: error};
+        }
+    }
+
+    static async deleteByUserId(userId){
+        const connection = await connectToAppDatabase();
+        try{
+            const requestData = await connection.query(`DELETE FROM admin_requests WHERE user_id=?`, [userId]);
             await connection.end();
             return {success: true, data: requestData[0]};
         }

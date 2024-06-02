@@ -1,0 +1,21 @@
+@import "../../styles/Styles.module.scss";
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    margin: 3% auto;
+
+    & .image{
+        width: 20%;
+        height: 20%;
+
+        & img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+}

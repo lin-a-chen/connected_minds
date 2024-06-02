@@ -11,7 +11,7 @@ export async function GET(req) {
         return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});
       }
       else{
-        return new Response(JSON.stringify({success: false, data: 'No settlements found'}), {status: 500});
+        return new Response(JSON.stringify({success: false, data: 'No institutions found'}), {status: 500});
       }
     }
     catch(error){
@@ -26,7 +26,7 @@ export async function GET(req) {
         return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});
       }
       else{
-        return new Response(JSON.stringify({success: false, data: 'No regions found'}), {status: 500});
+        return new Response(JSON.stringify({success: false, data: 'No institutions found'}), {status: 500});
       }
     }
     catch(error){
@@ -37,8 +37,6 @@ export async function GET(req) {
 
 export const PUT = async (req) => {
   const body = await req.json();
-
-  console.log(body);
 
   try {
       const updateInstitution = await Institution.updateByUseed(body.useed_code,
@@ -58,18 +56,19 @@ export const PUT = async (req) => {
           body.admin_user_id,
       );
       if (updateInstitution.success){
-        return new Response(JSON.stringify({success: true, data: 'Institution has been updated successfully.' }), {
+        return new Response(JSON.stringify({success: true, data: `Institution had been successfully updated` }), {
           status: 201,
           headers: { 'Content-Type': 'application/json' },
-        });
+      });
       }
       else{
-        return new Response(JSON.stringify({success: false, data: "Something went wrong. Could not update the institution." }), {
+        return new Response(JSON.stringify({success: false, data: 'Something went wrong. Institution hasn\'t been updated' }), {
           status: 500,
           headers: { 'Content-Type': 'application/json' },
         });
       }
-      
+
+                
   } catch (error) {
     console.log(error);
     return new Response(JSON.stringify({success: false, data: error }), {
