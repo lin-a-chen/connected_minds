@@ -4,10 +4,13 @@ import { createSession } from "@/lib/session";
 
 export async function POST(request) {
     const body = await request.json();
+    console.log('body', body)
+
     try{
         const result = await User.findByEmail(body.email);
         if (result.success){
-            const user = result.data[0];
+            const user = result.data;
+            const pass = await bcrypt.hash(body.password, 10);
             const isPassCorrect = await bcrypt.compare(body.password, user.password);
             if (isPassCorrect){
                 await createSession(user.id);
@@ -23,6 +26,7 @@ export async function POST(request) {
         }
     }
     catch(error){
+        console.error(error);
       return new Response(JSON.stringify({success: false, data: error}), {status: 500});
     }
 }

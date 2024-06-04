@@ -38,22 +38,38 @@ export const getUser = cache(async () => {
     }
 });
 
-// export const getUserRole = async () => {
+export const getUserRole = async () => {
+  const user = await getUser();
+  if (user){
+    const userRoles = await Role.findByUserId(user.id);
+    const role = await Role.findById(userRoles.data.role_id);
+    return role.data.role_name;
+  }
+  else return null;
+}
+
+// export const checkIfMainAdmin = async () => {
 //   const user = await getUser();
 //   if (user){
-//     const userRoles = await Role.getUserRolesByUserId(user.id);
-//     const role = await Role.findBy(userRoles.data.role_id);
-//     return role.data[0];
+//     const role = await Role.findByName('MAIN_ADMIN');
+//     const userRoleResult = await Role.findById(role.id);
+//     console.log('role', role);
+//     console.log('userRoleResult', userRoleResult);
+
+//     return userRoleResult.data && userRoleResult.data.length > 0 ? true : false;
 //   }
 //   else return null;
 // }
 
-export const checkIfMainAdmin = async () => {
-  const user = await getUser();
-  if (user){
-    const role = await Role.findByName('MAIN_ADMIN');
-    const userRoleResult = await Role.findByIdAndUserId(user.id, role.id);
-    return userRoleResult ? true : false;
-  }
-  else return null;
-}
+// export const checkIfInstitutionAdmin = async () => {
+//   const user = await getUser();
+//   if (user){
+//     const role = await Role.findByName('INSTITUTION_ADMIN');
+//     const userRoleResult = await Role.findById(role.id);
+//     console.log('role', role);
+//     console.log('userRoleResult', userRoleResult);
+
+//     return userRoleResult.data && userRoleResult.data.length > 0 ? true : false;
+//   }
+//   else return null;
+// }

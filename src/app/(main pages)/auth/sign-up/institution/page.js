@@ -201,7 +201,7 @@ export default function InstitutionMultiStepForm() {
             const validateResponse = await fetch(`/api/auth/sign-up/institution/validate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({userEmail: data.email, useedCode: institutionData.useedCode, institutionAdminUserId: institutionData.adminUserId})
+                body: JSON.stringify({userEmail: data.adminUserEmail, useedCode: institutionData.useedCode, institutionAdminUserId: institutionData.adminUserId})
             });
             const validateResult = await validateResponse.json();
             if (!validateResult.success){
@@ -209,7 +209,20 @@ export default function InstitutionMultiStepForm() {
                 toast.error(validateResult.data);
             }
             else{
-                setShowPopup(true);
+                console.log('formdata', data)
+                const response = await fetch(`/api/requests`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (result.success){
+                    setShowPopup(true);
+                }
+                else{
+                    console.error(result.data);
+                    toast.error(result.data);
+                }
             }
         }
 
@@ -428,7 +441,7 @@ export default function InstitutionMultiStepForm() {
                                 />}
                             </div>
                             {
-                                activeTab === steps.length - 1 ? <button type='submit' className={`${multiStepFormStyles.buttonSubmit}`} onClick={handleSubmit(handleSubmition)}>Зареєструвати заклад</button> : null
+                                activeTab === steps.length - 1 ? <button type='submit' className={standartStyles.buttonSubmit} onClick={handleSubmit(handleSubmition)}>Зареєструвати заклад</button> : null
                             }
                     </div>
                 </form>

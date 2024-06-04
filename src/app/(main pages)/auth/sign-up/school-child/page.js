@@ -250,7 +250,7 @@ const sign_up = () => {
                         {errors.institution && <span className={standartStyles.errorMessage}>{errors.institution.message}</span>}
 
                     </fieldset>
-                <button type="submit" onClick={handleSubmit(submitionHandler)}>Зареєструватись</button>
+                <button className={standartStyles.buttonSubmit} type="submit" onClick={handleSubmit(submitionHandler)}>Зареєструватись</button>
             </form> 
         </div>     
     );

@@ -79,7 +79,7 @@ export const AddRole = ({ onClose, isVisible }) => {
                             {errors.useedCode && <span className={standartStyles.errorMessage}>{errors.useedCode.message}</span>}
                         </fieldset>
                     <div className={styles.buttons}>
-                        <button type="submit" onClick={handleSubmit(onSubmit)} label="Увійти">Призначити роль</button>
+                        <button className={standartStyles.buttonSubmit} type="submit" onClick={handleSubmit(onSubmit)} label="Увійти">Призначити роль</button>
                         <button className={styles.cancel} onClick={onClose}>Відхилити</button>
                     </div>
                     </form>

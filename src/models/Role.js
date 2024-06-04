@@ -51,9 +51,9 @@ class Role{
     static async findById(roleId){
         const connection = await connectToAppDatabase();
         try{
-            const roleData = await connection.query(`SELECT * FROM roles WHERE role_id='${roleId}'`);
+            const roleData = await connection.query(`SELECT * FROM roles WHERE id='${roleId}'`);
             await connection.end();
-            return {success: true, data: roleData[0]};
+            return {success: true, data: roleData[0][0]};
         }
         catch(error){
             await connection.end();
@@ -80,6 +80,8 @@ class Role{
         const connection = await connectToAppDatabase();
         try{
             const roleData = await connection.query(`SELECT * FROM user_roles WHERE role_id='${roleId}' AND user_id='${userId}'`);
+            console.log('roledata', roleData)
+
             await connection.end();
             return {success: true, data: roleData[0]};
         }

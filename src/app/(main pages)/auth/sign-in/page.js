@@ -52,7 +52,7 @@ const sign_in = () => {
                     <input defaultValue="12345678" type="password" {...register("password", { required: "Пароль обов'язковий" })}/>
                     {errors.password && <span className={standartStyles.errorMessage}>{errors.password.message}</span>}
                 </fieldset>
-                <button type="submit" onClick={handleSubmit(onSubmit)} label="Увійти">Увійти</button>
+                <button className={standartStyles.buttonSubmit} type="submit" onClick={handleSubmit(onSubmit)} label="Увійти">Увійти</button>
             </form> 
         </div>     
     );

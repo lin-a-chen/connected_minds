@@ -34,8 +34,8 @@ $cl-peach: #FFB887;
 .inputRegular, .selectRegular{
     border: none;
     border: 1px solid gray;
-    width: 100%;
-    max-width: 240px;
+    // width: 100%;
+    // max-width: 240px;
     // min-width: fit-content;
     background-color: transparent;
     padding: 0.6rem;
@@ -122,22 +122,6 @@ $cl-peach: #FFB887;
         margin-top: 2rem;
     }
 
-    & button[type=submit]{
-        background-color: black;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        padding: 16px 16px;
-        max-width: 10rem;
-        margin: 2rem auto 0 auto;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 0.9rem;
-
-        &:hover{
-            background-color: $bg-cherry-blossom;
-        }
-    }
     select option:first-child{
         color: gray;
     }
@@ -176,8 +160,24 @@ $cl-peach: #FFB887;
         color: $cl-sea-salt;
     }
 }
+
+.buttonSubmit {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 16px;
+    max-width: 10rem;
+    margin: 2rem auto 0 auto;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+
+    &:hover{
+        background-color: $bg-cherry-blossom;
+    }
+}
   
-/* Add this to your global CSS or a specific stylesheet */
 .Toastify__toast-container {
-    z-index: 9999; /* Ensure this value is higher than any other z-index in your application */
+    z-index: 9999;
 }
