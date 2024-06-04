@@ -47,29 +47,3 @@ export const getUserRole = async () => {
   }
   else return null;
 }
-
-// export const checkIfMainAdmin = async () => {
-//   const user = await getUser();
-//   if (user){
-//     const role = await Role.findByName('MAIN_ADMIN');
-//     const userRoleResult = await Role.findById(role.id);
-//     console.log('role', role);
-//     console.log('userRoleResult', userRoleResult);
-
-//     return userRoleResult.data && userRoleResult.data.length > 0 ? true : false;
-//   }
-//   else return null;
-// }
-
-// export const checkIfInstitutionAdmin = async () => {
-//   const user = await getUser();
-//   if (user){
-//     const role = await Role.findByName('INSTITUTION_ADMIN');
-//     const userRoleResult = await Role.findById(role.id);
-//     console.log('role', role);
-//     console.log('userRoleResult', userRoleResult);
-
-//     return userRoleResult.data && userRoleResult.data.length > 0 ? true : false;
-//   }
-//   else return null;
-// }

@@ -80,7 +80,6 @@ class Role{
         const connection = await connectToAppDatabase();
         try{
             const roleData = await connection.query(`SELECT * FROM user_roles WHERE role_id='${roleId}' AND user_id='${userId}'`);
-            console.log('roledata', roleData)
 
             await connection.end();
             return {success: true, data: roleData[0]};
@@ -96,7 +95,6 @@ class Role{
         const connection = await connectToAppDatabase();
         try{
             const roleData = await connection.query(`SELECT * FROM user_roles WHERE user_id='${userId}'`);
-            console.log('roleData', roleData);
 
             await connection.end();
             return {success: true, data: roleData[0][0]};
@@ -110,15 +108,12 @@ class Role{
 
     static async assignRoleByUserId(userId, role, useedCode){
         const connection = await connectToAppDatabase();
-        console.log('assignRoleData', userId, role, useedCode)
 
         try{
             const roleIdResult = await connection.query(`SELECT * FROM roles WHERE role_name='${role}'`);
-            console.log('roleIdResult', roleIdResult)
 
             if (roleIdResult){
                 const assignRoleResult = await connection.query(`INSERT INTO user_roles(user_id, role_id, institution_useed_code) values(?, ?, ?)`, [userId, roleIdResult[0][0].id, useedCode]);
-                console.log('assignRoleResult', assignRoleResult)
 
                 if (assignRoleResult){
                     await connection.end();

@@ -38,10 +38,6 @@ export const POST = async (req) => {
                 body.adminUserPassword,
                 user.data.id
             );
-            if (updateInstitution.success){
-                console.log("Updated successfully");
-            }
-
         }
         else{
             console.error('Password is incorrect');
@@ -56,7 +52,7 @@ export const POST = async (req) => {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return new Response(JSON.stringify({success: false, data: error }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },

@@ -18,7 +18,7 @@ export default function LessonForm({ day, onAddLesson }){
 } = useForm({});
 
   const submitLesson = async (data) => {
-    console.log(data);
+    // console.log(data);
   }
 
   return (

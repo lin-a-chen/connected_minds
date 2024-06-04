@@ -25,9 +25,7 @@ export default function AdminTableRequests({tableHeaders, items, crudLink, uniqu
       body: JSON.stringify(item)
     });
     const result = await response.json();
-    if (result.success) {
-      console.log('success');
-    } else {
+    if (!result.success) {
       console.error(result.data);
     }
   };

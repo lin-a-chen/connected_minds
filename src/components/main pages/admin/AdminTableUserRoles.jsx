@@ -7,7 +7,6 @@ export default function AdminTableUserRoles({tableHeaders, items, crudLink, uniq
 
 
   const handleDelete = async (itemsUniqueField) => {
-    console.log('url', `${crudLink}?${uniqueField}=${itemsUniqueField}`)
     const response = await fetch(`${crudLink}?${uniqueField}=${itemsUniqueField}`, {
       method: "DELETE",
       headers: {

@@ -35,7 +35,6 @@ class Settlement{
             await connection.end();
 
             if (result){
-                console.log(result[0]);
                 const settlements = result[0];
 
                 return {success: true, data: settlements};

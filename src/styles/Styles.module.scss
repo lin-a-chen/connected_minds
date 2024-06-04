@@ -62,11 +62,6 @@ $cl-peach: #FFB887;
         width: 100%;
         border: none;
 
-        & > label{
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
         & > div{
             display: flex;
             flex-direction: row;
@@ -77,10 +72,6 @@ $cl-peach: #FFB887;
                 margin-bottom: 0;
             }
 
-            & .icon{
-                margin-right: 0.5rem;
-                margin-bottom: 0;
-            }
             margin-bottom: 0.5rem;
 
         }
@@ -134,13 +125,68 @@ $cl-peach: #FFB887;
     font-weight: 600;
 }
 
+.labelForFormElements{
+    font-size: .9rem;
+    font-weight: 200;
+    color: rgb(55, 55, 55);
+    margin-bottom: 0.5rem;
+}
+
+.icon{
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    margin-bottom: 0;
+    color: $cl-slate-blue;
+}
+
+.radioButtonWithLabelAndIcon{
+    display: flex;
+    color: rgb(55, 55, 55);
+
+    & > div{
+        display: flex;
+        align-items: center;
+        font-size: 1.2rem;
+
+        & > *:last-child{
+            margin-right: .5rem;
+        }
+
+        & input[type="radio"]{
+            width: 1rem;
+            margin-right: 1rem;
+        }
+    }
+    // text-align: left;
+    // margin: 2rem 0 1rem .5rem;
+    // font-weight: 600;
+
+}
+
 .buttonIconNoText{
+    font-size: .9rem;
     padding: .5rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: large;
     background-color: transparent;
+}
+
+.buttonAdd{
+    font-size: .9rem;
+    padding: .5rem;
+    border: 2px solid $bg-slate-blue;
+    color: $cl-slate-blue;
+    width: min-content;
+    margin: 1rem auto;
+
+    &:hover{
+        background-color: $bg-slate-blue;
+        color: $cl-sea-salt;
+    }
 }
 
 .buttonEdit, .buttonSave{

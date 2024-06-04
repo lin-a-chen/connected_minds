@@ -70,7 +70,7 @@ export const PUT = async (req) => {
 
                 
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return new Response(JSON.stringify({success: false, data: error }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
@@ -97,7 +97,7 @@ export const DELETE = async (req) => {
       }
       
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return new Response(JSON.stringify({success: false, data: error }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },

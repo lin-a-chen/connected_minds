@@ -2,7 +2,6 @@ import { sendMail } from "@/lib/mail";
 
 export async function POST(req) {
     const body = await req.json();
-    console.log('body', body);
 
     try {
         await sendMail(body.email, body.heading, body.ifWrongUserMessage, body.text);
@@ -12,7 +11,7 @@ export async function POST(req) {
         });
     }
     catch(error){
-        console.log(error);
+        console.error(error);
         return new Response(JSON.stringify({success: false, data: error }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },

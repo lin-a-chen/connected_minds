@@ -4,7 +4,6 @@ import Request from "@/models/Request";
 export async function GET() {
     try{
         const result = await Institution.findAllPending();
-        console.log(result);
 
         if (result.success){
             return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});
@@ -49,7 +48,7 @@ export const PUT = async (req) => {
   
                   
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return new Response(JSON.stringify({success: false, data: error }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
@@ -74,7 +73,7 @@ export async function DELETE(req) {
 
       if (!deleteRequestResult.success){
         throw new Error('Couldn\'t delete request');
-      }
+      }og
       
       const result = await Institution.deletePendingByUseed(useedCode);
 

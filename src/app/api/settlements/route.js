@@ -21,8 +21,6 @@ export async function GET(req) {
   else{
     try{
       const result = await Settlement.findAllRegions();
-      console.log(result);
-
   
       if (result.success){
         return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});

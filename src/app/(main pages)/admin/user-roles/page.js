@@ -25,7 +25,6 @@ export default function UserRoles() {
       }
 
       const userRolesFormatted = userRolesJoinedResult.data.map(el => {
-          console.log('el', el)
           return {id: el.id, user_id: el.user_id, username: el.username, role_id: el.role_id, role_name: el.role_name, institution_useed_code: el.institution_useed_code, institution_fullname: el.fullname}
       });
 

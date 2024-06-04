@@ -209,7 +209,6 @@ export default function InstitutionMultiStepForm() {
                 toast.error(validateResult.data);
             }
             else{
-                console.log('formdata', data)
                 const response = await fetch(`/api/requests`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

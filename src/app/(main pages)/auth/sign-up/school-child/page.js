@@ -84,7 +84,6 @@ const sign_up = () => {
 
 
     const submitionHandler = async(data) => {
-        // console.log('data', data)
         const response = await fetch('/api/auth/sign-up/school-child', {method: "POST", 
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)

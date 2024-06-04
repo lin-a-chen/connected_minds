@@ -24,67 +24,93 @@ export async function GET() {
 }
 
 export async function POST(req) {
+  const body = await req.json();
     try {
-      const body = await req.json();
-      
-      const user = await User.findByEmail(body.adminUserEmail);
-      if (!user.success) {
-        return new Response(JSON.stringify({ success: false, data: "User does not exist or not found" }), {
-          status: 404,
+      if (body.request_type === 'ADD_INSTITUTION'){      
+        const user = await User.findByEmail(body.adminUserEmail);
+        if (!user.success) {
+          return new Response(JSON.stringify({ success: false, data: "User does not exist or not found" }), {
+            status: 404,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+    
+        const isPassCorrect = await bcrypt.compare(body.adminUserPassword, user.data.password);
+        if (!isPassCorrect) {
+          console.error('Password is incorrect');
+          return new Response(JSON.stringify({ success: false, data: 'Password is incorrect' }), {
+            status: 401,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
+    
+        const adminUserFullname = `${body.lastname} ${body.firstname} ${body.antroponym}`;
+    
+        const institutionAddResult = await Institution.addPending(
+          body.useedCode,
+          body.fullname,
+          body.institutionType,
+          body.shortname,
+          body.ownershipForm,
+          body.coatsuuCode,
+          body.region,
+          body.settlement,
+          body.address,
+          body.governingBodyInChargeOfEducation,
+          body.phoneNumber,
+          body.email,
+          body.website,
+          adminUserFullname,
+          user.data.id
+        );
+    
+        if (!institutionAddResult.success) {
+          throw new Error('Couldn\'t add to pending_institutions');
+        }
+    
+        const requestResult = await Request.add(
+          user.data.id,
+          'ADD_INSTITUTION',
+          'Додавання нового навчального закладу',
+          `Від користувача надійшло прохання про додавання навчального закладу та надання прав адміністратора`,
+          'pending'
+        );
+    
+        if (!requestResult.success) {
+          throw new Error('Couldn\'t add to requests');
+        }
+      }
+      else if (body.request_type === 'ADD_TEACHER'){
+        console.log('reqbody', body)
+
+        const userResult = await User.findByEmail(body.email);
+        if (!userResult.success){
+            return new Response(JSON.stringify({success: false, data: 'Не вдалося перевірити чи користувача було додано'}), {status: 500});
+        }
+       
+        const requestResult = await Request.add(
+          userResult.data.id,
+          'ADD_TEACHER',
+          'Реєстрація викладача',
+          `Від користувача надійшло прохання про рєстрацію вчительского акаунту та надання необхідних прав`,
+          'pending'
+        );
+    
+        if (!requestResult.success) {
+          return new Response(JSON.stringify({success: false, data: 'Не вдалося створити заявку на реєстрацію'}), {status: 500});
+        }
+      }
+      else{
+        return new Response(JSON.stringify({ success: false, data: "Невірний тип запиту" }), {
+          status: 405,
           headers: { 'Content-Type': 'application/json' },
         });
       }
-  
-      const isPassCorrect = await bcrypt.compare(body.adminUserPassword, user.data.password);
-      if (!isPassCorrect) {
-        console.error('Password is incorrect');
-        return new Response(JSON.stringify({ success: false, data: 'Password is incorrect' }), {
-          status: 401,
-          headers: { 'Content-Type': 'application/json' },
-        });
-      }
-  
-      const adminUserFullname = `${body.lastname} ${body.firstname} ${body.antroponym}`;
-  
-      const institutionAddResult = await Institution.addPending(
-        body.useedCode,
-        body.fullname,
-        body.institutionType,
-        body.shortname,
-        body.ownershipForm,
-        body.coatsuuCode,
-        body.region,
-        body.settlement,
-        body.address,
-        body.governingBodyInChargeOfEducation,
-        body.phoneNumber,
-        body.email,
-        body.website,
-        adminUserFullname,
-        user.data.id
-      );
-  
-      if (!institutionAddResult.success) {
-        throw new Error('Couldn\'t add to pending_institutions');
-      }
-  
-      const requestResult = await Request.add(
-        user.data.id,
-        'ADD_INSTITUTION',
-        'Додавання нового навчального закладу',
-        `Від користувача надійшло прохання про додавання навчального закладу та надання прав адміністратора`,
-        'pending'
-      );
-  
-      if (!requestResult.success) {
-        throw new Error('Couldn\'t add to requests');
-      }
-  
+
       return new Response(JSON.stringify({ success: true, data: 'Request added successfully' }), {
         status: 201,
         headers: { 'Content-Type': 'application/json' },
       });
-  
     } catch (error) {
       console.error(error.message);
       return new Response(JSON.stringify({ success: false, data: error.message }), {
@@ -109,7 +135,7 @@ export async function PUT(req) {
         });
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return new Response(JSON.stringify({success: false, data: error }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
@@ -130,7 +156,7 @@ export async function PATCH(req) {
         }
         
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return new Response(JSON.stringify({success: false, data: error }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
@@ -139,11 +165,9 @@ export async function PATCH(req) {
 }
 
 const handleAddInstitutionRequests = async (body) => {
-    console.log('body', body);  
   try {
       if (body.status === 'approved') {
         const pendingInstitutionResult = await Institution.findPendingByUserId(body.user_id);
-        console.log('pendingInstitutionResult', pendingInstitutionResult)
   
         if (!pendingInstitutionResult || !pendingInstitutionResult.data) {
           throw new Error('Pending institution not found for the user');
@@ -167,8 +191,6 @@ const handleAddInstitutionRequests = async (body) => {
           pendingInstitutionResult.data.admin_user_id
         );
 
-        console.log('updatedInstitutionResult', updatedInstitutionResult)
-
   
         if (!updatedInstitutionResult.success) {
           throw new Error('Could not update institution before deleting pending');
@@ -176,29 +198,20 @@ const handleAddInstitutionRequests = async (body) => {
   
         const deletePendingInstitutionResult = await Institution.deletePendingByUseed(pendingInstitutionResult.data.useed_code);
 
-        console.log('deletePendingInstitutionResult', deletePendingInstitutionResult)
-
         if (!deletePendingInstitutionResult) {
           throw new Error('Could not delete pending institution');
         }
   
         const userId = pendingInstitutionResult.data.admin_user_id;
 
-        console.log('userId', userId)
-
         const roleName = 'INSTITUTION_ADMIN';
         const assignUserRoleResult = await Role.assignRoleByUserId(userId, roleName, pendingInstitutionResult.data.useed_code);
-
-        console.log('assignUserRoleResult', assignUserRoleResult)
-
   
         if (!assignUserRoleResult.success) {
           throw new Error('Could not assign role to a user');
         }
   
         const updateRequestResult = await Request.updateStatus(body.id, body.status);
-
-        console.log('updateRequestResult', updateRequestResult)
   
         if (!updateRequestResult.success) {
           throw new Error('Could not update request');

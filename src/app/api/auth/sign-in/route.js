@@ -4,7 +4,6 @@ import { createSession } from "@/lib/session";
 
 export async function POST(request) {
     const body = await request.json();
-    console.log('body', body)
 
     try{
         const result = await User.findByEmail(body.email);

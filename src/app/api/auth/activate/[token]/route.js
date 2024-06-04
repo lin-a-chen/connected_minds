@@ -15,7 +15,6 @@ export async function GET(req) {
         else{
             const activatedUser = await User.activateAccountById(user.data.id);
             if (activatedUser){
-                console.log('activatedUser', activatedUser)
     
                 return new Response(JSON.stringify({ success: true, data: 'Account has been activated.' }), {
                     status: 200,
@@ -31,7 +30,7 @@ export async function GET(req) {
         }        
     }
     catch(error){
-        console.log(error);
+        console.error(error);
         return new Response(JSON.stringify({ sucess: false, data: error }), {
             status: 500,
             headers: { 'Content-Type': 'application/json' },

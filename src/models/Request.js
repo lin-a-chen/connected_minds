@@ -52,7 +52,6 @@ class Request{
     }
 
     static async add(userId, requestType, subject, description, status){
-        console.log('userIdmodel', userId);
         const connection = await connectToAppDatabase();
         try{
             const requestData = await connection.query(`INSERT INTO admin_requests(user_id, request_type, subject, description, status, created_at, updated_at) ` + 
@@ -84,7 +83,6 @@ class Request{
     static async updateStatus(id, status){
         const connection = await connectToAppDatabase();
         try{
-            console.log(id, status)
             const requestData = await connection.query(`UPDATE admin_requests SET status=?, updated_at=? WHERE id=?`, [status, this.getLocalDatetime(), id]);
             await connection.end();
             return {success: true, data: requestData[0]};
@@ -99,7 +97,6 @@ class Request{
     static async deleteById(id){
         const connection = await connectToAppDatabase();
         try{
-            console.log(id)
             const requestData = await connection.query(`DELETE FROM admin_requests WHERE id=?`, [id]);
             await connection.end();
             return {success: true, data: requestData[0]};

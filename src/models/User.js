@@ -136,7 +136,6 @@ class User{
         try{        
             const sql = `UPDATE users SET username=?, email=?, phone_number=?, password=?, is_activated=?, email_token=?, email_token_expires_at=?
             WHERE id=?;`;
-            console.log('sql', sql);
             const result = await connection.query(sql, [username, email, phoneNumber, password, isActivated, createdAt, emailToken, emailTokenExpiresAt, userId]);
 
             const affectedRows = result[0].affectedRows;
@@ -163,7 +162,6 @@ class User{
         try{        
             const sql = `UPDATE users SET ?
             WHERE user_id=?;`;
-            console.log('sql', sql);
             const result = await connection.query(sql, [firstname, lastname, antroponym, username, email, phoneNumber, region, settlement, district, address, userId]);
 
             const affectedRows = result[0].affectedRows;

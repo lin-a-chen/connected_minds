@@ -7,7 +7,6 @@ const NavbarAuthed = () =>{
 
     const signOutHandler = async () => {
         const response = await fetch(`/api/auth/sign-out`, {method: "DELETE"});
-        console.log('resuuult', response)
 
         const result = await response.json();
         if (result.success) {

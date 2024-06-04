@@ -61,8 +61,6 @@ class Institution{
             const result = await connection.query(sql, [useed]);
             await connection.end();
 
-            console.log('reserel', result)
-
             if (result){
                 const institution = result[0];
                 return {success: true, data: institution[0]};
@@ -326,7 +324,6 @@ class Institution{
         adminUserId
       ) {
         const connection = await connectToAppDatabase();
-        console.log('adminUserId', adminUserId)
 
         try{
             const sql = `INSERT INTO pending_institutions(fullname, useed_code, ` +
@@ -341,7 +338,6 @@ class Institution{
             await connection.end();
 
             if (result){
-                console.log(result[0].info);
                 if (result[0].affectedRows){
                     return {success: true, data: result[0]};
                 }
@@ -373,8 +369,6 @@ class Institution{
             await connection.end();
 
             if (result){
-                console.log('result', user_id);
-
                 const institutions = result[0][0];
                 return {success: true, data: institutions};
             }

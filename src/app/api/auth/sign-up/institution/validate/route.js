@@ -22,18 +22,11 @@ export async function POST(req) {
             return new Response(JSON.stringify({success: false, data: 'Не вийшло перевірити, чи в користувача вже є роль'}), {status: 500});
         }
 
-        console.log('userRolesResult', userRolesResult);
-
-
         if (userRolesResult.data && userRolesResult.data.user_id !== ''){
             return new Response(JSON.stringify({success: false, data: 'Цей акаунт вже зайнятий іншою роллю і не може бути адміністратором'}), {status: 500});
         }
 
-        console.log('userResult.data.user_id', userResult.data.user_id);
-
-
         const requestResult = await Request.findByUserId(body.institutionAdminUserId);
-        console.log('requestResult', requestResult);
 
         if (!requestResult.success){
             return new Response(JSON.stringify({success: false, data: 'Не вийшло перевірити чи у вас вже є заявки'}), {status: 500});

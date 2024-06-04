@@ -18,7 +18,6 @@ export async function GET(req) {
         }
         else if(userId){
             const result = await User.findById(userId);
-            console.log('ress', result)
             if (result.success){
                 return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});
             }
