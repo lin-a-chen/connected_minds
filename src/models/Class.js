@@ -1,0 +1,75 @@
+import { connectToAppDatabase } from "@/lib/db";
+import {v4 as uuidv4} from "uuid";
+
+class Class {
+	static generateUUID = () => {
+		return uuidv4();
+	};
+	static async findAll() {
+		const connection = await connectToAppDatabase();
+		try {
+			const result = await connection.query(`SELECT * FROM classes`);
+			await connection.end();
+			return { success: true, data: result[0] };
+		} catch (error) {
+			await connection.end();
+			console.error(error);
+			return { success: false, data: error };
+		}
+	}
+
+	static async add(name) {
+		const connection = await connectToAppDatabase();
+		const id = this.generateUUID();
+		try {
+			const result = await connection.query(`INSERT INTO classes(id, name) VALUES(?, ?)`, [id, name]);
+			await connection.end();
+			return { success: true, data: result[0] };
+		} catch (error) {
+			await connection.end();
+			console.error(error);
+			return { success: false, data: error };
+		}
+	}
+
+	static async findByName(name){
+		const connection = await connectToAppDatabase();
+		try {
+			const result = await connection.query(`SELECT * FROM classes WHERE name=?`, [name]);
+			await connection.end();
+			return { success: true, data: result[0][0] };
+		} catch (error) {
+			await connection.end();
+			console.error(error);
+			return { success: false, data: error };
+		}
+	}
+
+    static async updateById(id, name){
+		const connection = await connectToAppDatabase();
+		try {
+			const result = await connection.query(`UPDATE classes SET name=? WHERE id=?`, [name, id]);
+			await connection.end();
+			return { success: true, data: result[0][0] };
+		} catch (error) {
+			await connection.end();
+			console.error(error);
+			return { success: false, data: error };
+		}
+	}
+
+	static async deleteById(id){
+		const connection = await connectToAppDatabase();
+		try {
+			const result = await connection.query(`DELETE FROM classes WHERE id=?`, [id]);
+			await connection.end();
+			return { success: true, data: result[0] };
+		} catch (error) {
+			await connection.end();
+			console.error(error);
+			return { success: false, data: error };
+		}
+	}
+}
+
+module.exports = Class;

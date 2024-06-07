@@ -1,0 +1,229 @@
+$bg-main-sea-salt: #f8fbfb;
+$cl-sea-salt: #f8fbfb;
+$bg-alice-blue: #ECF6FF;
+$cl-alice-blue: #ECF6FF;
+$bg-columbia-blue: #C6EDFF;
+$bg-wisteria: #BFA7F0;
+$cl-wisteria: #BFA7F0;
+$bg-slate-blue: #7766C6;
+$cl-slate-blue: #7766C6;
+$cl-accent-chrysler-blue: #4c2cb6;
+$bg-accent-chrysler-blue: #4c2cb6;
+$bg-marian-blue: #46467A;
+$cl-marian-blue: #46467A;
+$cl-accent-rose-red: #cb2655;
+$bg-accent-rose-red: #cb2655;
+$bg-cherry-blossom: #f9b0c3;
+$cl-cherry-blossom: #f9b0c3;
+$bg-peach: #FFB887;
+$cl-peach: #FFB887;
+
+.buttonRegular{
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 16px;
+    max-width: 10rem;
+    cursor: pointer;
+    &:hover{
+        background-color: $bg-cherry-blossom;
+    }
+}
+
+.inputRegular, .selectRegular{
+    border: none;
+    border: 1px solid gray;
+    // width: 100%;
+    // max-width: 240px;
+    // min-width: fit-content;
+    background-color: transparent;
+    padding: 0.6rem;
+    border-radius: 5px;
+}
+
+.selectRegular option:first-child {
+    color: #999;
+}
+
+.form{
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-content: center;
+
+    & fieldset{
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        align-content: center;
+        margin: 0.5rem auto;
+        width: 100%;
+        border: none;
+
+        & > div{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 0;
+
+            & > *{
+                margin-bottom: 0;
+            }
+
+            margin-bottom: 0.5rem;
+
+        }
+
+        & span{
+            color: gray;
+            margin-top: 0.5rem;
+        }
+
+        & input:has(+select){
+            width: 2rem;
+        }
+
+        & input, & select{
+            padding: 0.6rem;
+            border-radius: 5px;
+            box-shadow: none;
+            background-color: transparent;
+            border: 1px solid gray;
+            width: 100%;
+            max-width: 240px;
+        }
+
+        & span{
+            color: gray;
+            margin-top: 0.5rem;
+        }
+
+        & input:has(+select){
+            width: 2rem;
+        }
+
+        & label{
+            text-align: left;
+        }
+    }
+
+    & h3{
+        margin-top: 2rem;
+    }
+
+    select option:first-child{
+        color: gray;
+    }
+}
+
+.labelTitle{
+    color: rgb(55, 55, 55);
+    text-align: left;
+    margin: 2rem 0 1rem .5rem;
+    font-weight: 600;
+}
+
+.labelForFormElements{
+    font-size: .9rem;
+    font-weight: 200;
+    color: rgb(55, 55, 55);
+    margin-bottom: 0.5rem;
+}
+
+.icon{
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    margin-bottom: 0;
+    color: $cl-slate-blue;
+}
+
+.radioButtonWithLabelAndIcon{
+    display: flex;
+    color: rgb(55, 55, 55);
+
+    & > div{
+        display: flex;
+        align-items: center;
+        font-size: 1.2rem;
+
+        & > *:last-child{
+            margin-right: .5rem;
+        }
+
+        & input[type="radio"]{
+            width: 1rem;
+            margin-right: 1rem;
+        }
+    }
+    // text-align: left;
+    // margin: 2rem 0 1rem .5rem;
+    // font-weight: 600;
+
+}
+
+.buttonIconNoText{
+    font-size: .9rem;
+    padding: .5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: large;
+    background-color: transparent;
+}
+
+.buttonAdd{
+    font-size: .9rem;
+    padding: .5rem;
+    border: 2px solid $bg-slate-blue;
+    color: $cl-slate-blue;
+    width: min-content;
+    margin: 1rem auto;
+
+    &:hover{
+        background-color: $bg-slate-blue;
+        color: $cl-sea-salt;
+    }
+}
+
+.buttonEdit, .buttonSave{
+    color: $cl-accent-chrysler-blue;
+
+    &:hover{
+        background-color: $bg-accent-chrysler-blue;
+        color: $cl-sea-salt;
+    }
+}
+  
+.buttonDelete{
+    color: $cl-accent-rose-red;
+
+    &:hover{
+        background-color: $bg-accent-rose-red;
+        color: $cl-sea-salt;
+    }
+}
+
+.buttonSubmit {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 16px;
+    max-width: 10rem;
+    margin: 2rem auto 0 auto;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+
+    &:hover{
+        background-color: $bg-cherry-blossom;
+    }
+}
+  
+.Toastify__toast-container {
+    z-index: 9999;
+}

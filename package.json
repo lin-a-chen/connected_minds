@@ -9,9 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "jose": "^5.4.0",
+    "moment": "^2.30.1",
+    "mysql2": "^3.10.0",
+    "next": "14.2.3",
+    "nodemailer": "^6.9.13",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.3"
+    "react-hook-form": "^7.51.5",
+    "react-toastify": "^10.0.5",
+    "sass": "^1.77.4",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "eslint": "^8",

@@ -1,0 +1,63 @@
+@import "../../styles/Styles.module.scss";
+
+.pagination{
+    display: flex;
+    align-items: center;
+    margin: 1rem auto;
+    & > * {
+        color: $cl-marian-blue;
+    }
+
+
+    .buttonPrev, .buttonNext{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $bg-alice-blue;
+        font-weight: 600;
+        font-family: "Evolventa";
+        font-size: 1rem;
+        border-radius: 5px;
+        padding: .2rem .5rem;
+        cursor: pointer;
+        border: none;
+
+        &:disabled{
+            background-color: rgb(240, 240, 240);
+            color: gray;
+
+            &:hover{
+                background-color: rgb(240, 240, 240);
+                color: gray;
+            }
+        }
+
+        &:hover{
+            & > *{
+                transform: scale(1.2);
+                color: $cl-accent-chrysler-blue;
+            }
+        }
+    }
+
+    .pageNumber{
+        background: $bg-main-sea-salt;
+        border: none;
+        font-family: "Evolventa";
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 0 .5rem;
+        cursor: pointer;
+        color: #8181b9;
+
+        &:hover{
+            color: $cl-accent-chrysler-blue;
+            text-decoration: underline;
+        }
+    }
+
+    .currentPage{
+        color: $cl-accent-chrysler-blue;
+        text-decoration: underline;
+    }
+}
