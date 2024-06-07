@@ -9,10 +9,6 @@ export async function POST(request) {
         const result = await User.findByEmail(body.email);
         if (result.success){
             const user = result.data;
-<<<<<<< HEAD
-=======
-            const pass = await bcrypt.hash(body.password, 10);
->>>>>>> 077c56bd1f32ec2c94d315b2be8370a3050c49a4
             const isPassCorrect = await bcrypt.compare(body.password, user.password);
             if (isPassCorrect){
                 await createSession(user.id);

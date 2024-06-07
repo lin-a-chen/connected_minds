@@ -19,15 +19,9 @@ const NavbarAdmin = () =>{
             <div className={styles.logo}><Link href="/">ConnectedMinds</Link></div>
             <nav className={styles.navbarUnauthed}>
                 <ul>
-<<<<<<< HEAD
                     <li>
                         <Link href="/admin/institution/schoolchildren">Учні</Link>
                     </li>
-=======
-                    {/* <li>
-                        <Link href="/admin/requests">Заявки</Link>
-                    </li> */}
->>>>>>> 077c56bd1f32ec2c94d315b2be8370a3050c49a4
                     <li>
                         <Link href="/admin/institution/teachers">Вчителі</Link>
                     </li>
