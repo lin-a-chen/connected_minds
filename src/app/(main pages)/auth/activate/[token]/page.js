@@ -28,7 +28,11 @@ export default function Activate(){
         const currentUrl = window.location.href;
         const url = new URL(currentUrl);
         const pathname = url.pathname;
+<<<<<<< HEAD
         const userEmailToken = pathname.split('/')[pathname.split('/').length - 1];
+=======
+        // const userEmailToken = pathname.split('/')[pathname.split('/').length - 1];
+>>>>>>> 077c56bd1f32ec2c94d315b2be8370a3050c49a4
 
         const fetchUser = async() => {
             

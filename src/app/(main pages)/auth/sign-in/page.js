@@ -1,13 +1,22 @@
 'use client'
+<<<<<<< HEAD
 import authStyles from "@/styles/main pages/Auth.module.scss";
+=======
+import authStyles from "@/styles/main pages/auth/Auth.module.scss";
+>>>>>>> 077c56bd1f32ec2c94d315b2be8370a3050c49a4
 import { useForm } from "react-hook-form";
 import { TbMail, TbPasswordUser} from "react-icons/tb";
 import Link from "next/link";
 import standartStyles from '@/styles/Styles.module.scss';
 
+<<<<<<< HEAD
 const signIn = () => {
     const onSubmit = async(data) => {       
         console.log('hi'); 
+=======
+const sign_in = () => {
+    const onSubmit = async(data) => {        
+>>>>>>> 077c56bd1f32ec2c94d315b2be8370a3050c49a4
         const response = await fetch('/api/auth/sign-in', {method: "POST", 
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data)
@@ -59,4 +68,8 @@ const signIn = () => {
     );
 }
 
+<<<<<<< HEAD
 export default signIn;
+=======
+export default sign_in;
+>>>>>>> 077c56bd1f32ec2c94d315b2be8370a3050c49a4

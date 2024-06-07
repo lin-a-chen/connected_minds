@@ -1,8 +1,9 @@
 'use client'
-import styles from "@/styles/layout/NavbarUnauthed.module.scss";
+import styles from "../../styles/layout/NavbarUnauthed.module.scss";
 import Link from 'next/link';
+// import { redirect } from "next/navigation";
 
-const NavbarAdmin = () =>{
+const NavbarAuthed = () =>{
 
     const signOutHandler = async () => {
         const response = await fetch(`/api/auth/sign-out`, {method: "DELETE"});
@@ -19,26 +20,11 @@ const NavbarAdmin = () =>{
             <div className={styles.logo}><Link href="/">ConnectedMinds</Link></div>
             <nav className={styles.navbarUnauthed}>
                 <ul>
-<<<<<<< HEAD
                     <li>
-                        <Link href="/admin/institution/schoolchildren">Учні</Link>
-                    </li>
-=======
-                    {/* <li>
-                        <Link href="/admin/requests">Заявки</Link>
-                    </li> */}
->>>>>>> 077c56bd1f32ec2c94d315b2be8370a3050c49a4
-                    <li>
-                        <Link href="/admin/institution/teachers">Вчителі</Link>
+                        <Link href="/profile">Профіль</Link>
                     </li>
                     <li>
-                        <Link href="/admin/institution/classes">Класи</Link>
-                    </li>
-                    <li>
-                        <Link href="/admin/institution/schedule">Розклад</Link>
-                    </li>
-                    <li>
-                        <Link href="/admin/institution/subjects">Предмети</Link>
+                        <Link href="/contacts">Чати</Link>
                     </li>
                     <li>
                         <input type="button" onClick={signOutHandler} value="Вийти"/>
@@ -50,4 +36,4 @@ const NavbarAdmin = () =>{
     );
 }
 
-export default NavbarAdmin;
+export default NavbarAuthed;
