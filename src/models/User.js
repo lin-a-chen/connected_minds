@@ -115,7 +115,7 @@ class User {
 		tokenExpiresAt.setHours(tokenExpiresAt.getHours() + 24);
 		const formattedExpirationDate = this.formatDateToMySQL(tokenExpiresAt);
 		try {
-			const sql = `INSERT INTO users(id, email, phone_number, password, created_at, email_token, email_token_expires_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?)`;
+			const sql = `INSERT INTO users(id, email, phone_number, password, created_at, email_token, email_token_expires_at) VALUES(?, ?, ?, ?, ?, ?, ?)`;
 			const result = await connection.query(sql, [
 				userId,
 				email,

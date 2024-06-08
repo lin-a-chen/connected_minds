@@ -1,4 +1,4 @@
-@import "../../../../../styles//Styles.module.scss";
+@import "../../../styles/Styles.module.scss";
 
 .classesPage{
     display: flex;
@@ -10,7 +10,7 @@
         margin: 5% auto;
         width: 60%;
         display: flex;
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
     
         .column0{
             display: flex;
@@ -23,6 +23,26 @@
             flex-direction: column;
             width: 100%;
             height: 100%;
+        }
+
+        .teacherLine{
+            font-family: "Evolventa";
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            & svg{
+                color: $cl-slate-blue;
+            }
+            & span{
+                margin-left: .5rem;
+                color: $cl-slate-blue;
+
+                & a{
+                    color: rgb(33, 18, 71);
+                    // text-decoration: dashed;
+                    margin-left: .5rem;
+                }
+            }
         }
     
         & .class {

@@ -8,9 +8,10 @@ class Class {
 	static async findAll() {
 		const connection = await connectToAppDatabase();
 		try {
-			const result = await connection.query(`SELECT classes.*, teachers.*
+			const result = await connection.query(`SELECT classes.*, teachers.id as teacher_id, teachers.firstname, teachers.lastname, teachers.antroponym
 			FROM classes
 			INNER JOIN teachers ON classes.teacher_id = teachers.id`);
+			// const result = await connection.query(`SELECT *	FROM classes`);
 			await connection.end();
 			return { success: true, data: result[0] };
 		} catch (error) {
@@ -89,6 +90,8 @@ class Class {
 	}
 
 	static async deleteById(id){
+		console.log('deleted!');
+		console.log('delete id', id)
 		const connection = await connectToAppDatabase();
 		try {
 			const result = await connection.query(`DELETE FROM classes WHERE id=?`, [id]);

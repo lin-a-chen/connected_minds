@@ -5,6 +5,7 @@ import { getInstitutionUseedCode, getUser, getUserRole } from "@/lib/dal";
 import "@/styles/fonts.module.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NavbarTeacher from "@/components/layout/NavbarTeacher";
 
 export default async function RootLayout({ children  }) {
   const user = await getUser();
@@ -16,6 +17,8 @@ export default async function RootLayout({ children  }) {
         {!user && <NavbarUnauthed />}
         {user && user.is_activated && userRole === 'MAIN_ADMIN' && <NavbarAdmin/>}
         {user && user.is_activated && userRole === 'INSTITUTION_ADMIN' && <NavbarInstitutionAdmin/>}
+        {user && user.is_activated && userRole === 'TEACHER' && <NavbarTeacher/>}
+
           {children}
         <ToastContainer
             position="top-right"

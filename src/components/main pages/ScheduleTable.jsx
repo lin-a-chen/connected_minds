@@ -3,7 +3,7 @@ import Lesson from './Lesson';
 import styles from './ScheduleTable.module.scss';
 import Loading from '../modals/Loading';
 
-const ScheduleTable = ({ day, lessons, onUpdateLesson, onDeleteLesson }) => {
+const ScheduleTable = ({ day, lessons, onUpdateLesson, onDeleteLesson, userRole }) => {
 
   const hasNullOrUndefinedProperties = (obj) => {
     for (let key in obj) {
@@ -23,6 +23,7 @@ const ScheduleTable = ({ day, lessons, onUpdateLesson, onDeleteLesson }) => {
               lesson={lesson}
               onUpdate={onUpdateLesson}
               onDelete={() => onDeleteLesson(day, index)}
+              userRole={userRole}
             />
           ) : null
         )

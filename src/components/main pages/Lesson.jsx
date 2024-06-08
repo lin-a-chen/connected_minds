@@ -9,7 +9,7 @@ import AutocompleteInput from "../UI/AutocompleteInput";
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "react-toastify";
 
-export default function Lesson({ lesson, onUpdate, onDelete }) {
+export default function Lesson({ lesson, onUpdate, onDelete, userRole }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedLesson, setEditedLesson] = useState(lesson);
 	const [subjects, setSubjects] = useState([]);
@@ -29,7 +29,6 @@ export default function Lesson({ lesson, onUpdate, onDelete }) {
 	};
 
 	const handleSave = () => {
-		// onUpdate(editedLesson);
 		setIsEditing(false);
 		onUpdate();
 	};
@@ -110,7 +109,7 @@ export default function Lesson({ lesson, onUpdate, onDelete }) {
 		<form
 			onSubmit={handleSubmit(submitionHandler)}
 			className={styles.lessonRow}>
-			{isEditing ? (
+			{isEditing && userRole=== 'INSTITUTION_ADMIN' ? (
 				<>
 					<fieldset className={styles.subjectTime}>
 						<input
@@ -234,16 +233,16 @@ export default function Lesson({ lesson, onUpdate, onDelete }) {
 						</div>
 					</fieldset>
 					<fieldset>
-						<button
+						{userRole=== 'INSTITUTION_ADMIN' && <button
 							className={`${standartStyles.buttonEdit} ${standartStyles.buttonIconNoText}`}
 							onClick={handleEdit}>
 							<TbPencilMinus />
-						</button>
-						<button
+						</button>}
+						{userRole=== 'INSTITUTION_ADMIN' && <button
 							className={`${standartStyles.buttonDelete} ${standartStyles.buttonIconNoText}`}
 							onClick={handleDelete}>
 							<LuTrash2 />
-						</button>
+						</button>}
 					</fieldset>
 				</>
 			)}

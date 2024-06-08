@@ -8,6 +8,7 @@ export async function GET(req) {
 
     const {searchParams} = new URL(req.url);
     const id = searchParams.get("id");
+    const name = searchParams.get("class");
 
     try{
         if (id){
@@ -20,8 +21,20 @@ export async function GET(req) {
                 return new Response(JSON.stringify({success: false, data: 'No classes found'}), {status: 500});
             }
         }
+        else if (name){
+            const result = await Class.findByName(name);
+
+            if (result.success){
+                return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});
+            }
+            else{
+                return new Response(JSON.stringify({success: false, data: 'No classes found'}), {status: 500});
+            }
+        }
         else{
             const result = await Class.findAll();
+
+            console.log('class res', result)
 
             if (result.success){
                 return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});

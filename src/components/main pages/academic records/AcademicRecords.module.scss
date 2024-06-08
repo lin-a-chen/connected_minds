@@ -1,0 +1,169 @@
+@import "../../../styles//Styles.module.scss";
+
+.page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        width: 40%;
+        margin: 2% 10%;
+
+        & label {
+            color: #7766C6;
+            font-weight: 600;
+            font-family: "Evolventa";
+            font-size: 1.1rem;
+        }
+
+        &>div:last-child {
+            width: 10rem;
+        }
+    }
+
+    .navigation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .tableContainerAndArrows {
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        & .buttonArrow {
+            padding: 1rem;
+            border-radius: 100%;
+            border: none;
+            background-color: $bg-main-sea-salt;
+            color: $bg-peach;
+            font-weight: 600;
+            font-size: 2rem;
+            cursor: pointer;
+
+            &:hover {
+                color: peachpuff;
+            }
+
+            &:disabled {
+                background-color: #cccccc;
+                cursor: not-allowed;
+            }
+
+            &:first-child {
+                margin-left: auto;
+            }
+
+            &:last-child {
+                margin-right: auto;
+            }
+        }
+
+        .tableContainer {
+            width: 80%;
+            max-width: 80%;
+            max-height: 70vh;
+            height: 100%;
+            overflow: auto;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+
+            & .tableHeaders {
+                border-radius: 15px;
+                display: flex;
+                background-color: $bg-columbia-blue;
+                height: 3rem;
+                margin-bottom: 2rem;
+                color: rgb(27, 68, 139);
+                font-weight: 600;
+                font-family: Evolventa;
+                text-align: center;
+
+                & div{
+                    padding: 1rem;
+                }
+
+                & div:first-child {
+                    width: 10rem;
+                }
+
+                & div:last-child {
+                    width: 100%;
+                }
+            }
+
+            & table {
+                border-collapse: collapse;
+                height: 100%;
+                width: 100%;
+
+
+                & tbody {
+
+                    & tr td {
+                        border: 1px solid $bg-columbia-blue;
+                        text-align: center;
+                        padding: .5rem;
+                        font-family: "Arial";
+                        font-size: .95rem;
+
+                        &:first-child {
+                            border-top: none;
+                            border-bottom: none;
+                            color: rgb(27, 68, 139);
+                            font-size: 1rem;
+                            font-weight: 500;
+
+                            position: sticky;
+                            left: 0;
+                            z-index: 1;
+                            background-color: $bg-main-sea-salt;
+
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                        }
+
+                        &:not(&:first-child) {
+                            padding: 0 .5rem;
+                            width: 1.5rem;
+                        }
+                    }
+
+                    & tr:first-child td {
+                        padding: 1rem 0;
+                        border-top: 1px solid $bg-columbia-blue;
+                        position: sticky;
+                        top: 0;
+                        z-index: 15;
+                        background-color: $bg-main-sea-salt;
+                    }
+
+                    & tr:last-child td {
+                        border-bottom: 1px solid $bg-columbia-blue;
+                    }
+
+                    & tr:not(& tr:first-child):hover {
+                        td {
+                            cursor: pointer;
+                            background-color: rgb(255, 236, 220);
+
+                            &:hover {
+                                background-color: peachpuff;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+    }
+}

@@ -18,7 +18,7 @@ $cl-cherry-blossom: #f9b0c3;
 $bg-peach: #FFB887;
 $cl-peach: #FFB887;
 
-.buttonRegular{
+.buttonRegular {
     background-color: black;
     color: white;
     border: none;
@@ -26,12 +26,14 @@ $cl-peach: #FFB887;
     padding: 16px 16px;
     max-width: 10rem;
     cursor: pointer;
-    &:hover{
+
+    &:hover {
         background-color: $bg-cherry-blossom;
     }
 }
 
-.inputRegular, .selectRegular{
+.inputRegular,
+.selectRegular {
     border: none;
     border: 1px solid gray;
     // width: 100%;
@@ -46,14 +48,14 @@ $cl-peach: #FFB887;
     color: #999;
 }
 
-.form{
+.form {
     font-size: 0.8rem;
     display: flex;
     flex-direction: column;
     justify-content: left;
     align-content: center;
 
-    & fieldset{
+    & fieldset {
         display: flex;
         flex-direction: column;
         justify-content: left;
@@ -62,13 +64,13 @@ $cl-peach: #FFB887;
         width: 100%;
         border: none;
 
-        & > div{
+        &>div {
             display: flex;
             flex-direction: row;
             align-items: center;
             margin-bottom: 0;
 
-            & > *{
+            &>* {
                 margin-bottom: 0;
             }
 
@@ -76,16 +78,17 @@ $cl-peach: #FFB887;
 
         }
 
-        & span{
+        & span {
             color: gray;
             margin-top: 0.5rem;
         }
 
-        & input:has(+select){
+        & input:has(+select) {
             width: 2rem;
         }
 
-        & input, & select{
+        & input,
+        & select {
             padding: 0.6rem;
             border-radius: 5px;
             box-shadow: none;
@@ -95,44 +98,44 @@ $cl-peach: #FFB887;
             max-width: 240px;
         }
 
-        & span{
+        & span {
             color: gray;
             margin-top: 0.5rem;
         }
 
-        & input:has(+select){
+        & input:has(+select) {
             width: 2rem;
         }
 
-        & label{
+        & label {
             text-align: left;
         }
     }
 
-    & h3{
+    & h3 {
         margin-top: 2rem;
     }
 
-    select option:first-child{
+    select option:first-child {
         color: gray;
     }
 }
 
-.labelTitle{
+.labelTitle {
     color: rgb(55, 55, 55);
     text-align: left;
     margin: 2rem 0 1rem .5rem;
     font-weight: 600;
 }
 
-.labelForFormElements{
+.labelForFormElements {
     font-size: .9rem;
     font-weight: 200;
     color: rgb(55, 55, 55);
     margin-bottom: 0.5rem;
 }
 
-.icon{
+.icon {
     display: flex;
     align-items: center;
     font-size: 1.2rem;
@@ -141,31 +144,28 @@ $cl-peach: #FFB887;
     color: $cl-slate-blue;
 }
 
-.radioButtonWithLabelAndIcon{
+.radioButtonWithLabelAndIcon {
     display: flex;
     color: rgb(55, 55, 55);
 
-    & > div{
+    &>div {
         display: flex;
         align-items: center;
         font-size: 1.2rem;
 
-        & > *:last-child{
+        &>*:last-child {
             margin-right: .5rem;
         }
 
-        & input[type="radio"]{
+        & input[type="radio"] {
             width: 1rem;
             margin-right: 1rem;
         }
     }
-    // text-align: left;
-    // margin: 2rem 0 1rem .5rem;
-    // font-weight: 600;
 
 }
 
-.buttonIconNoText{
+.buttonIconNoText {
     font-size: .9rem;
     padding: .5rem;
     border: none;
@@ -175,7 +175,7 @@ $cl-peach: #FFB887;
     background-color: transparent;
 }
 
-.buttonAdd{
+.buttonAdd {
     font-size: .9rem;
     padding: .5rem;
     border: 2px solid $bg-slate-blue;
@@ -183,25 +183,26 @@ $cl-peach: #FFB887;
     width: min-content;
     margin: 1rem auto;
 
-    &:hover{
+    &:hover {
         background-color: $bg-slate-blue;
         color: $cl-sea-salt;
     }
 }
 
-.buttonEdit, .buttonSave{
+.buttonEdit,
+.buttonSave {
     color: $cl-accent-chrysler-blue;
 
-    &:hover{
+    &:hover {
         background-color: $bg-accent-chrysler-blue;
         color: $cl-sea-salt;
     }
 }
-  
-.buttonDelete{
+
+.buttonDelete {
     color: $cl-accent-rose-red;
 
-    &:hover{
+    &:hover {
         background-color: $bg-accent-rose-red;
         color: $cl-sea-salt;
     }
@@ -219,17 +220,17 @@ $cl-peach: #FFB887;
     font-weight: 600;
     font-size: 0.9rem;
 
-    &:hover{
+    &:hover {
         background-color: $bg-cherry-blossom;
     }
 }
 
-.errorMessage{
+.errorMessage {
     font-size: .9rem;
     color: rgb(226, 50, 50);
     text-align: left;
-  }
-  
+}
+
 .Toastify__toast-container {
     z-index: 9999;
 }

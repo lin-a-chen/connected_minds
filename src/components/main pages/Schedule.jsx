@@ -5,7 +5,7 @@ import LessonForm from "./LessonForm";
 import styles from "./Schedule.module.scss";
 import Loading from "../modals/Loading";
 
-const Schedule = ({ week, subjects, onUpdate }) => {
+const Schedule = ({ week, subjects, onUpdate, userRole }) => {
 
 	const weekdays = {
 		1: "Понеділок",
@@ -16,39 +16,13 @@ const Schedule = ({ week, subjects, onUpdate }) => {
 		6: "Субота",
 	};
 
-	// const [schedule, setSchedule] = useState([]);
-
-	// const initialSchedule = scheduleArray.reduce((acc, curr) => {
-	//   const day = weekdays[curr.weekday];
-	//   const time = `${curr.start_time.slice(0, 5)} - ${curr.end_time.slice(0, 5)}`;
-	//   const subject = subjects[curr.subject_id];
-
-	//   if (!acc[day]) {
-	//     acc[day] = [];
-	//   }
-
-	//   acc[day].push({ time, subject });
-
-	//   return acc;
-	// }, {});
-
 	const handleUpdateLesson = (day, index, updatedLesson) => {
-		// const updatedDay = schedule[day].map((lesson, i) =>
-		//   i === index ? updatedLesson : lesson
-		// );
-		// setSchedule({ ...schedule, [day]: updatedDay });
 		onUpdate();
 	};
 
 	const handleAddLesson = (day, newLesson) => {
 		onUpdate();
-	//   setSchedule({ ...schedule, [day]: [...schedule[day], newLesson] });
 	};
-
-	// const handleDeleteLesson = (day, index) => {
-	//   const updatedDay = schedule[day].filter((_, i) => i !== index);
-	//   setSchedule({ ...schedule, [day]: updatedDay });
-	// };
 
 	return (
 		<>
@@ -65,9 +39,9 @@ const Schedule = ({ week, subjects, onUpdate }) => {
 								day={day}
 								lessons={day}
 								onUpdateLesson={handleUpdateLesson}
-								// onDeleteLesson={handleDeleteLesson}
+								userRole={userRole}
 							/>
-							<LessonForm day={day} onAddLesson={handleAddLesson} />
+							{userRole === 'INSTITUTION_ADMIN' && <LessonForm day={day} onAddLesson={handleAddLesson} />}
 						</div>
 					))}
 				</div>
