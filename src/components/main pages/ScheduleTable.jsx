@@ -1,23 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Lesson from './Lesson';
 import styles from './ScheduleTable.module.scss';
-import { TbNotebook, TbClock2 } from "react-icons/tb";
+import Loading from '../modals/Loading';
 
-const EditableTable = ({ day, lessons, onUpdateLesson, onDeleteLesson }) => {
+const ScheduleTable = ({ day, lessons, onUpdateLesson, onDeleteLesson }) => {
+
+  const hasNullOrUndefinedProperties = (obj) => {
+    for (let key in obj) {
+      if (obj[key] === null || obj[key] === undefined) {
+        return true;
+      }
+    }
+    return false;
+  };
+  
   return (
-    <table className={styles.table}>
-      <tbody>
-        {lessons.map((lesson, index) => (
-          <Lesson
-            key={index}
-            lesson={lesson}
-            onUpdate={(updatedLesson) => onUpdateLesson(day, index, updatedLesson)}
-            onDelete={() => onDeleteLesson(day, index)}
-          />
-        ))}
-      </tbody>
-    </table>
+    <div className={styles.table}>
+        {lessons && lessons.length > 0 ? lessons.map((lesson, index) => 
+          !hasNullOrUndefinedProperties(lesson) ? (
+            <Lesson
+              key={index}
+              lesson={lesson}
+              onUpdate={onUpdateLesson}
+              onDelete={() => onDeleteLesson(day, index)}
+            />
+          ) : null
+        )
+      :
+      <Loading/>
+      }
+    </div>
   );
 };
 
-export default EditableTable;
+export default ScheduleTable;

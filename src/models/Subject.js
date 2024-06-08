@@ -32,6 +32,7 @@ class Subject {
 
 	static async findByNameAndClassesType(name, classesType) {
 		const connection = await connectToAppDatabase();
+		console.log('subj', name, classesType)
 		try {
 			const result = await connection.query(
 				`SELECT * FROM subjects WHERE name=? AND classes_type=?`,

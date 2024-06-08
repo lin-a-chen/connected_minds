@@ -96,7 +96,6 @@ const SignUpTeacher = () => {
     .split("T")[0];
 
     const submitionHandler = async (data) => {
-      console.log('data', data);
       setShowPopup(false);
       const teacherData = {
         ...data,

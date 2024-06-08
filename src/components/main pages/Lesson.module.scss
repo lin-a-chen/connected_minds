@@ -4,6 +4,14 @@
 .lessonRow{
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1.5rem;
+  align-items: flex-start;
+
+  fieldset{
+    // margin: 0.5rem auto;
+    // width: 100%;
+    border: none;
+  }
 
   & td {
     padding: .5rem;
@@ -11,7 +19,7 @@
 
   .subjectTime{
     display: block;
-    margin: auto 0;
+    // margin: auto 0;
 
     & p{
       color: #62627b;
@@ -28,11 +36,18 @@
   }
   
   .subjectText{
-    display: block;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    & > div{
+      display: flex;
+      width: 100%;
+    }
     & p{
       display: flex;
       align-items: center;
       margin: 0;
+      width: fit-content;
 
       &:first-child{
         color: $cl-slate-blue;
@@ -52,6 +67,16 @@
         align-items: center;
       }
     }
+  }
+
+  button:disabled{
+    color: gray;
+
+    &:hover{
+      background-color: gray;
+      color: $cl-sea-salt;
+    }
+
   }
 }
 

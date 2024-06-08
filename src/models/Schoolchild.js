@@ -81,19 +81,6 @@ class Schoolchild {
 		address,
 		class_id
 	) {
-		console.log(
-			"schoolChildUpdateResult",
-			id,
-			firstname,
-			lastname,
-			antroponym,
-			birthdate,
-			country,
-			region,
-			settlement,
-			address,
-			class_id
-		);
 
 		const connection = await connectToAppDatabase();
 		try {
@@ -156,20 +143,6 @@ class Schoolchild {
 		class_id,
 		institution_useed_code
 	) {
-		console.log(
-			"schoolChildUpdateResult",
-			firstname,
-			lastname,
-			antroponym,
-			birthdate,
-			country,
-			region,
-			settlement,
-			address,
-			user_id,
-			class_id,
-			institution_useed_code
-		);
 
 		const connection = await connectToAppDatabase();
 		try {

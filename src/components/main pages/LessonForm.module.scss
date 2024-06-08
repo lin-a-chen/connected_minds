@@ -15,10 +15,13 @@
         width: fit-content;
 
         &:first-child{
-            width: 6rem;
+            width: 7rem;
+            & label:not(& label:first-child){
+                margin-top: .5rem;
+            }
         }
         &:nth-child(2){
-            width: 13rem;
+            width: 12rem;
         }
 
         & > label{
@@ -32,6 +35,9 @@
                 width: 4rem;
             }
             &[type="text"]{
+                width: 10rem;
+            }
+            &[type="email"]{
                 width: 10rem;
             }
         }

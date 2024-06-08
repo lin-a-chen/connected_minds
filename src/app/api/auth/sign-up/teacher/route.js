@@ -97,7 +97,6 @@ const generateUsername = (firstname, lastname, antroponym, institutionUseedCode,
 export async function POST(req) {
   const body = await req.json();
 
-  console.log("body", body)
   const emailToken = generateUUID();
   
   try{

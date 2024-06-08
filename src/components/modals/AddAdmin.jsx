@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import { MdOutlinePassword } from "react-icons/md";
 
 export default function AddAdmin({ onClose, isVisible }){
-    console.log('i open')
     const {
         register,
         handleSubmit,

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styles from "./Classes.module.scss";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaChalkboardTeacher } from "react-icons/fa";
 import { toast } from "react-toastify";
 import standartStyles from "@/styles/Styles.module.scss";
 import {LuCross, LuTrash2} from "react-icons/lu"
@@ -13,6 +13,7 @@ export default function InstitutionAdminClasses() {
 	const [schoolchildren, setSchoolchildren] = useState({});
 	const [expandedClasses, setExpandedClasses] = useState({});
     const [addClassModuleOpened, setAddClassModuleOpened] = useState(false);
+	const [teacher, setTeacher] = useState(null);
 
     const fetchClassesAndChildren = async () => {
         const classesResponse = await fetch(`/api/institution/classes`);
@@ -43,6 +44,7 @@ export default function InstitutionAdminClasses() {
         );
 
         setSchoolchildren(childrenByClass);
+
     };
 
 	useEffect(() => {
@@ -122,7 +124,10 @@ export default function InstitutionAdminClasses() {
                   >
                     <LuTrash2 />
                   </button>
+				  {console.log('class', el)}
+
                     </div>
+					<p>Класна керівниця: {el.teacher_id}</p>
 					
 					<p>Учні:</p>
 					<div
@@ -202,7 +207,7 @@ export default function InstitutionAdminClasses() {
                             <LuTrash2 />
                         </button>
                     </div>
-
+					<p>Класна керівниця: {el.teacher_id}</p>
 					<p>Учні:</p>
 					<div
 						className={`${styles.members} ${
@@ -238,7 +243,6 @@ export default function InstitutionAdminClasses() {
 											onDragStart={(e) =>
 												onDragStart(e, el.id, child)
 											}>
-                                                {console.log('child', child)}
 											<img
 												src="/images/school-child.png"
 												alt="Child"

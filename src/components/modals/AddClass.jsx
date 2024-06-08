@@ -1,11 +1,10 @@
 import styles from "./Popups.module.scss";
 import standartStyles from "@/styles/Styles.module.scss";
-import { TbPencilMinus } from "react-icons/tb";
+import { TbPencilMinus, TbMail } from "react-icons/tb";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 export default function AddClass({ onClose, isVisible }) {
-	console.log("i open");
 	const {
 		register,
 		handleSubmit,
@@ -13,7 +12,6 @@ export default function AddClass({ onClose, isVisible }) {
 	} = useForm();
 
 	const onSubmit = async (data) => {
-
 		const response = await fetch(`/api/institution/classes`, {
 			method: "POST",
 			headers: {
@@ -26,7 +24,7 @@ export default function AddClass({ onClose, isVisible }) {
 			toast.error(result.data);
 			return;
 		} else {
-            toast.success('Клас успішно додано');
+			toast.success("Клас успішно додано");
 			onClose();
 		}
 	};
@@ -64,6 +62,30 @@ export default function AddClass({ onClose, isVisible }) {
 								{errors.name && (
 									<span className={styles.errorMessage}>
 										{errors.name.message}
+									</span>
+								)}
+							</fieldset>
+							<fieldset>
+								<div>
+									<TbMail className={standartStyles.icon} />
+									<label>Email класного керівника/керівниці*</label>
+								</div>
+								<input
+									defaultValue="maria.marchenko@mail.com"
+									type="email"
+									placeholder="maria.marienko@mail.com"
+									{...register("email", {
+										required: "Пошта обов'язкова",
+										pattern: {
+											value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+											message: "Формат email невірний",
+										},
+									})}
+								/>
+								{errors.email && (
+									<span
+										className={standartStyles.errorMessage}>
+										{errors.email.message}
 									</span>
 								)}
 							</fieldset>

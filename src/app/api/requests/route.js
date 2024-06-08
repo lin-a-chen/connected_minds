@@ -81,7 +81,6 @@ export async function POST(req) {
         }
       }
       else if (body.request_type === 'ADD_TEACHER'){
-        console.log('reqbody', body)
 
         const userResult = await User.findByEmail(body.email);
         if (!userResult.success){

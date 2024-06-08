@@ -223,6 +223,12 @@ $cl-peach: #FFB887;
         background-color: $bg-cherry-blossom;
     }
 }
+
+.errorMessage{
+    font-size: .9rem;
+    color: rgb(226, 50, 50);
+    text-align: left;
+  }
   
 .Toastify__toast-container {
     z-index: 9999;

@@ -3,11 +3,16 @@
 import Schedule from "@/components/main pages/Schedule";
 import { useEffect, useState } from "react";
 import styles from "./SchedulePage.module.scss";
+import standartStyles from "@/styles/Styles.module.scss";
 
 export default function SchedulePage() {
 	const [week, setWeek] = useState([]);
 	const [className, setClassName] = useState({ number: 1, letter: "А" });
 	const [classLetters, setClassLetters] = useState([]);
+
+	const handleUpdate = () => {
+		fetchSchedule();
+	};
 
 	const fetchSchedule = async () => {
 		const response = await fetch(
@@ -20,32 +25,19 @@ export default function SchedulePage() {
 			const groupedByWeekday = result.data.reduce((acc, current) => {
 				const { weekday } = current;
 				if (!acc[weekday]) {
-				  acc[weekday] = [];
+					acc[weekday] = [];
 				}
 				acc[weekday].push(current);
 				return acc;
-			  }, {});
-			  
-			  const sortedWeekdays = Object.keys(groupedByWeekday)
+			}, {});
+
+			const sortedWeekdays = Object.keys(groupedByWeekday)
 				.sort((a, b) => a - b)
 				.map((key) => groupedByWeekday[key]);
-			  
-			console.log('sortedWeekdays', sortedWeekdays);
+
 			setWeek(sortedWeekdays);
 		}
 	};
-
-	// const fetchSubject = async () => {
-	// 	const response = await fetch(
-	// 		`/api/institution/schedule?class=${className.number}-${className.letter}`
-	// 	);
-	// 	const result = await response.json();
-	// 	if (!result.success) {
-	// 		console.error(result.data);
-	// 	} else {
-	// 		setWeek(result.data);
-	// 	}
-	// };
 
 	const fetchClasses = async () => {
 		const response = await fetch(`/api/institution/classes`);
@@ -87,14 +79,17 @@ export default function SchedulePage() {
 				<label>Клас*</label>
 				<div>
 					<input
-						defaultValue="8"
+						className={standartStyles.inputRegular}
+						defaultValue="1"
 						type="number"
 						min="1"
 						max="11"
 						placeholder="1"
 						onChange={handleClassNumberChange}
 					/>
-					<select onChange={handleClassLetterChange}>
+					<select
+						className={standartStyles.selectRegular}
+						onChange={handleClassLetterChange}>
 						{classLetters &&
 							classLetters.map((el, index) => (
 								<option
@@ -106,7 +101,10 @@ export default function SchedulePage() {
 					</select>
 				</div>
 			</div>
-			<Schedule week={week} />
+			<Schedule
+				week={week}
+				onUpdate={handleUpdate}
+			/>
 		</div>
 	);
 }

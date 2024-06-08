@@ -4,9 +4,9 @@ class Schedule {
 	static async findAll() {
 		const connection = await connectToAppDatabase();
 		try {
-			const result = await connection.query(`SELECT sch.*, sub_sch.*
+			const result = await connection.query(`SELECT sch.*, less.*
 			FROM schedule AS sch
-			INNER JOIN subjects_schedules as sub_sch ON sch.id = sub_sch.schedule_id`);
+			INNER JOIN lessons as less ON sch.id = less.schedule_id`);
 			await connection.end();
 			return { success: true, data: result[0] };
 		} catch (error) {
@@ -15,16 +15,15 @@ class Schedule {
 			return { success: false, data: error };
 		}
 	}
-
 	static async findByClassId(classId) {
 		const connection = await connectToAppDatabase();
 		try {
-			const result = await connection.query(`SELECT sch.weekday, sub_sch.start_time, sub_sch.end_time, subj.id as subject_id, subj.name as subject_name, subj.classes_type, teachers.firstname, teachers.lastname, teachers.antroponym, teachers.id as teachers_id, users.email as teachers_email
+			const result = await connection.query(`SELECT sch.weekday, sch.id as schedule_id, sch.class_id as class_id, less.start_time, less.end_time, less.id as lesson_id, subj.id as subject_id, subj.name as subject_name, subj.classes_type, teachers.firstname, teachers.lastname, teachers.antroponym, teachers.id as teachers_id, users.email as teachers_email
 			FROM schedule AS sch
-			INNER JOIN subjects_schedules as sub_sch ON sch.id = sub_sch.schedule_id
-			INNER JOIN subjects as subj ON sub_sch.subject_id = subj.id
-			INNER JOIN teachers as teachers ON sub_sch.teacher_id = teachers.id
-			INNER JOIN users ON teachers.user_id = users.id
+			LEFT JOIN lessons as less ON sch.id = less.schedule_id
+			LEFT JOIN subjects as subj ON less.subject_id = subj.id
+			LEFT JOIN teachers as teachers ON less.teacher_id = teachers.id
+			LEFT JOIN users ON teachers.user_id = users.id
 			WHERE sch.class_id=?`, [classId]);
 			await connection.end();
 			return { success: true, data: result[0] };
@@ -35,86 +34,31 @@ class Schedule {
 		}
 	}
 
-	// static async findById(id) {
-	// 	const connection = await connectToAppDatabase();
-	// 	try {
-	// 		const result = await connection.query(
-	// 			`SELECT * FROM subjects WHERE id=?`,
-	// 			[id]
-	// 		);
-	// 		await connection.end();
-	// 		return { success: true, data: result[0][0] };
-	// 	} catch (error) {
-	// 		await connection.end();
-	// 		console.error(error);
-	// 		return { success: false, data: error };
-	// 	}
-	// }
+	static async addWeekForClass(classId) {
+		const connection = await connectToAppDatabase();
+		try {
+			for (let i = 0; i < 5; i++){
+				const result = await connection.query(`INSERT INTO schedule(class_id, weekday) VALUES(?, ?)`,
+				 [classId, (i + 1)]);
+				 console.log('scheduleadd result', result)
 
-	// static async findByNameAndClassesType(name, classesType) {
-	// 	const connection = await connectToAppDatabase();
-	// 	try {
-	// 		const result = await connection.query(
-	// 			`SELECT * FROM subjects WHERE name=? AND classes_type=?`,
-	// 			[name, classesType]
-	// 		);
-	// 		await connection.end();
-	// 		return { success: true, data: result[0][0] };
-	// 	} catch (error) {
-	// 		await connection.end();
-	// 		console.error(error);
-	// 		return { success: false, data: error };
-	// 	}
-	// }
+				 console.log('insertid sql', result[0].insertId);
 
-	// static async deleteById(id) {
-	// 	const connection = await connectToAppDatabase();
-	// 	try {
-	// 		const result = await connection.query(
-	// 			`DELETE FROM subjects WHERE id=?`,
-	// 			[id]
-	// 		);
-	// 		await connection.end();
-	// 		return { success: true, data: result[0][0] };
-	// 	} catch (error) {
-	// 		await connection.end();
-	// 		console.error(error);
-	// 		return { success: false, data: error };
-	// 	}
-	// }
+				if (!result[0].insertId){
+					return { success: false, data: `Schedule for weekday ${i + 1} wasn't created`};
+				}
+			}
+			
+			await connection.end();
+			return { success: true, data: 'success' };
+		} catch (error) {
+			await connection.end();
+			console.error(error);
+			return { success: false, data: error };
+		}
+	}
 
-	// static async updateById(id, name, classesType) {
-	// 	const connection = await connectToAppDatabase();
-	// 	try {
-	// 		const result = await connection.query(
-	// 			`UPDATE subjects SET name=?, classes_type=? WHERE id=?`,
-	// 			[name, classesType, id]
-	// 		);
-	// 		await connection.end();
-	// 		return { success: true, data: result[0][0] };
-	// 	} catch (error) {
-	// 		await connection.end();
-	// 		console.error(error);
-	// 		return { success: false, data: error };
-	// 	}
-	// }
-
-
-	// static async add(name, classesType) {
-	// 	const connection = await connectToAppDatabase();
-	// 	try {
-	// 		const result = await connection.query(
-	// 			`INSERT INTO subjects(name, classes_type) VALUES(?, ?)`,
-	// 			[name, classesType]
-	// 		);
-	// 		await connection.end();
-	// 		return { success: true, data: result[0][0] };
-	// 	} catch (error) {
-	// 		await connection.end();
-	// 		console.error(error);
-	// 		return { success: false, data: error };
-	// 	}
-	// }
+	
 }
 
 module.exports = Schedule;

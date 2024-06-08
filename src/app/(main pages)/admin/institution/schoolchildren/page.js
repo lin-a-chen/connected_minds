@@ -24,7 +24,6 @@ export default function InstitutionAdminSchoolchildren() {
         const result = await response.json();
 
         if (result.success) {
-            console.log('resdata', result.data)
             const formattedData = result.data.map(el => {
                 const obj = {id: el.id, firstname: el.firstname, lastname: el.lastname, antroponym: el.antroponym, class_name: el.class_name,
                      email: el.email, phone_number: el.phone_number, country: el.country, region: el.region,
@@ -34,7 +33,6 @@ export default function InstitutionAdminSchoolchildren() {
                 obj.birthdate = formattedDate;
                 return obj;
             });
-            console.log('formatted', formattedData);
           setSchoolchildren(formattedData);
           handleCurrentItemsChange(formattedData.slice(0, 10));
         } else {

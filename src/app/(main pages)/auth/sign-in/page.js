@@ -7,7 +7,6 @@ import standartStyles from '@/styles/Styles.module.scss';
 
 const signIn = () => {
     const onSubmit = async(data) => {       
-        console.log('hi'); 
         const response = await fetch('/api/auth/sign-in', {method: "POST", 
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data)

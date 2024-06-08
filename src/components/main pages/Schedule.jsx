@@ -1,87 +1,79 @@
 // src/components/Schedule.js
-import React, { useState } from 'react';
-import ScheduleTable from './ScheduleTable';
-import LessonForm from './LessonForm';
-import styles from './Schedule.module.scss';
+import React, { useState } from "react";
+import ScheduleTable from "./ScheduleTable";
+import LessonForm from "./LessonForm";
+import styles from "./Schedule.module.scss";
+import Loading from "../modals/Loading";
 
-const Schedule = ({week, subjects}) => {
+const Schedule = ({ week, subjects, onUpdate }) => {
 
-  const weekdays = {
-    1: 'Понеділок',
-    2: 'Вівторок',
-    3: 'Середа',
-    4: 'Четвер',
-    5: 'П\'ятниця',
-    6: 'Субота'
-  }
+	const weekdays = {
+		1: "Понеділок",
+		2: "Вівторок",
+		3: "Середа",
+		4: "Четвер",
+		5: "П'ятниця",
+		6: "Субота",
+	};
 
-  
-  // const [schedule, setSchedule] = useState([]);
+	// const [schedule, setSchedule] = useState([]);
 
-  // const initialSchedule = scheduleArray.reduce((acc, curr) => {
-  //   const day = weekdays[curr.weekday];
-  //   const time = `${curr.start_time.slice(0, 5)} - ${curr.end_time.slice(0, 5)}`;
-  //   const subject = subjects[curr.subject_id];
-  
-  //   if (!acc[day]) {
-  //     acc[day] = [];
-  //   }
-  
-  //   acc[day].push({ time, subject });
-  
-  //   return acc;
-  // }, {});
+	// const initialSchedule = scheduleArray.reduce((acc, curr) => {
+	//   const day = weekdays[curr.weekday];
+	//   const time = `${curr.start_time.slice(0, 5)} - ${curr.end_time.slice(0, 5)}`;
+	//   const subject = subjects[curr.subject_id];
 
-  // const handleUpdateLesson = (day, index, updatedLesson) => {
-  //   const updatedDay = schedule[day].map((lesson, i) =>
-  //     i === index ? updatedLesson : lesson
-  //   );
-  //   setSchedule({ ...schedule, [day]: updatedDay });
-  // };
+	//   if (!acc[day]) {
+	//     acc[day] = [];
+	//   }
 
-  // const handleAddLesson = (day, newLesson) => {
-  //   setSchedule({ ...schedule, [day]: [...schedule[day], newLesson] });
-  // };
+	//   acc[day].push({ time, subject });
 
-  // const handleDeleteLesson = (day, index) => {
-  //   const updatedDay = schedule[day].filter((_, i) => i !== index);
-  //   setSchedule({ ...schedule, [day]: updatedDay });
-  // };
+	//   return acc;
+	// }, {});
 
-  // return (
-  //   <div className={styles.scheduleContainer}>
-  //     {Object.keys(week).map((day) => (
-  //       <div key={day} className={styles.dayContainer}>
-  //         <h2>{day}</h2>
-  //         <ScheduleTable
-  //           day={day}
-  //           lessons={schedule[day]}
-  //           onUpdateLesson={handleUpdateLesson}
-  //           onDeleteLesson={handleDeleteLesson}
-  //         />
-  //         <LessonForm day={day} onAddLesson={handleAddLesson} />
-  //       </div>
-  //     ))}
-  //   </div>
-  // );
-  return (
-    <div className={styles.scheduleContainer}>
-     {week.map((day) => (
-        <div key={day} className={styles.dayContainer}>
-          {console.log('day', day)}
-          <h2>{weekdays[day[0].weekday]}</h2>
-          <ScheduleTable
-            day={day}
-            lessons={day}
-            // onUpdateLesson={handleUpdateLesson}
-            // onDeleteLesson={handleDeleteLesson}
-          />
-          {/* <LessonForm day={day} onAddLesson={handleAddLesson} /> */}
-        </div>
-      ))}
-    </div>
-  );
+	const handleUpdateLesson = (day, index, updatedLesson) => {
+		// const updatedDay = schedule[day].map((lesson, i) =>
+		//   i === index ? updatedLesson : lesson
+		// );
+		// setSchedule({ ...schedule, [day]: updatedDay });
+		onUpdate();
+	};
 
+	const handleAddLesson = (day, newLesson) => {
+		onUpdate();
+	//   setSchedule({ ...schedule, [day]: [...schedule[day], newLesson] });
+	};
+
+	// const handleDeleteLesson = (day, index) => {
+	//   const updatedDay = schedule[day].filter((_, i) => i !== index);
+	//   setSchedule({ ...schedule, [day]: updatedDay });
+	// };
+
+	return (
+		<>
+			{!week || week.length <= 0 && <Loading />}
+
+			{week && week.length > 0 && (
+				<div className={styles.scheduleContainer}>
+					{week.map((day, index) => (
+						<div
+							key={index}
+							className={styles.dayContainer}>
+							<h2>{weekdays[day[0].weekday]}</h2>
+							<ScheduleTable
+								day={day}
+								lessons={day}
+								onUpdateLesson={handleUpdateLesson}
+								// onDeleteLesson={handleDeleteLesson}
+							/>
+							<LessonForm day={day} onAddLesson={handleAddLesson} />
+						</div>
+					))}
+				</div>
+			)}
+		</>
+	);
 };
 
 export default Schedule;
