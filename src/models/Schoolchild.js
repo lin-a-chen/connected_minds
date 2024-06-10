@@ -56,11 +56,30 @@ class Schoolchild {
 		const connection = await connectToAppDatabase();
 		try {
 			const result =
-				await connection.query(`SELECT schch.*, users.email, users.phone_number, users.photo, users.is_activated, classes.name AS class_name
+				await connection.query(`SELECT schch.*, users.email, users.phone_number, users.photo, classes.name AS class_name
 			FROM schoolchildren AS schch 
 			INNER JOIN users ON schch.user_id = users.id
 			INNER JOIN classes ON schch.class_id = classes.id`);
 			await connection.end();
+			return { success: true, data: result[0] };
+		} catch (error) {
+			await connection.end();
+			console.error(error);
+			return { success: false, data: error };
+		}
+	}
+
+	static async findSchoolchildrenAndUsersByClassId(classID) {
+		const connection = await connectToAppDatabase();
+		try {
+			const result =
+				await connection.query(`SELECT schch.*, users.email, users.phone_number, users.photo, classes.name AS class_name
+			FROM schoolchildren AS schch 
+			INNER JOIN users ON schch.user_id = users.id
+			INNER JOIN classes ON schch.class_id = classes.id
+			WHERE schch.class_id = ?`, [classID]);
+			await connection.end();
+			console.log('res', result);
 			return { success: true, data: result[0] };
 		} catch (error) {
 			await connection.end();

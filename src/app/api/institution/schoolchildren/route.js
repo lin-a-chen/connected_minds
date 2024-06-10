@@ -17,24 +17,66 @@ const generateUUID = () => {
 	return uuidv4();
 };
 
-export async function GET() {
+export async function GET(req) {
+	const { searchParams } = new URL(req.url);
+	const className = searchParams.get("class");
+	console.log("classname", className);
 
 	try {
-		const result = await Schoolchild.findSchoolchildAndUsers();
+		if (className) {
+			const classResult = await Class.findByName(className);
+			if (!classResult.success) {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "Couldn't find classes",
+					}),
+					{ status: 500 }
+				);
+			}
 
-		if (result.success) {
-			return new Response(
-				JSON.stringify({ success: true, data: result.data }),
-				{ status: 200 }
-			);
+			if (!classResult.data) {
+				return new Response(
+					JSON.stringify({ success: false, data: "Class not found" }),
+					{ status: 404 }
+				);
+			}
+			const result =
+				await Schoolchild.findSchoolchildrenAndUsersByClassId(
+					classResult.data.id
+				);
+
+			if (result.success) {
+				return new Response(
+					JSON.stringify({ success: true, data: result.data }),
+					{ status: 200 }
+				);
+			} else {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "No schoolchildren found",
+					}),
+					{ status: 500 }
+				);
+			}
 		} else {
-			return new Response(
-				JSON.stringify({
-					success: false,
-					data: "No schoolchildren found",
-				}),
-				{ status: 500 }
-			);
+			const result = await Schoolchild.findSchoolchildAndUsers();
+
+			if (result.success) {
+				return new Response(
+					JSON.stringify({ success: true, data: result.data }),
+					{ status: 200 }
+				);
+			} else {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "No schoolchildren found",
+					}),
+					{ status: 500 }
+				);
+			}
 		}
 	} catch (error) {
 		return new Response(
@@ -334,9 +376,12 @@ export async function DELETE(req) {
 }
 
 export async function PATCH(req) {
-    const body = await req.json();
+	const body = await req.json();
 	try {
-		const result = await Schoolchild.updateClassById(body.id, body.class_id);
+		const result = await Schoolchild.updateClassById(
+			body.id,
+			body.class_id
+		);
 
 		if (result.success) {
 			return new Response(

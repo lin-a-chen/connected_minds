@@ -65,6 +65,7 @@ const AutocompleteInput = ({ onChange, dataToSearch, defaultValue, className }) 
         value={searchTerm}
         onChange={handleInputChange}
         ref={mainInputRef}
+        defaultValue={defaultValue}
       />
       {isDropdownVisible && (
         <div className={styles.sectionDropdown}>
