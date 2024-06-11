@@ -81,6 +81,7 @@ $cl-peach: #FFB887;
         & span {
             color: gray;
             margin-top: 0.5rem;
+            max-width: 10rem;
         }
 
         & input:has(+select) {

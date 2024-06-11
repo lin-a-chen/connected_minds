@@ -213,6 +213,60 @@ class User {
 		}
 	}
 
+	static async changePassword(userId, password) {
+		const connection = await connectToAppDatabase();
+
+		try {
+			const sql = `UPDATE users SET password=?
+            WHERE id=?;`;
+			const result = await connection.query(sql, [
+				password,
+				userId
+			]);
+
+			const affectedRows = result[0].affectedRows;
+			await connection.end();
+			if (affectedRows > 0) {
+				return { success: true, data: userId };
+			} else {
+				console.error("No rows affected");
+				return { success: false, data: "No rows affected" };
+			}
+		} catch (error) {
+			await connection.end();
+			console.error(error);
+			return { success: false, data: error };
+		}
+	}
+
+	static async changePhoto(userId, url) {
+		const connection = await connectToAppDatabase();
+
+		console.log('user id, url', userId, url)
+
+		try {
+			const sql = `UPDATE users SET photo=?
+            WHERE id=?;`;
+			const result = await connection.query(sql, [
+				url,
+				userId
+			]);
+
+			const affectedRows = result[0].affectedRows;
+			await connection.end();
+			if (affectedRows > 0) {
+				return { success: true, data: userId };
+			} else {
+				console.error("No rows affected");
+				return { success: false, data: "No rows affected" };
+			}
+		} catch (error) {
+			await connection.end();
+			console.error(error);
+			return { success: false, data: error };
+		}
+	}
+
 	static async deleteById(id) {
 		const connection = await connectToAppDatabase();
 		try {

@@ -5,6 +5,7 @@ import styles from "./AcademicRecords.module.scss";
 import { useState, useEffect, useRef } from "react";
 import AutocompleteInput from "../../UI/AutocompleteInput";
 import { toast } from "react-toastify";
+import { FaChalkboardTeacher } from "react-icons/fa";
 
 export default function AcademicRecords({ userRole, user }) {
 	const [className, setClassName] = useState({ number: 1, letter: "А" });
@@ -16,9 +17,13 @@ export default function AcademicRecords({ userRole, user }) {
 	const [year, setYear] = useState(new Date().getFullYear());
 	const [selectedCell, setSelectedCell] = useState(null);
 	const [showTinyPopup, setShowTinyPopup] = useState(false);
+	const [popupData, setPopupData] = useState(null);
 	const [academicRecords, setAcademicRecords] = useState([]);
 	const [schoolchildren, setSchoolchildren] = useState([]);
-	const [prevSelectedCell, setPrevSelectedCell] = useState({row: null, col: null});
+	const [prevSelectedCell, setPrevSelectedCell] = useState({
+		row: null,
+		col: null,
+	});
 	const [isRequestInProgress, setIsRequestInProgress] = useState(false);
 
 	const inputRef = useRef(null);
@@ -85,7 +90,7 @@ export default function AcademicRecords({ userRole, user }) {
 			}
 
 			const sortByLastName = (a, b) => {
-				const lastNameA = a.lastname.toUpperCase(); // Convert to uppercase to ensure case-insensitive sorting
+				const lastNameA = a.lastname.toUpperCase();
 				const lastNameB = b.lastname.toUpperCase();
 
 				if (lastNameA < lastNameB) {
@@ -104,7 +109,7 @@ export default function AcademicRecords({ userRole, user }) {
 	};
 
 	const fetchRecords = async () => {
-		if (classObj && subject) {
+		if (classObj && subject && subject.length > 0) {
 			const response = await fetch(
 				`/api/institution/academic-records?class=${classObj.name}&subject=${subject}`
 			);
@@ -113,8 +118,6 @@ export default function AcademicRecords({ userRole, user }) {
 				console.error(result.data);
 				return;
 			}
-
-
 
 			const filteredByMonth = [];
 			result.data.academic_records.forEach((el) => {
@@ -126,9 +129,6 @@ export default function AcademicRecords({ userRole, user }) {
 				}
 			});
 
-			// console.log('ac rec trans', result.data);
-
-
 			const academicRecordsTransformed = filteredByMonth.reduce(
 				(acc, obj) => {
 					const { student_id, ...academicRecord } = obj;
@@ -137,8 +137,6 @@ export default function AcademicRecords({ userRole, user }) {
 				},
 				[]
 			);
-
-			console.log('ac rec trans', academicRecordsTransformed);
 
 			setAcademicRecords(academicRecordsTransformed);
 		}
@@ -149,7 +147,8 @@ export default function AcademicRecords({ userRole, user }) {
 	}, []);
 
 	const fetchClass = async () => {
-		const response = await fetch(
+		if (className){
+			const response = await fetch(
 			`/api/institution/classes?class=${className.number}-${className.letter}`
 		);
 		const result = await response.json();
@@ -158,6 +157,8 @@ export default function AcademicRecords({ userRole, user }) {
 		}
 
 		setClassObj(result.data);
+		}
+		
 	};
 
 	useEffect(() => {
@@ -205,12 +206,6 @@ export default function AcademicRecords({ userRole, user }) {
 		setMonth(parseInt(e.target.value));
 	};
 
-	const handleCellChange = (e, rowIndex, colIndex) => {
-		// Update the state with the new cell content
-		const newValue = e.target.value;
-		// Implement logic to update the data structure holding the table content
-	};
-
 	useEffect(() => {
 		if (selectedCell) {
 			inputRef.current.focus();
@@ -228,76 +223,76 @@ export default function AcademicRecords({ userRole, user }) {
 	const handleKeyDown = async (event) => {
 		if (event.key === "Enter") {
 			const { relatedTarget } = event;
-		if (
-			selectedCell &&
-			(!relatedTarget || !tableRef.current.contains(relatedTarget))
-		) {
-
-			if (!isRequestInProgress) {
-				// Set request status to "in progress"
-				const subjectName = subject;
-				const classesType = classObj.type;
-				const date = `${
-					selectedCell.col + 1 < 10
-						? "0" + (selectedCell.col + 1)
-						: selectedCell.col + 1
-				}.${month < 10 ? "0" + month : month}.`;
-				setPrevSelectedCell((prev) => ({
-					...prev,
-					row: selectedCell.row,
-					col: selectedCell.col
-				}));
-				setSelectedCell(null);
-				const data = {
-					grade: null,
-					present: null,
-					subjectName: subjectName,
-					classesType: classesType,
-					classId: classObj.id,
-					studentId: schoolchildren[selectedCell.row].id,
-					teacherUserId: user.id,
-					date: date,
-				};
-				if (parseInt(event.target.value) && (parseInt(event.target.value) > 1 ||
-				parseInt(event.target.value) < 12)) {
-					data.present = 1;
-					data.grade = parseInt(event.target.value);
-				} else if (event.target.value.toLowerCase() === "н") {
-					data.present = 0;
-					data.grade = null;
-				} else if (event.target.value === '') {
-					data.present = 1;
-					data.grade = null;
-				} else {
-					toast.error(
-						'В клітинці може бути лише оцінка від 1 до 12, "н-ка" або зовсім нічого'
-					);
-					toast.error(
-						'В клітинці може бути лише оцінка від 1 до 12, "н-ка" або зовсім нічого'
-					);
-					return;
-				}
-				setIsRequestInProgress(true);
-				const response = await fetch(
-					`/api/institution/academic-records`,
-					{
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify(data),
+			if (
+				selectedCell &&
+				(!relatedTarget || !tableRef.current.contains(relatedTarget))
+			) {
+				if (!isRequestInProgress) {
+					const subjectName = subject;
+					const classesType = classObj.type;
+					const date = `${
+						selectedCell.col + 1 < 10
+							? "0" + (selectedCell.col + 1)
+							: selectedCell.col + 1
+					}.${month < 10 ? "0" + month : month}.`;
+					setPrevSelectedCell((prev) => ({
+						...prev,
+						row: selectedCell.row,
+						col: selectedCell.col,
+					}));
+					setSelectedCell(null);
+					const data = {
+						grade: null,
+						present: null,
+						subjectName: subjectName,
+						classesType: classesType,
+						classId: classObj.id,
+						studentId: schoolchildren[selectedCell.row].id,
+						teacherUserId: user.id,
+						date: date,
+					};
+					if (
+						parseInt(event.target.value) &&
+						(parseInt(event.target.value) > 1 ||
+							parseInt(event.target.value) < 12)
+					) {
+						data.present = 1;
+						data.grade = parseInt(event.target.value);
+					} else if (event.target.value.toLowerCase() === "н") {
+						data.present = 0;
+						data.grade = null;
+					} else if (event.target.value === "") {
+						data.present = 1;
+						data.grade = null;
+					} else {
+						toast.error(
+							'В клітинці може бути лише оцінка від 1 до 12, "н-ка" або зовсім нічого'
+						);
+						toast.error(
+							'В клітинці може бути лише оцінка від 1 до 12, "н-ка" або зовсім нічого'
+						);
+						return;
 					}
-				);
-				const result = await response.json();
-				if (!result.success) {
-					toast.error(result.data);
-					setIsRequestInProgress(false);
-				} else {
-					toast.success(result.data);
-					setIsRequestInProgress(false);
-					fetchRecords();
+					setIsRequestInProgress(true);
+					const response = await fetch(
+						`/api/institution/academic-records`,
+						{
+							method: "POST",
+							headers: { "Content-Type": "application/json" },
+							body: JSON.stringify(data),
+						}
+					);
+					const result = await response.json();
+					if (!result.success) {
+						toast.error(result.data);
+						setIsRequestInProgress(false);
+					} else {
+						toast.success(result.data);
+						setIsRequestInProgress(false);
+						fetchRecords();
+					}
 				}
 			}
-		}
-			// handleCellBlur(event);
 		}
 	};
 
@@ -308,70 +303,6 @@ export default function AcademicRecords({ userRole, user }) {
 			(!relatedTarget || !tableRef.current.contains(relatedTarget))
 		) {
 			setSelectedCell(null);
-
-			// if (!isRequestInProgress) {
-			// 	// Set request status to "in progress"
-			// 	const subjectName = subject;
-			// 	const classesType = classObj.type;
-			// 	const date = `${
-			// 		selectedCell.col + 1 < 10
-			// 			? "0" + (selectedCell.col + 1)
-			// 			: selectedCell.col + 1
-			// 	}.${month < 10 ? "0" + month : month}.`;
-			// 	setPrevSelectedCell((prev) => ({
-			// 		...prev,
-			// 		row: selectedCell.row,
-			// 		col: selectedCell.col
-			// 	}));
-			// 	setSelectedCell(null);
-			// 	const data = {
-			// 		grade: null,
-			// 		present: null,
-			// 		subjectName: subjectName,
-			// 		classesType: classesType,
-			// 		classId: classObj.id,
-			// 		studentId: schoolchildren[selectedCell.row].id,
-			// 		teacherUserId: user.id,
-			// 		date: date,
-			// 	};
-			// 	if (parseInt(event.target.value) && (parseInt(event.target.value) > 1 ||
-			// 	parseInt(event.target.value) < 12)) {
-			// 		data.present = 1;
-			// 		data.grade = parseInt(event.target.value);
-			// 	} else if (event.target.value.toLowerCase() === "н") {
-			// 		data.present = 0;
-			// 		data.grade = null;
-			// 	} else if (event.target.value === '') {
-			// 		data.present = 1;
-			// 		data.grade = null;
-			// 	} else {
-			// 		toast.error(
-			// 			'В клітинці може бути лише оцінка від 1 до 12, "н-ка" або зовсім нічого'
-			// 		);
-			// 		toast.error(
-			// 			'В клітинці може бути лише оцінка від 1 до 12, "н-ка" або зовсім нічого'
-			// 		);
-			// 		return;
-			// 	}
-			// 	setIsRequestInProgress(true);
-			// 	const response = await fetch(
-			// 		`/api/institution/academic-records`,
-			// 		{
-			// 			method: "POST",
-			// 			headers: { "Content-Type": "application/json" },
-			// 			body: JSON.stringify(data),
-			// 		}
-			// 	);
-			// 	const result = await response.json();
-			// 	if (!result.success) {
-			// 		toast.error(result.data);
-			// 		setIsRequestInProgress(false);
-			// 	} else {
-			// 		toast.success(result.data);
-			// 		setIsRequestInProgress(false);
-			// 		fetchRecords();
-			// 	}
-			// }
 		}
 	};
 
@@ -384,6 +315,47 @@ export default function AcademicRecords({ userRole, user }) {
 			document.body.removeEventListener("focusout", handleCellBlur);
 		};
 	}, [selectedCell]);
+
+
+	const getRecord = (rowIndex, colIndex) => {
+		if (academicRecords && academicRecords.length > 0) {
+			if (schoolchildren[rowIndex]) {
+				let currentStudentRecords = [];
+				const date = `${
+					colIndex + 1 < 10 ? "0" + (colIndex + 1) : colIndex + 1
+				}.${month < 10 ? "0" + month : month}.`;
+
+				academicRecords.forEach((el) => {
+					for (let key in el) {
+						if (key === schoolchildren[rowIndex].id) {
+							currentStudentRecords.push({
+								student_id: key,
+								...el[key],
+							});
+						}
+					}
+				});
+
+				if (currentStudentRecords && currentStudentRecords.length > 0) {
+					for (let record of currentStudentRecords) {
+						const recordDateObj = new Date(record.date);
+						const recordMonth = recordDateObj.getMonth() + 1;
+						const recordDate = `${
+							recordDateObj.getDate() < 10
+								? `0${recordDateObj.getDate()}`
+								: recordDateObj.getDate()
+						}.${
+							recordMonth < 10 ? "0" + recordMonth : recordMonth
+						}.`;
+
+						if (recordDate === date) {
+							return record ? record : null;
+						}
+					}
+				}
+			}
+		}
+	};
 
 	const renderCellContent = (rowIndex, colIndex) => {
 		const isEditable = true;
@@ -399,7 +371,6 @@ export default function AcademicRecords({ userRole, user }) {
 					ref={inputRef}
 					type="text"
 					defaultValue={""}
-					onChange={(e) => handleCellChange(e, rowIndex, colIndex)}
 					onBlur={handleCellBlur}
 					onKeyDown={handleKeyDown}
 					className="editable-cell"
@@ -429,7 +400,6 @@ export default function AcademicRecords({ userRole, user }) {
 						currentStudentRecords.length > 0
 					) {
 						for (let record of currentStudentRecords) {
-
 							const recordDateObj = new Date(record.date);
 							const recordMonth = recordDateObj.getMonth() + 1;
 							const recordDate = `${
@@ -438,14 +408,14 @@ export default function AcademicRecords({ userRole, user }) {
 									: recordDateObj.getDate()
 							}.${
 								recordMonth < 10
-									? ("0" + recordMonth)
+									? "0" + recordMonth
 									: recordMonth
 							}.`;
 
-							if (
-								recordDate === date
-							){
-								return record.grade;
+							if (recordDate === date) {
+								return record.grade !== undefined
+									? record.grade
+									: "";
 							}
 						}
 					}
@@ -486,8 +456,16 @@ export default function AcademicRecords({ userRole, user }) {
 						<td
 							key={j}
 							onDoubleClick={() => handleCellDoubleClick(i, j)}
-							onClick={(e) => handleShowTinyPopup(e)}>
-							{isRequestInProgress && prevSelectedCell && prevSelectedCell.row === i && prevSelectedCell.col === j ? <span className={styles.loader}></span> : renderCellContent(i, j)}
+							onMouseEnter={(e) => handleShowTinyPopup(e, i, j)}
+							onMouseLeave={(e) => setShowTinyPopup(false)}>
+							{isRequestInProgress &&
+							prevSelectedCell &&
+							prevSelectedCell.row === i &&
+							prevSelectedCell.col === j ? (
+								<span className={styles.loader}></span>
+							) : (
+								renderCellContent(i, j)
+							)}
 						</td>
 					);
 				}
@@ -517,17 +495,46 @@ export default function AcademicRecords({ userRole, user }) {
 		};
 	}, []);
 
-	const handleShowTinyPopup = (e) => {
-		if (!subject.length || subject.length === 0) {
-			toast.error("Спочатку оберіть предмет");
-			return;
-		}
-		if (popupref.current) {
-			popupref.current.style.left = e.target.offsetLeft + "px";
-			popupref.current.style.top = e.target.offsetTop + 48 + "px";
-		}
+	const handleShowTinyPopup = (e, rowIndex, colIndex) => {
+		const record = getRecord(rowIndex, colIndex);
 
-		setShowTinyPopup(true);
+		if (record) {
+			setShowTinyPopup(true);
+			setPopupData((prev) => ({
+				...prev,
+				teacherId: record.teacher_id,
+				teacherFirstname: record.teacher_firstname,
+				teacherLastname: record.teacher_lastname,
+				teacherAntroponym: record.teacher_antroponym,
+			}));
+
+			setTimeout(() => {
+				if (record && popupref.current) {
+						popupref.current.style.left =
+							e.target.offsetLeft + "px";
+						popupref.current.style.top =
+							e.target.offsetTop + 48 + "px";
+				} else {
+					return;
+				}
+			}, 800);
+		}
+	};
+
+	const renderPopup = () => {
+		if (popupData) {
+			return (
+				<div
+					ref={popupref}
+					className={styles.popup}
+					onMouseEnter={(e) => setShowTinyPopup(true)}
+					onMouseLeave={(e) => setShowTinyPopup(false)}>
+					<FaChalkboardTeacher />{" "}
+					<a
+						href={`/institution/teacher/${popupData.teacherId}`}>{`${popupData.teacherLastname} ${popupData.teacherFirstname[0]}.${popupData.teacherAntroponym[0]}.`}</a>
+				</div>
+			);
+		}
 	};
 
 	return (
@@ -613,13 +620,7 @@ export default function AcademicRecords({ userRole, user }) {
 						</table>
 					)}
 
-					{showTinyPopup && (
-						<div
-							ref={popupref}
-							className={styles.popup}>
-							Popup!
-						</div>
-					)}
+					{showTinyPopup && subject && renderPopup()}
 				</div>
 				<button
 					className={styles.buttonArrow}

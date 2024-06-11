@@ -1,6 +1,7 @@
 'use client'
 import styles from "@/styles/layout/NavbarUnauthed.module.scss";
 import Link from 'next/link';
+import { LuUser } from "react-icons/lu";
 
 const NavbarTeacher = () =>{
 
@@ -20,16 +21,13 @@ const NavbarTeacher = () =>{
             <nav className={styles.navbarUnauthed}>
                 <ul>
                     <li>
-                        <Link href="/cabinet/teacher/classes">Класи</Link>
-                    </li>
-                    <li>
                         <Link href="/cabinet/teacher/academic-records">Журнал оцінок</Link>
                     </li>
                     <li>
-                        <Link href="/cabinet/teacher/schedule">Розклад</Link>
+                        <Link href="/cabinet/teacher/schedule">Розклад класів</Link>
                     </li>
                     <li>
-                        <Link href="/cabinet/teacher/teachers">Вчителі</Link>
+                        <Link href="/cabinet/teacher"><LuUser/></Link>
                     </li>
                     <li>
                         <input type="button" onClick={signOutHandler} value="Вийти"/>
