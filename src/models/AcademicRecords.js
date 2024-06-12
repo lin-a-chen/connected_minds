@@ -2,7 +2,6 @@ import { connectToAppDatabase } from "@/lib/db";
 
 class AcademicRecord {
 	static async findGrade(classId, studentId, date, subjectId) {
-		console.log('find', classId, studentId, date, subjectId);
 		const connection = await connectToAppDatabase();
 		const dateObj = new Date(date);
 		try {
@@ -10,7 +9,6 @@ class AcademicRecord {
 			const result = await connection.query(sql,
 			[classId, studentId, dateObj.getMonth() + 1, dateObj.getDate(), subjectId]);
 			await connection.end();
-			console.log('result[0]', result[0]);
 
 			if (result[0][0]){
 				return { success: true, data: result[0] };
@@ -64,11 +62,9 @@ class AcademicRecord {
 
 	static async updateById(id, grade, present, teacherId) {
 		const connection = await connectToAppDatabase();
-		console.log('id, grade, present, teacherId', id, grade, present, teacherId);
 		try {
 			const result = await connection.query(`UPDATE academic_records SET grade=?, present=?, teacher_id=? WHERE id=?`, [grade, present, teacherId, id]);
 			await connection.end();
-			console.log('result', result)
 			if (result[0].affectedRows > 0){
 				return { success: true, data: result[0] };
 			}

@@ -79,7 +79,6 @@ class Schoolchild {
 			INNER JOIN classes ON schch.class_id = classes.id
 			WHERE schch.class_id = ?`, [classID]);
 			await connection.end();
-			console.log('res', result);
 			return { success: true, data: result[0] };
 		} catch (error) {
 			await connection.end();

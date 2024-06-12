@@ -1,0 +1,260 @@
+@import "../../../styles/Styles.module.scss";
+
+.page {
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 80%;
+    height: 100%;
+    max-height: 80vh;
+    border-radius: 15px;
+    overflow: hidden;
+    max-height: 100vh;
+    overflow-y: auto; // Ensure the container is scrollable
+    padding: 3% 0 0 0;
+
+    .user {
+      margin-bottom: 5rem;
+      overflow-y: auto; // Should be auto instead of scroll
+
+      &> {
+        display: flex;
+        align-items: center;
+        margin-bottom: .5rem;
+        gap: .5rem;
+      }
+
+      .userRight {
+        flex-direction: row-reverse;
+      }
+
+      .userRow {
+        font-family: "Arial";
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: .5rem;
+
+        .messageContainer {
+          display: flex;
+          flex-direction: column;
+          width: fit-content;
+          max-width: 60%;
+
+          .messageInfo {
+            display: flex;
+
+            &Right {
+              flex-direction: row-reverse;
+              margin-left: auto;
+            }
+
+            .messageText {
+              padding: 1rem;
+              border-radius: 15px;
+              font-size: .9rem;
+              width: 100%;
+              word-break: break-all;
+              width: fit-content;
+
+              &Right {
+                background-color: $bg-slate-blue;
+                color: white;
+                font-weight: 300;
+              }
+
+              &Left {
+                background-color: rgb(255, 237, 240);
+              }
+            }
+
+            .messageStatus {
+              margin-top: auto;
+              margin-bottom: -.5rem;
+              color: rgb(158, 150, 171);
+
+              &Left {
+                margin-left: 0.25rem;
+              }
+
+              &Right {
+                margin-left: auto;
+                margin-right: .25rem;
+              }
+            }
+          }
+
+          .messageTime {
+            color: rgb(158, 150, 171);
+            font-size: .7rem;
+            width: 100%;
+
+            &Left {
+              & span {
+                width: fit-content;
+                display: block;
+                margin-left: auto;
+                margin-right: 1.5rem;
+                margin-top: .25rem;
+              }
+            }
+
+            &Right {
+              & span {
+                width: fit-content;
+                display: block;
+                margin-left: auto;
+                margin-right: .15rem;
+                margin-top: .25rem;
+              }
+            }
+          }
+        }
+
+        .profilePhotoCircle {
+          max-height: 3rem;
+          max-width: 3rem;
+          border-radius: 100%;
+          overflow: hidden;
+
+          & img {
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            object-fit: cover;
+          }
+
+          &Right {
+            background-color: $bg-slate-blue;
+          }
+
+          &Left {
+            background-color: rgb(255, 237, 240);
+          }
+        }
+      }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      font-family: "Evolventa";
+        font-weight: 600;
+        color: rgb(61, 68, 124);
+        width: 100%;
+        height: 25%;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: $bg-main-sea-salt;
+        padding-bottom: 2rem;
+
+      .profilePic {
+        max-width: 3rem;
+        max-height: 3rem;
+        background-color: $bg-peach;
+        border-radius: 100%;
+        margin-right: 1rem;
+        overflow: hidden;
+        
+
+        & img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .day {
+      font-family: "Evolventa";
+      color: rgb(139, 151, 168);
+      text-align: center;
+      font-size: .9rem;
+      margin-top: 0;
+      margin-bottom: auto;
+    }
+
+    .inputContainer {
+      width: 100%;
+      height: 20%;
+      box-shadow: 3px -24px 24px 22px rgba(255, 255, 255, 1);
+      position: sticky;
+      bottom: 0;
+
+      form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        font-family: "Arial";
+        background-color: rgb(243, 243, 243);
+        border-radius: 15px;
+
+        .messageInput {
+          width: 100%;
+          padding: 0 2rem;
+          border: none;
+          background-color: rgb(243, 243, 243);
+          border-radius: 15px;
+          resize: none;
+          box-sizing: border-box;
+          overflow-y: auto;
+          height: fit-content;
+          min-height: 3rem;
+          max-height: 8rem;
+
+          &::-webkit-scrollbar {
+            display: none;
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        .emojiButton {
+          background: none;
+          border: none;
+          font-size: 1.5rem;
+          cursor: pointer;
+          margin: 0 0.5rem;
+
+          &:hover {
+            color: $cl-wisteria;
+          }
+        }
+
+        .buttonIcon {
+          background-color: rgb(243, 243, 243);
+          border-radius: 15px;
+          font-size: 2rem;
+          font-weight: 600;
+          color: $cl-slate-blue;
+          border: none;
+          padding: 1rem;
+          cursor: pointer;
+
+          &:hover {
+            color: $cl-wisteria;
+          }
+        }
+      }
+
+      .emojiPicker {
+        position: absolute;
+        bottom: 100%;
+        right: 0;
+        z-index: 1000;
+      }
+    }
+  }
+}

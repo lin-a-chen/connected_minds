@@ -33,9 +33,6 @@ export async function GET(req) {
         }
         else{
             const result = await Class.findAll();
-
-            console.log('class res', result)
-
             if (result.success){
                 return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});
             }

@@ -72,7 +72,6 @@ export async function PATCH(req) {
             }
         }
         else if (body.password && body.oldPassword){
-            console.log('hi')
 
             const findUser = await User.findById(body.id);
             if (!findUser.success){

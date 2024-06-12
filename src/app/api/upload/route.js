@@ -70,7 +70,7 @@ export const POST = async (req, res) => {
 		return new Response(
 			JSON.stringify({
 				success: true,
-				data: "Photo updated successfully!",
+				data: imageUrl,
 			}),
 			{ status: 201 }
 		);

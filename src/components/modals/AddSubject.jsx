@@ -69,7 +69,7 @@ export default function AddSubject({ onClose, isVisible }){
                     <fieldset>
                     <div>
                     <div className={standartStyles.icon}><LuBaby/></div>
-                        <label className={standartStyles.labelForFormElements}>Ви вчите*</label>
+                        <label className={standartStyles.labelForFormElements}>Предмет для*</label>
                     </div>
                     <div className={styles.radioButtonWithLabelAndIcon}>
                         <div><input
@@ -79,7 +79,7 @@ export default function AddSubject({ onClose, isVisible }){
                         id={'primarySchoolRadioButton'}
                         {...register("classesType", { required: "Це поле обов'язкове" })}
                         /></div>
-                        <label htmlFor={'primarySchoolRadioButton'}>Молодшу школу</label>
+                        <label htmlFor={'primarySchoolRadioButton'}>Молодшої школи</label>
                     </div>
                     <div className={styles.radioButtonWithLabelAndIcon}>
                     <div><input
@@ -88,7 +88,7 @@ export default function AddSubject({ onClose, isVisible }){
                         id={'highSchoolRadioButton'}
                         {...register("classesType", { required: "Це поле обов'язкове" })}
                         /></div>
-                        <label htmlFor={'highSchoolRadioButton'}>Старшу школу</label>
+                        <label htmlFor={'highSchoolRadioButton'}>Старшої школи</label>
                     </div>
                     {errors.classesType && (
                         <span className={styles.errorMessage}>{errors.classesType.message}</span>

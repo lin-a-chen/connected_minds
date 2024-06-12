@@ -20,7 +20,6 @@ const generateUUID = () => {
 export async function GET(req) {
 	const { searchParams } = new URL(req.url);
 	const className = searchParams.get("class");
-	console.log("classname", className);
 
 	try {
 		if (className) {

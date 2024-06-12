@@ -26,9 +26,6 @@ const TeacherSchedule = ({ week, subjects, onUpdate, userRole, teacher }) => {
 		weekFiltered.push(dayFiltered);
 	})
 
-	console.log('weekFiltered', weekFiltered)
-	console.log('week', week)
-
 	const weekdays = {
 		1: "Понеділок",
 		2: "Вівторок",

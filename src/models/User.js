@@ -242,8 +242,6 @@ class User {
 	static async changePhoto(userId, url) {
 		const connection = await connectToAppDatabase();
 
-		console.log('user id, url', userId, url)
-
 		try {
 			const sql = `UPDATE users SET photo=?
             WHERE id=?;`;

@@ -37,14 +37,12 @@ class Lesson {
 
 	static async deleteById(lesson_id) {
 		const connection = await connectToAppDatabase();
-		console.log('id', lesson_id)
 		try {
 			const result = await connection.query(
 				`DELETE FROM lessons WHERE id=?`,
 				[lesson_id]
 			);
 			await connection.end();
-			console.log('result', result)
 			return { success: true, data: result[0] };
 		} catch (error) {
 			await connection.end();

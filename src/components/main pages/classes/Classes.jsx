@@ -131,7 +131,6 @@ export default function InstitutionAdminClasses({userRole}) {
 									onDragOver={(e) => onDragOver(e)}>
 									<div className={styles.header}>
 										<h3>{el.name}</h3>
-										{console.log('el to delete', el)}	
 										{userRole === 'INSTITUTION_ADMIN' && <button
 											className={`${standartStyles.buttonDelete} ${standartStyles.buttonIconNoText}`}
 										

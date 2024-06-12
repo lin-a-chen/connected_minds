@@ -30,44 +30,41 @@ export default function TeacherCabinet({ user }) {
 	const [regions, setRegions] = useState([]);
 	const [settlements, setSettlements] = useState([]);
 	const [institution, setInstitution] = useState({});
+	const [userPhoto, setUserPhoto] = useState(null);
 	const formRef = useRef(null);
 
 	const handleFileUpload = async (e) => {
-		e.preventDefault(); // Prevent default form submission behavior
-	  
-		if (user && !editPhotoRequestStarted) {
-		  const formData = new FormData(formRef.current); // Create FormData object from the form
-		  formData.append("file", formRef.current.file.files[0]); // Append the selected file
-		  formData.append("userId", user.id);
+		e.preventDefault();
 
-		  console.log('formdata', formData)
-	  
-		  try {
-			console.log('Upload started');
-			setEditPhotoRequestStarted(true);
-	  
-			const response = await fetch("/api/upload", {
-			  method: "POST",
-			  body: formData,
-			});
-	  
-			const result = await response.json();
-			setEditPhotoRequestStarted(false);
-	  
-			if (!result.success) {
-			  console.error(result.data);
-			} else {
-			  toast.success("Фото успішно змінено");
+		if (user && !editPhotoRequestStarted) {
+			const formData = new FormData(formRef.current);
+			formData.append("file", formRef.current.file.files[0]);
+			formData.append("userId", user.id);
+			try {
+				setEditPhotoRequestStarted(true);
+
+				const response = await fetch("/api/upload", {
+					method: "POST",
+					body: formData,
+				});
+
+				const result = await response.json();
+				setEditPhotoRequestStarted(false);
+
+				if (!result.success) {
+					console.error(result.data);
+					toast.error("Не вийшло завантажити фото");
+				} else {
+					setUserPhoto(result.data);
+					toast.success("Фото успішно змінено");
+				}
+			} catch (error) {
+				setEditPhotoRequestStarted(false);
+				console.error("Error uploading image:", error);
+				toast.error("Не вийшло завантажити фото");
 			}
-		  } catch (error) {
-			setEditPhotoRequestStarted(false);
-			console.error("Error uploading image:", error);
-			toast.error("Не вийшло завантажити фото");
-		  } finally {
-			console.log('Upload ended');
-		  }
 		}
-	  };
+	};
 
 	useEffect(() => {
 		const fetchTeacher = async () => {
@@ -122,7 +119,6 @@ export default function TeacherCabinet({ user }) {
 		.split("T")[0];
 
 	const onSubmit = async (data) => {
-		console.log("data", data);
 		const response = await fetch(`/api/institution/teachers`, {
 			method: "PUT",
 			headers: {
@@ -191,30 +187,44 @@ export default function TeacherCabinet({ user }) {
 		}
 	}, [region]);
 
+	useEffect(() => {}, [userPhoto]);
+
 	return (
 		<div className={styles.page}>
 			<div className={styles.header}>
 				<div className={styles.profilePictureBlock}>
 					<div className={styles.profilePicture}>
-						<img src={user ? user?.photo : "/images/teacher.png"} />
+						<img
+							src={
+								userPhoto
+									? userPhoto
+									: user
+									? user.photo
+									: "/images/teacher.png"
+							}
+						/>
 					</div>
-					<form ref={formRef} onSubmit={handleFileUpload} encType="multipart/form-data" className={styles.buttonChangeProfile}>
-  <label>
-    {!editPhotoRequestStarted && (
-      <>
-        <input
-          name="file"
-          type="file"
-          onChange={handleFileUpload} // Add onChange handler for file selection
-        />
-        <LuPencil />
-      </>
-    )}
-    {editPhotoRequestStarted && (
-      <span className={styles.loader}></span>
-    )}
-  </label>
-</form>
+					<form
+						ref={formRef}
+						onSubmit={handleFileUpload}
+						encType="multipart/form-data"
+						className={styles.buttonChangeProfile}>
+						<label>
+							{!editPhotoRequestStarted && (
+								<>
+									<input
+										name="file"
+										type="file"
+										onChange={handleFileUpload}
+									/>
+									<LuPencil />
+								</>
+							)}
+							{editPhotoRequestStarted && (
+								<span className={styles.loader}></span>
+							)}
+						</label>
+					</form>
 				</div>
 
 				<p>{teacher && `${teacher.firstname} ${teacher.lastname}`}</p>
@@ -234,9 +244,9 @@ export default function TeacherCabinet({ user }) {
 							<LuListTodo />
 						</a>
 					</div>
-					<div>
+					{/* <div>
 						<LuGanttChartSquare />
-					</div>
+					</div> */}
 				</div>
 			</div>
 
@@ -415,7 +425,7 @@ export default function TeacherCabinet({ user }) {
 											? new Date(teacher.birthdate)
 													.toISOString()
 													.slice(0, 10)
-											: ''
+											: ""
 									}
 									{...register("birthdate", {
 										required:

@@ -5,10 +5,8 @@ import Lesson from "@/models/Lesson";
 
 export async function PUT(req) {
     const body = await req.json();
-    console.log('body', body)
     try{
         const userResult = await User.findByEmail(body.teachers_email);
-        console.log(userResult)
         if (!userResult.success || !userResult.data){
             return new Response(JSON.stringify({success: false, data: 'Користувача з даним email не знайдено'}), {status: 404});
         }
@@ -39,10 +37,8 @@ export async function PUT(req) {
 
 export async function POST(req) {
     const body = await req.json();
-    console.log('body', body)
     try{
         const userResult = await User.findByEmail(body.teachersEmail);
-        console.log(userResult)
         if (!userResult.success || !userResult.data){
             return new Response(JSON.stringify({success: false, data: 'Користувача з даним email не знайдено'}), {status: 404});
         }
@@ -52,12 +48,10 @@ export async function POST(req) {
         if (!teacherResult.success && !teacherResult.data){
             return new Response(JSON.stringify({success: false, data: 'Вчителя з даним email не знайдено'}), {status: 404});
         }
-        console.log(teacherResult)
         const subjectResult = await Subject.findByNameAndClassesType(body.subjectName, body.classesType);
         if (!subjectResult.success || !subjectResult.data){
             return new Response(JSON.stringify({success: false, data: 'Такий предмет не знайдено'}), {status: 404});
         }
-        console.log(subjectResult)
         const lessonResult = await Lesson.add(subjectResult.data.id, teacherResult.data.id, body.scheduleId, body.subjectStartTime, body.subjectEndTime);
         if (!lessonResult.success){
             return new Response(JSON.stringify({success: false, data: 'Не вийшло додати урок'}), {status: 404});

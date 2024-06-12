@@ -40,9 +40,6 @@ class Schedule {
 			for (let i = 0; i < 5; i++){
 				const result = await connection.query(`INSERT INTO schedule(class_id, weekday) VALUES(?, ?)`,
 				 [classId, (i + 1)]);
-				 console.log('scheduleadd result', result)
-
-				 console.log('insertid sql', result[0].insertId);
 
 				if (!result[0].insertId){
 					return { success: false, data: `Schedule for weekday ${i + 1} wasn't created`};

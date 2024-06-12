@@ -128,7 +128,6 @@ export default function LessonForm({ day, onAddLesson }) {
 					</span>
 				)}
 				<label>Email викладача*</label>
-				{console.log("day", day)}
 				<input
 					className={standartStyles.inputRegular}
 					type="email"

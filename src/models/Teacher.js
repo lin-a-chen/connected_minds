@@ -70,7 +70,6 @@ class Teacher {
 
 	static async findTeacherAndUserById(id) {
 		const connection = await connectToAppDatabase();
-		console.log('id', id)
 		try {
 			const result =
 				await connection.query(`SELECT tchr.*, users.email, users.phone_number, users.photo, users.is_activated
@@ -78,7 +77,6 @@ class Teacher {
 			INNER JOIN users ON tchr.user_id = users.id
 			WHERE tchr.id = ?`, [id]);
 			await connection.end();
-			console.log('teach', result[0][0])
 			return { success: true, data: result[0][0] };
 		} catch (error) {
 			await connection.end();

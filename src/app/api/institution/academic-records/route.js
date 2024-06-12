@@ -166,8 +166,6 @@ export async function POST(req) {
 				);
 			}
 
-			console.log('find result', findRecordResult)
-
 			if (findRecordResult.data && findRecordResult.data.length > 0) {
 				const updateRecordResult = await AcademicRecords.updateById(
 					findRecordResult.data[0].id, 
@@ -176,7 +174,6 @@ export async function POST(req) {
 					teacherResult.data.id
 				);
 
-				console.log('update res', updateRecordResult)
 				if (!updateRecordResult.success) {
 					return new Response(
 						JSON.stringify({

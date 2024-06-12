@@ -15,7 +15,6 @@ export default function ChangePassword({user}){
 	} = useForm({});
 
     const onSubmit = async (data) => {
-		console.log('data', data);
 		const response = await fetch(`/api/users`, {
 			method: "PATCH",
 			headers: {

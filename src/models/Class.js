@@ -90,8 +90,7 @@ class Class {
 	}
 
 	static async deleteById(id){
-		console.log('deleted!');
-		console.log('delete id', id)
+
 		const connection = await connectToAppDatabase();
 		try {
 			const result = await connection.query(`DELETE FROM classes WHERE id=?`, [id]);
