@@ -6,7 +6,7 @@ import Lesson from "@/models/Lesson";
 export async function PUT(req) {
     const body = await req.json();
     try{
-        const userResult = await User.findByEmail(body.teachers_email);
+        const userResult = await User.findByEmail(body.teacher_email);
         if (!userResult.success || !userResult.data){
             return new Response(JSON.stringify({success: false, data: 'Користувача з даним email не знайдено'}), {status: 404});
         }

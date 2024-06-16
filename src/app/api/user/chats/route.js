@@ -1,55 +1,152 @@
-import User from "@/models/User";
 import ChatRoom from "@/models/ChatRoom";
 
-export const GET = async(req) => {
+export const GET = async (req) => {
+	const { searchParams } = new URL(req.url);
+	const userId = searchParams.get("user-id");
+	const roomId = searchParams.get("room-id");
 
-    const {searchParams} = new URL(req.url);
-    const userId = searchParams.get('user-id');
-    const roomId = searchParams.get('room-id');
+	try {
+		if (userId && !roomId) {
+			const findRoomResult = await ChatRoom.findByUserId(userId);
 
-    try{
-        if (userId && !roomId){
+			if (!findRoomResult.success) {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "Couldn't check if chat rooms exist for this user",
+					}),
+					{ status: 500 }
+				);
+			}
 
-            const findRoomResult = await ChatRoom.findByUserId(userId);
+			const rooms = [];
+			if (findRoomResult.data) {
+				for (const room of findRoomResult.data) {
+					const findRoomUsersResult =
+						await ChatRoom.findSecondRoomUser(
+							room.room_id,
+							userId,
+						);
 
-            if (!findRoomResult.success){
-                return new Response(JSON.stringify({success: false, data: 'Couldn\'t check if chat rooms exist for this user'}), {status: 500})
+					if (!findRoomUsersResult.success) {
+						return new Response(
+							JSON.stringify({
+								success: false,
+								data: "Couldn't find users for this room",
+							}),
+							{ status: 500 }
+						);
+					}
+					rooms.push({ room: room, user: findRoomUsersResult.data });
+				}
+
+                return new Response(
+                    JSON.stringify({ success: true, data: [...rooms] }),
+                    { status: 200 }
+                );
+
+				
+			}
+            else{
+                return new Response(
+					JSON.stringify({ success: true, data: [] }),
+					{ status: 200 }
+				);
             }
+		} else if (roomId && userId) {
 
-            const findRoomUsersResult = await ChatRoom.findSecondRoomUser(findRoomResult.data.room_id, userId);
+			const findRoomResult = await ChatRoom.findByRoomId(roomId);
 
-            if (!findRoomUsersResult.success){
-                return new Response(JSON.stringify({success: false, data: 'Couldn\'t find users for this room'}), {status: 500})
-            }
+			if (!findRoomResult.success) {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "Couldn't check if chat rooms exist for this user",
+					}),
+					{ status: 500 }
+				);
+			}
 
-            return new Response(JSON.stringify({success: true, data: {room: findRoomResult.data, user: findRoomUsersResult.data}}), {status: 200})
+			const findRoomUsersResult = await ChatRoom.findSecondRoomUser(
+				roomId,
+				userId
+			);
 
-        }
-        else if(roomId && userId){
-            const findRoomResult = await ChatRoom.findByRoomId(roomId);
+			if (!findRoomUsersResult.success) {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "Couldn't find users for this room",
+					}),
+					{ status: 500 }
+				);
+			}
 
-            if (!findRoomResult.success){
-                return new Response(JSON.stringify({success: false, data: 'Couldn\'t check if chat rooms exist for this user'}), {status: 500})
-            }
+			return new Response(
+				JSON.stringify({
+					success: true,
+					data: {
+						room: findRoomResult.data,
+						user: findRoomUsersResult.data,
+					},
+				}),
+				{ status: 200 }
+			);
+		}
 
-            const findRoomUsersResult = await ChatRoom.findSecondRoomUser(roomId, userId);
+		return new Response(
+			JSON.stringify({ success: false, data: "User id wasn't provided" }),
+			{ status: 400 }
+		);
+	} catch (error) {
+		console.error(error);
+		return new Response(
+			JSON.stringify({ success: false, data: "Internal server error" }),
+			{ status: 500 }
+		);
+	}
+};
 
-            if (!findRoomUsersResult.success){
-                return new Response(JSON.stringify({success: false, data: 'Couldn\'t find users for this room'}), {status: 500})
-            }
+export const POST = async (req) => {
+	const body = await req.json();
 
-            return new Response(JSON.stringify({success: true, data: {room: findRoomResult.data, user: findRoomUsersResult.data}}), {status: 200})
-        }
+	try {
+		const addRoomResult = await ChatRoom.add(body.name, body.type);
 
-        return new Response(JSON.stringify({success: false, data: 'User id wasn\'t provided'}), {status: 400})
+		if (!addRoomResult.success || !addRoomResult.data) {
+			return new Response(
+				JSON.stringify({
+					success: false,
+					data: "Couldn't add chat room",
+				}),
+				{ status: 500 }
+			);
+		}
+		const roomId = addRoomResult.data.id;
 
-    }
-    catch(error){
-        console.error(error);
-        return new Response(JSON.stringify({success: false, data: 'Internal server error'}), {status: 500})
-    }
-    if (userId){
+		const result = await ChatRoom.joinUsers(
+			[body.currentUserId, body.targetUserId],
+			roomId
+		);
 
-    }
+		if (!result.success) {
+			return new Response(
+				JSON.stringify({
+					success: false,
+					data: "Couldn't add users to this room",
+				}),
+				{ status: 500 }
+			);
+		}
 
-}
+		return new Response(JSON.stringify({ success: true, data: roomId }), {
+			status: 201,
+		});
+	} catch (error) {
+		console.error(error);
+		return new Response(
+			JSON.stringify({ success: false, data: "Internal server error" }),
+			{ status: 500 }
+		);
+	}
+};

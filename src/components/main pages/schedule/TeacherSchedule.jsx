@@ -1,131 +1,77 @@
-"use client";
+import ScheduleTable from "./ScheduleTable";
+import styles from "./Schedule.module.scss";
+import Loading from "@/components/modals/Loading";
 
-import Schedule from "@/components/main pages/Schedule";
-import { useEffect, useState } from "react";
-import styles from "./SchedulePage.module.scss";
-import standartStyles from "@/styles/Styles.module.scss";
-import TeacherSchedule from "@/components/main pages/TeacherSchedule";
+const TeacherSchedule = ({ week, onUpdate, userRole, teacher }) => {
+	const weekFiltered = [];
 
-export default function TeacherSchedulePageComponent({userRole, user}) {
-	const [week, setWeek] = useState([]);
-	const [className, setClassName] = useState({ number: 1, letter: "А" });
-	const [classLetters, setClassLetters] = useState([]);
-	const [teacher, setTeacher] = useState(null);
-
-    useEffect(() => {
-		const fetchTeacher = async () => {
-			const response = await fetch(
-				`/api/institution/teachers?user-id=${user.id}`
-			);
-			const result = await response.json();
-
-			if (!result.success) {
-				console.error("Couldn't get teacher");
+	week.forEach((day) => {
+		const dayFiltered = [];
+		day.map((lesson) => {
+			if (lesson.teacher_id === teacher.id) {
+				dayFiltered.push(lesson);
 			}
+		});
 
-			setTeacher(result.data);
-		};
-
-		fetchTeacher();
-	}, []);
-
-	const handleUpdate = () => {
-		fetchSchedule();
-	};
-
-	const fetchSchedule = async () => {
-		const response = await fetch(
-			`/api/institution/schedule?class=${className.number}-${className.letter}`
-		);
-		const result = await response.json();
-		if (!result.success) {
-			console.error(result.data);
-		} else {
-			const groupedByWeekday = result.data.reduce((acc, current) => {
-				const { weekday } = current;
-				if (!acc[weekday]) {
-					acc[weekday] = [];
-				}
-				acc[weekday].push(current);
-				return acc;
-			}, {});
-
-			const sortedWeekdays = Object.keys(groupedByWeekday)
-				.sort((a, b) => a - b)
-				.map((key) => groupedByWeekday[key]);
-
-			setWeek(sortedWeekdays);
-		}
-	};
-
-	const fetchClasses = async () => {
-		const response = await fetch(`/api/institution/classes`);
-		const result = await response.json();
-		if (!result.success) {
-			console.error(result.data);
+		if (dayFiltered.length === 0) {
+			dayFiltered.push({
+				antroponym: null,
+				class_id: null,
+				classes_type: null,
+				end_time: null,
+				firstname: null,
+				lastname: null,
+				lesson_id: null,
+				schedule_id: null,
+				start_time: null,
+				subject_id: null,
+				subject_name: null,
+				teacher_email: null,
+				teacher_id: null,
+				weekday: day[0].weekday,
+			});
 		}
 
-		const letters = result.data.map((el) => el.name.split("-")[1]);
-		const uniqueLetters = [...new Set(letters)];
-		setClassLetters(uniqueLetters);
+		weekFiltered.push(dayFiltered);
+	});
+
+	const weekdays = {
+		0: "Понеділок",
+		1: "Вівторок",
+		2: "Середа",
+		3: "Четвер",
+		4: "П'ятниця",
+		5: "Субота",
 	};
 
-	useEffect(() => {
-		fetchClasses();
-	}, []);
-
-	// const handleClassNumberChange = (e) => {
-	// 	setClassName((prev) => ({
-	// 		...prev,
-	// 		number: +e.target.value,
-	// 	}));
-	// };
-
-	// const handleClassLetterChange = (e) => {
-	// 	setClassName((prev) => ({
-	// 		...prev,
-	// 		letter: e.target.value,
-	// 	}));
-	// };
-
-	useEffect(() => {
-		fetchSchedule();
-	}, [className]);
+	const handleUpdateLesson = () => {
+		onUpdate();
+	};
 
 	return (
-		<div className={styles.schedulePage}>
-			{/* <div className={styles.header}>
-				<label>Клас*</label>
-				<div>
-					<input
-						className={standartStyles.inputRegular}
-						defaultValue="1"
-						type="number"
-						min="1"
-						max="11"
-						placeholder="1"
-						onChange={handleClassNumberChange}
-					/>
-					<select
-						className={standartStyles.selectRegular}
-						onChange={handleClassLetterChange}>
-						{classLetters &&
-							classLetters.map((el, index) => (
-								<option
-									key={index}
-									value={el}>
-									{el}
-								</option>
-							))}
-					</select>
+		<>
+			{!weekFiltered || (weekFiltered.length <= 0 && <Loading />)}
+
+			{weekFiltered && weekFiltered.length > 0 && (
+				<div className={styles.scheduleContainer}>
+					{weekFiltered.map((day, index) => (
+						<div
+							key={index}
+							className={styles.dayContainer}>
+							<h2>{weekdays[day[0].weekday]}</h2>
+							<ScheduleTable
+								day={day}
+								lessons={day}
+								onUpdateLesson={handleUpdateLesson}
+								userRole={userRole}
+								teacher={teacher}
+							/>
+						</div>
+					))}
 				</div>
-			</div> */}
-			<TeacherSchedule
-				week={week}
-				onUpdate={handleUpdate}
-                userRole={userRole}
-                teacher={teacher}
-			/>
-		</div>
+			)}
+		</>
 	);
-}
+};
+
+export default TeacherSchedule;

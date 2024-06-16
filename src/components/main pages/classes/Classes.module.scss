@@ -1,6 +1,6 @@
 @import "../../../styles/Styles.module.scss";
 
-.classesPage{
+.classesPage {
     display: flex;
     flex-direction: column;
     padding: 5% 10%;
@@ -10,41 +10,42 @@
         margin: 5% auto;
         width: 60%;
         display: flex;
-        // flex-wrap: wrap;
-    
-        .column0{
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-        }
-        .column1{
+
+        .column0 {
             display: flex;
             flex-direction: column;
             width: 100%;
             height: 100%;
         }
 
-        .teacherLine{
+        .column1 {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+
+        .teacherLine {
             font-family: "Evolventa";
             margin-top: 1rem;
             display: flex;
             align-items: center;
-            & svg{
+
+            & svg {
                 color: $cl-slate-blue;
             }
-            & span{
+
+            & span {
                 margin-left: .5rem;
                 color: $cl-slate-blue;
 
-                & a{
+                & a {
                     color: rgb(33, 18, 71);
-                    // text-decoration: dashed;
                     margin-left: .5rem;
                 }
             }
         }
-    
+
         & .class {
             box-shadow: -2px 0px 25px -4px rgba(135, 166, 193, 0.558);
             border-radius: 5px;
@@ -55,14 +56,13 @@
             margin-bottom: 3rem;
             max-height: 480px;
             overflow: hidden;
-    
+
             & h3 {
                 font-family: "Evolventa";
                 color: $bg-slate-blue;
                 margin: 0;
-                // margin-bottom: 2rem;
             }
-    
+
             &>p {
                 font-family: "Evolventa";
                 color: #4aafde;
@@ -71,23 +71,27 @@
                 font-size: 1.1rem;
                 margin-bottom: .5rem;
             }
-    
+
             & .members {
                 margin: 0 auto;
                 display: flex;
                 flex-direction: row;
                 width: 100%;
+                height: 100%;
                 cursor: pointer;
-    
+
                 &Expanded {
                     flex-direction: column;
+                    height: 100%;
+                    max-height: 20rem;
+                    overflow-y: auto;
                 }
-    
+
                 &>* {
                     text-decoration: none;
                     user-select: none;
                 }
-    
+
                 & .addMemberButton {
                     display: flex;
                     align-items: center;
@@ -97,23 +101,25 @@
                     border-radius: 100%;
                     width: 3rem;
                     height: 3rem;
+                    min-height: 3rem;
+                    min-height: 3rem;
                     margin-bottom: 1.5rem;
                     color: $bg-columbia-blue;
-    
+
                     & svg {
                         width: 1rem;
                         height: 1rem;
                     }
                 }
-    
-    
+
+
                 & .membersCircles {
                     display: flex;
                     flex-direction: row;
                     justify-content: flex-start;
                     align-items: flex-start;
-                    width: fit-content;
-    
+                    width: 100%;
+
                     & .member {
                         background-color: $bg-columbia-blue;
                         border-radius: 100%;
@@ -121,11 +127,11 @@
                         width: 2.5rem;
                         height: 2.5rem;
                         margin-left: -1rem;
-    
+
                         &:nth-child(2) {
                             background-color: $bg-peach;
                         }
-    
+
                         &:last-child {
                             background-color: #4aafde;
                             color: $cl-sea-salt;
@@ -136,17 +142,20 @@
                             align-items: center;
                             justify-content: center;
                         }
-    
+
                         & img {
                             width: 100%;
                             height: 100%;
+                            border-radius: 100%;
+                            object-fit: cover;
                         }
                     }
-    
+
                     &.expanded {
                         flex-direction: column;
                         max-height: 100%;
-    
+                        align-items: flex-start;
+
                         & .member {
                             display: flex;
                             justify-content: flex-start;
@@ -155,19 +164,19 @@
                             border-radius: 5px;
                             padding: .25rem;
                             margin-bottom: .5rem;
-                            width: fit-content;
+                            width: 100%;
                             cursor: pointer;
-    
+
                             & img {
                                 background-color: $bg-columbia-blue;
-                                border-radius: 100%;
                                 width: 3rem;
                                 height: 3rem;
                                 margin-right: .5rem;
+                                border-radius: 100%;
+                                object-fit: cover;
                             }
-    
+
                             & span {
-                                // display: none;
                                 color: rgb(41, 41, 42);
                                 font-weight: 600;
                                 font-family: "Arial";
@@ -176,7 +185,7 @@
                                 white-space: nowrap;
                                 padding: 0 1rem 0 0;
                             }
-    
+
                             &.expanded span {
                                 display: inline;
                             }
@@ -185,7 +194,7 @@
                 }
             }
         }
-    
+
         & .hideButton {
             background-color: #4aafde;
             color: $cl-sea-salt;
@@ -197,13 +206,13 @@
             margin-top: 1rem;
             cursor: pointer;
 
-            &:hover{
+            &:hover {
                 background-color: $bg-columbia-blue;
             }
         }
     }
-    
-    & .addClassButton{
+
+    & .addClassButton {
         width: fit-content;
         height: fit-content;
         padding: 1rem 1rem;
@@ -214,14 +223,14 @@
         border-radius: 5px;
         cursor: pointer;
         margin-left: 20%;
-    
-        &:hover{
-          background-color: $bg-wisteria;
-          color: $cl-sea-salt;
+
+        &:hover {
+            background-color: $bg-wisteria;
+            color: $cl-sea-salt;
         }
     }
 
-    .header{
+    .header {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -234,3 +243,23 @@
 
 }
 
+@media (max-width: 1024px) {
+    .classesPage {
+        padding: 0;
+
+        .classesContainer {
+            flex-wrap: wrap;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .classesPage {
+        padding: 0;
+
+        .classesContainer {
+            flex-wrap: wrap;
+            padding: 0;
+        }
+    }
+}

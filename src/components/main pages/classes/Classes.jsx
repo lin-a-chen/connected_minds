@@ -8,7 +8,7 @@ import standartStyles from "@/styles/Styles.module.scss";
 import { LuCross, LuTrash2 } from "react-icons/lu";
 import AddClass from "@/components/modals/AddClass";
 
-export default function InstitutionAdminClasses({userRole}) {
+export default function InstitutionAdminClasses({ userRole }) {
 	const [classes, setClasses] = useState([]);
 	const [schoolchildren, setSchoolchildren] = useState({});
 	const [expandedClasses, setExpandedClasses] = useState({});
@@ -107,13 +107,15 @@ export default function InstitutionAdminClasses({userRole}) {
 
 	return (
 		<div className={styles.classesPage}>
-			{userRole === 'INSTITUTION_ADMIN' && <button
-				onClick={handleAddClass}
-				className={styles.addClassButton}>
-				<LuCross />
-				Додати клас
-			</button>}
-			{userRole === 'INSTITUTION_ADMIN' && addClassModuleOpened && (
+			{userRole === "INSTITUTION_ADMIN" && (
+				<button
+					onClick={handleAddClass}
+					className={styles.addClassButton}>
+					<LuCross />
+					Додати клас
+				</button>
+			)}
+			{userRole === "INSTITUTION_ADMIN" && addClassModuleOpened && (
 				<AddClass
 					isVisible={addClassModuleOpened}
 					onClose={handleOnCloseClassModule}
@@ -131,12 +133,15 @@ export default function InstitutionAdminClasses({userRole}) {
 									onDragOver={(e) => onDragOver(e)}>
 									<div className={styles.header}>
 										<h3>{el.name}</h3>
-										{userRole === 'INSTITUTION_ADMIN' && <button
-											className={`${standartStyles.buttonDelete} ${standartStyles.buttonIconNoText}`}
-										
-											onClick={() => handleDelete(el)}>
-											<LuTrash2 />
-										</button>}
+										{userRole === "INSTITUTION_ADMIN" && (
+											<button
+												className={`${standartStyles.buttonDelete} ${standartStyles.buttonIconNoText}`}
+												onClick={() =>
+													handleDelete(el)
+												}>
+												<LuTrash2 />
+											</button>
+										)}
 									</div>
 
 									<div className={styles.teacherLine}>
@@ -144,7 +149,7 @@ export default function InstitutionAdminClasses({userRole}) {
 										<span>
 											Класом керує:{" "}
 											<a
-												href={`/institution/teacher/${el.teacher_id}`}>{`${el.lastname} ${el.firstname[0]}.${el.antroponym[0]}.`}</a>
+												href={`/user/teacher/${el.teacher_id}`}>{`${el.lastname} ${el.firstname[0]}.${el.antroponym[0]}.`}</a>
 										</span>
 									</div>
 
@@ -208,7 +213,7 @@ export default function InstitutionAdminClasses({userRole}) {
 																)
 															}
 															onClick={() =>
-																(window.location.href = `/institution/schoolchild/${child.id}`)
+																(window.location.href = `/user/schoolchild/${child.id}`)
 															}>
 															<img
 																src="/images/school-child.png"
@@ -257,11 +262,15 @@ export default function InstitutionAdminClasses({userRole}) {
 									onDragOver={(e) => onDragOver(e)}>
 									<div className={styles.header}>
 										<h3>{el.name}</h3>
-										{userRole === 'INSTITUTION_ADMIN' && <button
-											className={`${standartStyles.buttonDelete} ${standartStyles.buttonIconNoText}`}
-											onClick={() => handleDelete(el)}>
-											<LuTrash2 />
-										</button>}
+										{userRole === "INSTITUTION_ADMIN" && (
+											<button
+												className={`${standartStyles.buttonDelete} ${standartStyles.buttonIconNoText}`}
+												onClick={() =>
+													handleDelete(el)
+												}>
+												<LuTrash2 />
+											</button>
+										)}
 									</div>
 
 									<div className={styles.teacherLine}>
@@ -269,7 +278,7 @@ export default function InstitutionAdminClasses({userRole}) {
 										<span>
 											Класом керує:{" "}
 											<a
-												href={`/institution/teacher/${el.teacher_id}`}>{`${el.lastname} ${el.firstname[0]}.${el.antroponym[0]}.`}</a>
+												href={`/user/teacher/${el.teacher_id}`}>{`${el.lastname} ${el.firstname[0]}.${el.antroponym[0]}.`}</a>
 										</span>
 									</div>
 
@@ -309,7 +318,7 @@ export default function InstitutionAdminClasses({userRole}) {
 													.map((child, index) => (
 														<div
 															onClick={() =>
-																(window.location.href = `/institution/schoolchild/${child.id}`)
+																(window.location.href = `/user/schoolchild/${child.id}`)
 															}
 															key={index}
 															className={`${
@@ -331,7 +340,7 @@ export default function InstitutionAdminClasses({userRole}) {
 																)
 															}>
 															<img
-																src="/images/school-child.png"
+																src={child.photo ? child.photo : '/images/school-child.png'}
 																alt="Child"
 															/>
 															{expandedClasses[

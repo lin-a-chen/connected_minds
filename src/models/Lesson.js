@@ -11,7 +11,7 @@ class Lesson {
 			return formattedTime;
 		} catch (error) {
 			console.error('Error converting time:', error);
-			throw error; // Re-throw the error to be caught in the calling function
+			throw error;
 		}
 	}
 	

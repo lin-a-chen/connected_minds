@@ -5,7 +5,8 @@ export async function GET(req) {
     const {searchParams} = new URL(req.url);
     const className = searchParams.get('class');
     try{
-        const classResult = await Class.findByName(className);
+        if (className){
+            const classResult = await Class.findByName(className);
 
         if (!classResult.success){
             return new Response(JSON.stringify({success: false, data: 'Class not found'}), {status: 404});
@@ -17,6 +18,17 @@ export async function GET(req) {
         }
         else{
             return new Response(JSON.stringify({success: false, data: 'Schedule not found'}), {status: 404});
+        }
+        }
+        else{
+            const result = await Schedule.findAll();
+
+        if (result.success){
+            return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});
+        }
+        else{
+            return new Response(JSON.stringify({success: false, data: 'Schedule not found'}), {status: 404});
+        }
         }
     }
     catch(error){

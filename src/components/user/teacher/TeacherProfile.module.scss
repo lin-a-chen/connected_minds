@@ -64,6 +64,8 @@
                 }
 
                 &>*:last-child {
+                    display: flex;
+                    align-items: center;
                     padding: .5rem 1rem;
                     font-weight: 600;
                     color: rgb(25, 96, 134);

@@ -28,6 +28,7 @@ class Teacher {
 				`SELECT * FROM teachers WHERE id=?`, [id]
 			);
 			await connection.end();
+
 			return { success: true, data: result[0][0] };
 		} catch (error) {
 			await connection.end();

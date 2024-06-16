@@ -1,10 +1,8 @@
 "use client";
 
-import styles from "./TeacherCabinet.module.scss";
+import styles from "./Cabinet.module.scss";
 import { SiGoogleclassroom } from "react-icons/si";
 import { LuCalendarDays } from "react-icons/lu";
-import { LuListTodo } from "react-icons/lu";
-import { LuGanttChartSquare } from "react-icons/lu";
 import { useEffect, useRef, useState } from "react";
 import { LuPencil } from "react-icons/lu";
 import standartStyles from "@/styles/Styles.module.scss";
@@ -17,7 +15,7 @@ import {
 } from "react-icons/tb";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { MdOutlinePassword, MdOutlineAddLocationAlt } from "react-icons/md";
+import { MdOutlineAddLocationAlt } from "react-icons/md";
 import AutocompleteInput from "@/components/UI/AutocompleteInput";
 import Loading from "@/components/modals/Loading";
 import ChangePassword from "./ChangePassword";
@@ -198,7 +196,7 @@ export default function TeacherCabinet({ user }) {
 							src={
 								userPhoto
 									? userPhoto
-									: user
+									: user.photo
 									? user.photo
 									: "/images/teacher.png"
 							}
@@ -235,18 +233,10 @@ export default function TeacherCabinet({ user }) {
 						</a>
 					</div>
 					<div>
-						<a href="/cabinet/teacher/my-schedule">
+						<a href="/cabinet/teacher/schedule">
 							<LuCalendarDays />
 						</a>
 					</div>
-					<div>
-						<a href="/cabinet/teacher/homeworks">
-							<LuListTodo />
-						</a>
-					</div>
-					{/* <div>
-						<LuGanttChartSquare />
-					</div> */}
 				</div>
 			</div>
 

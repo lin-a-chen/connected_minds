@@ -5,7 +5,6 @@ import Loading from "@/components/modals/Loading";
 import styles from "@/components/main pages/admin/AdminTablePage.module.scss";
 import Pagination from "@/components/modals/Pagination";
 import Search from "@/components/UI/AutocompleteInput/Search";
-import AdminTableUserRoles from "@/components/main pages/admin/AdminTableUserRoles";
 import standartStyles from "@/styles/Styles.module.scss";
 import { AddRole } from "@/components/modals/AddRole";
 

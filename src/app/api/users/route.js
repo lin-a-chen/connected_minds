@@ -88,7 +88,9 @@ export async function PATCH(req) {
                 return new Response(JSON.stringify({success: false, data: "Пароль невірний"}), {status: 405});
             }
 
-            const result = await User.changePassword(body.id, body.password);
+            const hashedPass = await bcrypt.hash(body.password, 10);
+
+            const result = await User.changePassword(body.id, hashedPass);
 
             if (result.success){
                 return new Response(JSON.stringify({success: true, data: result.data}), {status: 201});

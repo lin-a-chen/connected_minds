@@ -26,12 +26,31 @@ class AcademicRecord {
     static async findByClassIdAndSubjectId(classId, subjectId) {
 		const connection = await connectToAppDatabase();
 		try {
-			const result = await connection.query(`SELECT academic_records.*, teachers.firstname as teacher_firstname, teachers.lastname as teacher_lastname, teachers.antroponym as teacher_antroponym, classes.name as class_name, classes.id as class_id, subjects.id as subject_id
+			const result = await connection.query(`SELECT academic_records.*, users.id as teacher_user_id teachers.firstname as teacher_firstname, teachers.lastname as teacher_lastname, teachers.antroponym as teacher_antroponym, classes.name as class_name, classes.id as class_id, subjects.id as subject_id
 			FROM academic_records 
 			INNER JOIN classes on academic_records.class_id = classes.id
             INNER JOIN subjects on academic_records.subject_id = subjects.id
 			INNER JOIN teachers ON academic_records.teacher_id = teachers.id
+			INNER JOIN users ON teachers.user_id = users.id
             WHERE academic_records.class_id = ? AND academic_records.subject_id=?`, [classId, subjectId]);
+			await connection.end();
+			return { success: true, data: result[0] };
+		} catch (error) {
+			await connection.end();
+			console.error(error);
+			return { success: false, data: error };
+		}
+	}
+
+	static async findBySchoolchildId(schoolchildId) {
+		const connection = await connectToAppDatabase();
+		try {
+			const result = await connection.query(`SELECT academic_records.*, teachers.firstname as teacher_firstname, teachers.lastname as teacher_lastname, teachers.antroponym as teacher_antroponym, academic_records.subject_id as thesubject, users.id as teacher_user_id
+			FROM academic_records 
+			INNER JOIN teachers ON academic_records.teacher_id = teachers.id
+			INNER JOIN users ON teachers.user_id = users.id
+            WHERE academic_records.student_id = ?`, [schoolchildId]);
+
 			await connection.end();
 			return { success: true, data: result[0] };
 		} catch (error) {

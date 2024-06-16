@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import standartStyles from "@/styles/Styles.module.scss";
-import styles from "./TeacherCabinet.module.scss";
+import styles from "./Cabinet.module.scss";
 import { MdOutlinePassword } from "react-icons/md";
 import { toast } from "react-toastify";
 

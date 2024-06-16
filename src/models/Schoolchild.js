@@ -1,5 +1,5 @@
 import { connectToAppDatabase } from "@/lib/db";
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 class Schoolchild {
 	static generateUUID = () => {
@@ -25,7 +25,11 @@ class Schoolchild {
 		const connection = await connectToAppDatabase();
 		try {
 			const result = await connection.query(
-				`SELECT * FROM schoolchildren WHERE id=?`, [id]
+				`SELECT schoolchildren.*, classes.name as class_name
+				 FROM schoolchildren
+				 INNER JOIN classes ON schoolchildren.class_id = classes.id
+				   WHERE schoolchildren.id=?`,
+				[id]
 			);
 			await connection.end();
 			return { success: true, data: result[0][0] };
@@ -69,15 +73,37 @@ class Schoolchild {
 		}
 	}
 
-	static async findSchoolchildrenAndUsersByClassId(classID) {
+	static async findSchoolchildAndUsersByUserId(userId) {
 		const connection = await connectToAppDatabase();
 		try {
-			const result =
-				await connection.query(`SELECT schch.*, users.email, users.phone_number, users.photo, classes.name AS class_name
+			const result = await connection.query(
+				`SELECT schch.*, users.email, users.phone_number, users.photo, classes.name AS class_name
 			FROM schoolchildren AS schch 
 			INNER JOIN users ON schch.user_id = users.id
 			INNER JOIN classes ON schch.class_id = classes.id
-			WHERE schch.class_id = ?`, [classID]);
+			WHERE user_id=?`,
+				[userId]
+			);
+			await connection.end();
+			return { success: true, data: result[0][0] };
+		} catch (error) {
+			await connection.end();
+			console.error(error);
+			return { success: false, data: error };
+		}
+	}
+
+	static async findSchoolchildrenAndUsersByClassId(classID) {
+		const connection = await connectToAppDatabase();
+		try {
+			const result = await connection.query(
+				`SELECT schch.*, users.email, users.phone_number, users.photo, classes.name AS class_name
+			FROM schoolchildren AS schch 
+			INNER JOIN users ON schch.user_id = users.id
+			INNER JOIN classes ON schch.class_id = classes.id
+			WHERE schch.class_id = ?`,
+				[classID]
+			);
 			await connection.end();
 			return { success: true, data: result[0] };
 		} catch (error) {
@@ -99,7 +125,6 @@ class Schoolchild {
 		address,
 		class_id
 	) {
-
 		const connection = await connectToAppDatabase();
 		try {
 			const result = await connection.query(
@@ -126,18 +151,12 @@ class Schoolchild {
 		}
 	}
 
-	static async updateClassById(
-		id,
-		class_id
-	) {
+	static async updateClassById(id, class_id) {
 		const connection = await connectToAppDatabase();
 		try {
 			const result = await connection.query(
 				`UPDATE schoolchildren SET class_id=? WHERE id=?`,
-				[
-					class_id,
-					id,
-				]
+				[class_id, id]
 			);
 			await connection.end();
 			return { success: true, data: result[0] };
@@ -161,7 +180,6 @@ class Schoolchild {
 		class_id,
 		institution_useed_code
 	) {
-
 		const connection = await connectToAppDatabase();
 		try {
 			const id = this.generateUUID();
@@ -179,7 +197,7 @@ class Schoolchild {
 					address,
 					class_id,
 					user_id,
-					institution_useed_code
+					institution_useed_code,
 				]
 			);
 			await connection.end();

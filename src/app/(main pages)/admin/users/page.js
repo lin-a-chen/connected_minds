@@ -66,6 +66,7 @@ export default function Users() {
         onUpdateItems={handleCurrentItemsChange}
         uniqueField={'id'}
         immutableFields={['id', 'password', 'created_at']}
+        fieldsToHide={[]}
       />
       <Pagination
         onCurrentItemsChange={handleCurrentItemsChange}

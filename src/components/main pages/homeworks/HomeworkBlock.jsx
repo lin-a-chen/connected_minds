@@ -41,7 +41,6 @@ export default function HomeworkBlock({ user, userRole, homework, onUpdate }) {
 	};
 
 	const onSubmit = async (data) => {
-		// e.preventDefault();
 		if (isEditing) {
 
 			const response = await fetch(`/api/institution/homework`, {
@@ -69,29 +68,6 @@ export default function HomeworkBlock({ user, userRole, homework, onUpdate }) {
 			onUpdate();
 		}
 	};
-
-	// const handleDownload = async (fileUrl) => {
-	// 	try {
-	// 		const response = await fetch(`/api/download?url=${encodeURIComponent(fileUrl)}`);
-	// 		if (!response.ok) {
-	// 			console.error('Failed to fetch file:', response.statusText);
-	// 			return;
-	// 		}
-	
-	// 		const blob = await response.blob();
-	// 		const url = window.URL.createObjectURL(blob);
-	// 		const link = document.createElement('a');
-	// 		link.href = url;
-	// 		const fileName = fileUrl.split('/').pop(); // Extract the file name
-	// 		link.setAttribute('download', fileName);
-	// 		document.body.appendChild(link);
-	// 		link.click();
-	// 		document.body.removeChild(link);
-	// 	} catch (error) {
-	// 		console.error('Error downloading file:', error);
-	// 	}
-	// };
-	
 
 	return (
 		<form
@@ -178,7 +154,7 @@ export default function HomeworkBlock({ user, userRole, homework, onUpdate }) {
 				<div className={styles.teacherFullname}>
 					<FaChalkboardTeacher />
 					<a
-						href={`/api/institution/teacher/${homework.teacher_id}`}>{`${homework.teacher_lastname} ${homework.teacher_firstname[0]}.${homework.teacher_antroponym[0]}.`}</a>
+						href={`/user/teacher/${homework.teacher_id}`}>{`${homework.teacher_lastname} ${homework.teacher_firstname[0]}.${homework.teacher_antroponym[0]}.`}</a>
 				</div>
 			</div>
 			<div className={styles.description}>

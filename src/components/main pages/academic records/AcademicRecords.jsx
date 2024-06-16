@@ -349,7 +349,14 @@ export default function AcademicRecords({ userRole, user }) {
 						}.`;
 
 						if (recordDate === date) {
-							return record ? record : null;
+							if (record.present){
+								return record.grade !== undefined
+								? record.grade
+								: "";
+							}
+							else{
+								return 'н';
+							}
 						}
 					}
 				}
@@ -502,7 +509,7 @@ export default function AcademicRecords({ userRole, user }) {
 			setShowTinyPopup(true);
 			setPopupData((prev) => ({
 				...prev,
-				teacherId: record.teacher_id,
+				teacherId: record.teacher_user_id,
 				teacherFirstname: record.teacher_firstname,
 				teacherLastname: record.teacher_lastname,
 				teacherAntroponym: record.teacher_antroponym,
@@ -531,7 +538,7 @@ export default function AcademicRecords({ userRole, user }) {
 					onMouseLeave={(e) => setShowTinyPopup(false)}>
 					<FaChalkboardTeacher />{" "}
 					<a
-						href={`/institution/teacher/${popupData.teacherId}`}>{`${popupData.teacherLastname} ${popupData.teacherFirstname[0]}.${popupData.teacherAntroponym[0]}.`}</a>
+						href={`/user/teacher/${popupData.teacherId}`}>{`${popupData.teacherLastname} ${popupData.teacherFirstname[0]}.${popupData.teacherAntroponym[0]}.`}</a>
 				</div>
 			);
 		}
@@ -540,7 +547,7 @@ export default function AcademicRecords({ userRole, user }) {
 	return (
 		<div className={styles.page}>
 			<div className={styles.header}>
-				<div>
+				{userRole !== 'SCHOOLCHILD' && <div>
 					<label>Клас*</label>
 					<div>
 						<input
@@ -565,7 +572,7 @@ export default function AcademicRecords({ userRole, user }) {
 								))}
 						</select>
 					</div>
-				</div>
+				</div>}
 				<div>
 					<label>Предмет*</label>
 					<AutocompleteInput

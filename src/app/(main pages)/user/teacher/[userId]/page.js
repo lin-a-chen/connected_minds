@@ -1,46 +1,47 @@
 import TeacherProfileView from "@/components/user/teacher/TeacherProfileView";
 import { headers } from "next/headers";
+import { getUser } from "@/lib/dal";
 
-const getTeacher = async (userId) => {
+const getTeacher = async (teacherId) => {
 	const base = "http://localhost:3000";
 
-	const response = await fetch(
-		`${base}/api/institution/teachers?user-id=${userId}`
+	const teacherResponse = await fetch(
+		`${base}/api/institution/teachers?id=${teacherId}`
 	);
-	const result = await response.json();
-	if (!result.success) {
-		console.error(result.data);
+	const teacherResult = await teacherResponse.json();
+	if (!teacherResult.success) {
+		console.error(teacherResult.data);
 		return;
 	}
-	return result.data;
-};
 
-const getUser = async (userId) => {
-	const base = "http://localhost:3000";
-
-	const response = await fetch(`${base}/api/users?id=${userId}`);
-	const result = await response.json();
-	if (!result.success) {
-		console.error(result.data);
+	const userResponse = await fetch(
+		`${base}/api/users?id=${teacherResult.data.user_id}`
+	);
+	const userResult = await userResponse.json();
+	if (!userResult.success) {
+		console.error(userResult.data);
 		return;
 	}
-	return result.data;
+
+	return {teacher: teacherResult.data, teacherUser: userResult.data};
 };
 
 export default async function ViewTeacher() {
 	const headersList = headers();
 	const pathname = headersList.get("x-current-path") || "";
-	const userId = pathname.split("/").pop();
+	const teacherUserId = pathname.split("/").pop();
 
-	const teacher = await getTeacher(userId);
-	const user = await getUser(userId);
+	const teacher = await getTeacher(teacherUserId);
+	const user = await getUser();
+
 
 	return (
 		<>
 			{teacher && (
 				<TeacherProfileView
-					user={user}
-					teacher={teacher}
+					currentUser={user}
+					teacher={teacher.teacher}
+					teacherUser={teacher.teacherUser}
 				/>
 			)}
 		</>

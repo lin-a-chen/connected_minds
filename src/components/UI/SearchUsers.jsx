@@ -99,7 +99,7 @@ const Search = ({
 					(field) => !excludedFields.includes(field)
 				);
 				const resultElement = (
-					<a href={`/user/`} key={index}>
+					<div>
             {photoElement}
 						<span
 							onClick={() => handleSelection(result)}
@@ -110,7 +110,7 @@ const Search = ({
 								.join(" ")}
 							<i className="uil uil-arrow-right"></i>
 						</span>
-					</a>
+					</div>
 				);
 
         resultsArray.push(resultElement);

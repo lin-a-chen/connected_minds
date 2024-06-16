@@ -10,80 +10,121 @@ export async function GET(req) {
 	const { searchParams } = new URL(req.url);
 	const name = searchParams.get("class");
 	const subject = searchParams.get("subject");
+	const schoolchildId = searchParams.get("schoolchild");
 
 	try {
-		const classResult = await Class.findByName(name);
-		if (!classResult.success) {
+		if (!schoolchildId){
+			const classResult = await Class.findByName(name);
+			if (!classResult.success) {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "Couldn't find classes",
+					}),
+					{ status: 500 }
+				);
+			}
+	
+			if (!classResult.data) {
+				return new Response(
+					JSON.stringify({ success: false, data: "Class not found" }),
+					{ status: 404 }
+				);
+			}
+	
+			const subjectResult = await Subject.findByNameAndClassesType(
+				subject,
+				classResult.data.type
+			);
+			if (!subjectResult.success) {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "Couldn't find subjects",
+					}),
+					{ status: 500 }
+				);
+			}
+	
+			if (!subjectResult.data) {
+				return new Response(
+					JSON.stringify({ success: false, data: "Subject not found" }),
+					{ status: 404 }
+				);
+			}
+	
+			const academicRecordsResult =
+				await AcademicRecords.findByClassIdAndSubjectId(
+					classResult.data.id,
+					subjectResult.data.id
+				);
+	
+			if (!academicRecordsResult.success) {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "Couldn't find academic records",
+					}),
+					{ status: 404 }
+				);
+			}
+	
+			if (!academicRecordsResult.data) {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "Academic records not found",
+					}),
+					{ status: 404 }
+				);
+			}
+
 			return new Response(
 				JSON.stringify({
-					success: false,
-					data: "Couldn't find classes",
+					success: true,
+					data: { academic_records: academicRecordsResult.data },
 				}),
-				{ status: 500 }
+				{ status: 200 }
 			);
 		}
+		else{
 
-		if (!classResult.data) {
-			return new Response(
-				JSON.stringify({ success: false, data: "Class not found" }),
-				{ status: 404 }
-			);
-		}
+			const academicRecordsResult =
+				await AcademicRecords.findBySchoolchildId(
+					schoolchildId
+				);
+	
+			if (!academicRecordsResult.success) {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "Couldn't find academic records",
+					}),
+					{ status: 404 }
+				);
+			}
+	
+			if (!academicRecordsResult.data) {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "Academic records not found",
+					}),
+					{ status: 404 }
+				);
+			}
 
-		const subjectResult = await Subject.findByNameAndClassesType(
-			subject,
-			classResult.data.type
-		);
-		if (!subjectResult.success) {
 			return new Response(
 				JSON.stringify({
-					success: false,
-					data: "Couldn't find subjects",
+					success: true,
+					data: academicRecordsResult.data,
 				}),
-				{ status: 500 }
+				{ status: 200 }
 			);
 		}
 
-		if (!subjectResult.data) {
-			return new Response(
-				JSON.stringify({ success: false, data: "Subject not found" }),
-				{ status: 404 }
-			);
-		}
 
-		const academicRecordsResult =
-			await AcademicRecords.findByClassIdAndSubjectId(
-				classResult.data.id,
-				subjectResult.data.id
-			);
-
-		if (!academicRecordsResult.success) {
-			return new Response(
-				JSON.stringify({
-					success: false,
-					data: "Couldn't find academic records",
-				}),
-				{ status: 404 }
-			);
-		}
-
-		if (!academicRecordsResult.data) {
-			return new Response(
-				JSON.stringify({
-					success: false,
-					data: "Academic records not found",
-				}),
-				{ status: 404 }
-			);
-		}
-
-		return new Response(
-			JSON.stringify({
-				success: true,
-				data: { academic_records: academicRecordsResult.data },
-			}),
-			{ status: 200 }
-		);
+		
 	} catch (error) {
 		console.error(error);
 		return new Response(

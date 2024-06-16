@@ -1,0 +1,30 @@
+// src/components/ScheduleTable.module.scss
+@import "../../../styles/Styles.module.scss";
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: min-content;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Media query for screens smaller than 900px */
+@media (max-width: 900px) {
+  .table {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+  }
+}
+
+/* Media query for screens smaller than 600px */
+@media (max-width: 600px) {
+  .table {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 5px;
+  }
+}

@@ -6,12 +6,30 @@ import bcrypt from "bcrypt";
 import Role from "@/models/Role";
 import { sendVerificationEmail } from "@/lib/mail";
 
-const parseDateString = (dateString) => {
-	const [day, month, year] = dateString
-		.split(".")
-		.map((part) => parseInt(part, 10));
-	return new Date(year, month - 1, day);
-};
+function parseDateString(dateString) {
+    if (dateString.includes(".")) {
+        // Parse as DD.MM.YYYY
+        const [day, month, year] = dateString.split(".").map((part) => parseInt(part, 10));
+        const date = new Date(year, month - 1, day);
+        if (isValidDate(date)) {
+            return date;
+        } else {
+            throw new Error("Invalid date format: DD.MM.YYYY");
+        }
+    } else {
+        // Parse as ISO 8601 (YYYY-MM-DD or YYYY-MM-DDTHH:MM:SSZ)
+        const date = new Date(dateString);
+        if (isValidDate(date)) {
+            return date;
+        } else {
+            throw new Error("Invalid date format: ISO 8601");
+        }
+    }
+}
+
+  function isValidDate(date) {
+    return date instanceof Date && !isNaN(date.getTime());
+}
 
 const generateUUID = () => {
 	return uuidv4();
@@ -20,9 +38,11 @@ const generateUUID = () => {
 export async function GET(req) {
 	const { searchParams } = new URL(req.url);
 	const className = searchParams.get("class");
+	const userId = searchParams.get("user-id");
+	const id = searchParams.get("id");
 
 	try {
-		if (className) {
+		if (className && !userId) {
 			const classResult = await Class.findByName(className);
 			if (!classResult.success) {
 				return new Response(
@@ -59,7 +79,41 @@ export async function GET(req) {
 					{ status: 500 }
 				);
 			}
-		} else {
+		} else if(userId){
+			const result = await Schoolchild.findSchoolchildAndUsersByUserId(userId);
+			if (result.success) {
+				return new Response(
+					JSON.stringify({ success: true, data: result.data }),
+					{ status: 200 }
+				);
+			} else {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "No schoolchild found",
+					}),
+					{ status: 500 }
+				);
+			}
+		}
+		else if (id){
+			const result = await Schoolchild.findById(id);
+			if (result.success) {
+				return new Response(
+					JSON.stringify({ success: true, data: result.data }),
+					{ status: 200 }
+				);
+			} else {
+				return new Response(
+					JSON.stringify({
+						success: false,
+						data: "No schoolchild found",
+					}),
+					{ status: 500 }
+				);
+			}
+		}
+		else {
 			const result = await Schoolchild.findSchoolchildAndUsers();
 
 			if (result.success) {

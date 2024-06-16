@@ -23,6 +23,7 @@
 
     .user {
       margin-bottom: 5rem;
+      height: 100%;
       overflow-y: auto; // Should be auto instead of scroll
 
       &> {

@@ -1,5 +1,5 @@
 import { getUser, getUserRole } from "@/lib/dal";
-import TeacherSchedulePageComponent from "@/components/main pages/schedule/TeacherSchedule";
+import TeacherSchedulePageComponent from "@/components/main pages/schedule/TeacherSchedulePageComponent";
 
 export default async function TeacherSchedule(){
     
