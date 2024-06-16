@@ -64,7 +64,7 @@ export async function GET(req) {
 		} else {
 			const result = await Teacher.findByUserId(userId);
 
-
+			console.log('result', result);
 			if (result.success) {
 				return new Response(
 					JSON.stringify({ success: true, data: result.data }),

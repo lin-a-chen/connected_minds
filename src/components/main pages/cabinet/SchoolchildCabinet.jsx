@@ -203,9 +203,8 @@ export default function SchoolchildCabinet({ user }) {
 							src={
 								userPhoto
 									? userPhoto
-									: user
-									? user.photo
-									: "/images/teacher.png"
+									: (user.photo ? user.photo
+									: "/images/school-child1.png")
 							}
 						/>
 					</div>

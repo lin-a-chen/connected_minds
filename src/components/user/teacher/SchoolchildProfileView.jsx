@@ -8,6 +8,7 @@ export default function SchoolchildProfileView({
 	schoolchild,
 	currentUser,
 }) {
+
 	const fetchChatRooms = async () => {
 		const response = await fetch(
 			`/api/user/chats?user-id=${schoolchildUser.id}`

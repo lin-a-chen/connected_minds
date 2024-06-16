@@ -21,6 +21,8 @@ export default function InstitutionAdminClasses({ userRole }) {
 			console.error(classesResult.data);
 		}
 
+		console.log('classes', classesResult.data)
+
 		setClasses(classesResult.data);
 
 		const schoolchildrenResponse = await fetch(
@@ -123,7 +125,7 @@ export default function InstitutionAdminClasses({ userRole }) {
 			)}
 			<div className={styles.classesContainer}>
 				<div className={styles.column0}>
-					{classes.map(
+					{classes && classes.map(
 						(el, index) =>
 							index % 2 !== 0 && (
 								<div
@@ -147,6 +149,7 @@ export default function InstitutionAdminClasses({ userRole }) {
 									<div className={styles.teacherLine}>
 										<FaChalkboardTeacher />
 										<span>
+											{console.log('el', el)}
 											Класом керує:{" "}
 											<a
 												href={`/user/teacher/${el.teacher_id}`}>{`${el.lastname} ${el.firstname[0]}.${el.antroponym[0]}.`}</a>
@@ -252,7 +255,7 @@ export default function InstitutionAdminClasses({ userRole }) {
 					)}
 				</div>
 				<div className={styles.column1}>
-					{classes.map(
+					{classes && classes.map(
 						(el, index) =>
 							index % 2 === 0 && (
 								<div

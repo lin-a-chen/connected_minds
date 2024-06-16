@@ -5,10 +5,10 @@ import styles from "./ChatPage.module.scss";
 import SearchUsers from "@/components/UI/SearchUsers";
 import Loading from "@/components/modals/Loading";
 import NothingToShow from "@/components/modals/NothingToShow";
+import { toast } from "react-toastify";
 
 export default function ChatPage({ currentUser }) {
 	const [chatRooms, setChatRooms] = useState([]);
-	// const [selectedRoom, setSelectedRoom] = useState(null);
 	const [users, setUsers] = useState([]);
 
 	useEffect(() => {
@@ -96,20 +96,27 @@ export default function ChatPage({ currentUser }) {
 		fetchUsers();
 	}, []);
 
-	// useEffect(() => {
-	// 	if (window && selectedRoom) {
-	// 		"selectedRoom.room", selectedRoom.room;
-	// 		window.location.href = `/chats/${selectedRoom.room.room_id}`;
-	// 	}
-	// }, [selectedRoom]);
-
-	const handleSearchChange = (result) => {
+	const handleSearchChange = async (result) => {
+		console.log('result', result);
 		if (window && result) {
 			if (currentUser.id !== result.id) {
 				if (result.role === "(Вчитель/ка)") {
-					window.location.href = `/user/teacher/${result.id}`;
+					const teacherResponse = await fetch(`/api/institution/teachers?user-id=${result.id}`);
+					const teacherResult = await teacherResponse.json();
+
+					if (!teacherResult.success){
+						toast.error('Не вдалося перейти на профіль користувача');
+						return;
+					}
+					window.location.href = `/user/teacher/${teacherResult.data.id}`;
 				} else {
-					window.location.href = `/user/student/${result.id}`;
+					const schoolchildrResponse = await fetch(`/api/institution/schoolchildren?user-id=${result.id}`);
+					const schoolchildResult = await schoolchildrResponse.json();
+					if (!schoolchildResult.success){
+						toast.error('Не вдалося перейти на профіль користувача');
+						return;
+					}
+					window.location.href = `/user/schoolchild/${schoolchildResult.data.id}`;
 				}
 			} else {
 				if (result.role === "(Вчитель/ка)") {
