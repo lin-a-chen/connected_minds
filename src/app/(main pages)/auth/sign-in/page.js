@@ -97,6 +97,11 @@ const signIn = () => {
 							</span>
 						)}
 					</fieldset>
+					<fieldset>
+						<div>
+							<a href="/auth/reset-password">Забули пароль?</a>
+						</div>
+					</fieldset>
 					<button
 						className={standartStyles.buttonSubmit}
 						type="submit"

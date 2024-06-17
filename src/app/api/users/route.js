@@ -8,6 +8,7 @@ export async function GET(req) {
         const { searchParams } = new URL(req.url);
         const emailToken = searchParams.get("emailtoken");
         const userId = searchParams.get("id");
+        const email = searchParams.get('email');
 
         if (emailToken)
         {
@@ -21,6 +22,16 @@ export async function GET(req) {
         }
         else if(userId){
             const result = await User.findById(userId);
+            if (result.success){
+                return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});
+            }
+            else{
+                return new Response(JSON.stringify({success: false, data: 'User wasn\'t found'}), {status: 500});
+            }
+        }
+        else if(email){
+            const result = await User.findByEmail(email);
+
             if (result.success){
                 return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});
             }

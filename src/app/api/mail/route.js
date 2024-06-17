@@ -1,10 +1,10 @@
-import { sendMail } from "@/lib/mail";
+import { sendChangePasswordMail } from "@/lib/mail";
 
 export async function POST(req) {
     const body = await req.json();
 
     try {
-        await sendMail(body.email, body.heading, body.ifWrongUserMessage, body.text);
+        await sendChangePasswordMail(body.email, body.heading, body.ifWrongUserMessage, body.text);
         return new Response(JSON.stringify({success: true, data: 'Email sent successfully' }), {
             status: 201,
             headers: { 'Content-Type': 'application/json' },
