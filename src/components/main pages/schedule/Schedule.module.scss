@@ -14,8 +14,8 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Adjust to full width */
-    max-width: 500px; /* Max width for better readability */
+    width: 100%; 
+    max-width: 500px; 
   }
 
   h2 {
@@ -24,7 +24,7 @@
   }
 }
 
-/* Media query for screens smaller than 1210px */
+
 @media (max-width: 1210px) {
   .scheduleContainer {
     grid-template-columns: repeat(2, 1fr);
@@ -32,7 +32,6 @@
   }
 }
 
-/* Media query for screens smaller than 900px */
 @media (max-width: 900px) {
   .scheduleContainer {
     grid-template-columns: 1fr;
@@ -40,12 +39,11 @@
   }
 
   .dayContainer {
-    width: 80%; /* Reduced width for better fit on smaller screens */
+    width: 80%; 
     padding: 15px;
   }
 }
 
-/* Media query for screens smaller than 600px */
 @media (max-width: 600px) {
   .scheduleContainer {
     grid-template-columns: 1fr;
@@ -53,7 +51,7 @@
   }
 
   .dayContainer {
-    width: 100%; /* Full width on very small screens */
+    width: 100%; 
     padding: 10px;
   }
 }

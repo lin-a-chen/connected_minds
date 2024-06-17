@@ -11,7 +11,7 @@ cloudinary.config({
 
 export const config = {
 	api: {
-		bodyParser: false, // Required to handle file uploads
+		bodyParser: false, 
 	},
 };
 
@@ -43,15 +43,13 @@ export const POST = async (req, res) => {
         const uploadDir = path.join(process.cwd(), 'public/uploads/images');
         const tempFilePath = path.join(uploadDir, file.name);
 
-        // Ensure the directory exists
         await fs.promises.mkdir(uploadDir, { recursive: true });
 
         await fs.promises.writeFile(tempFilePath, Buffer.from(await file.arrayBuffer()));
 
-        // Now use the saved file path for Cloudinary upload
         const uploadResponse = await cloudinary.uploader.upload(tempFilePath, {
-            public_id: file.name, // Optional: Set a custom public ID
-            overwrite: true, // Optional: Overwrite existing files with the same name
+            public_id: file.name, 
+            overwrite: true, 
         });
 
       const imageUrl = uploadResponse.secure_url;

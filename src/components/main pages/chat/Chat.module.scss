@@ -18,13 +18,13 @@
     border-radius: 15px;
     overflow: hidden;
     max-height: 100vh;
-    overflow-y: auto; // Ensure the container is scrollable
+    overflow-y: auto; 
     padding: 3% 0 0 0;
 
     .user {
       margin-bottom: 5rem;
       height: 100%;
-      overflow-y: auto; // Should be auto instead of scroll
+      overflow-y: auto; 
 
       &> {
         display: flex;

@@ -8,7 +8,6 @@ import { sendVerificationEmail } from "@/lib/mail";
 
 function parseDateString(dateString) {
     if (dateString.includes(".")) {
-        // Parse as DD.MM.YYYY
         const [day, month, year] = dateString.split(".").map((part) => parseInt(part, 10));
         const date = new Date(year, month - 1, day);
         if (isValidDate(date)) {
@@ -17,7 +16,6 @@ function parseDateString(dateString) {
             throw new Error("Invalid date format: DD.MM.YYYY");
         }
     } else {
-        // Parse as ISO 8601 (YYYY-MM-DD or YYYY-MM-DDTHH:MM:SSZ)
         const date = new Date(dateString);
         if (isValidDate(date)) {
             return date;

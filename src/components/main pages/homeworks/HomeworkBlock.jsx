@@ -177,32 +177,6 @@ export default function HomeworkBlock({ user, userRole, homework, onUpdate }) {
 					homework.description
 				)}
 			</div>
-
-			{/* <div className={styles.description}>
-				{isEditing ? (
-					<>
-						<input
-							name="file"
-							type="file"
-							onChange={handleFileUpload}
-							{...register("file", {
-								required: false,
-							})}
-						/>
-
-						{errors.file && (
-							<span className={styles.errorMessage}>
-								{errors.file.message}
-							</span>
-						)}
-					</>
-				) : (
-					<>
-					{/* <a href={homework.fileUrl} target="_blank" rel="noopener noreferrer">Переглянути файл</a> */}
-					{/* <button onClick={() => handleDownload(homework.fileUrl)}>Завантажити файл</button></> */}
-					
-				{/* )} */}
-			{/* </div> */} 
 		</form>
 	);
 }

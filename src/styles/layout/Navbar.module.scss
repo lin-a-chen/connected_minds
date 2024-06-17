@@ -5,12 +5,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2rem 5vw; /* Consistent padding */
+    padding: 2rem 5vw; 
     position: relative;
     z-index: 1000;
     width: 100%;
     min-height: min-content;
-    max-width: 100%; /* Ensure it uses full width */
+    max-width: 100%; 
     margin-right: 10%;
 
     .logo {
@@ -19,8 +19,8 @@
         font-weight: bold;
         text-decoration: none;
         color: black;
-        flex-shrink: 0; /* Prevent logo from shrinking */
-        z-index: 1200; /* Ensure logo is on top */
+        flex-shrink: 0; 
+        z-index: 1200; 
 
         a {
             text-decoration: none;
@@ -38,7 +38,7 @@
         top: 50%;
         transform: translateY(-50%);
         right: 10px;
-        z-index: 1100; /* Adjust z-index to be below logo */
+        z-index: 1100; 
     }
 
     .navbar {
@@ -119,28 +119,28 @@
             transition: transform 0.3s ease-in-out;
             height: 100vh;
             overflow-y: auto;
-            flex-direction: column; /* Ensure items stack in a column */
-            align-items: center; /* Align items to center */
-            justify-content: center; /* Center items vertically */
+            flex-direction: column; 
+            align-items: center;
+            justify-content: center; 
 
             ul {
-                flex-direction: column; /* Display menu items in column */
-                align-items: center; /* Center menu items horizontally */
-                padding-left: 0; /* Remove padding */
-                width: 100%; /* Take full width */
-                max-width: none; /* Remove max-width limit */
+                flex-direction: column; 
+                align-items: center; 
+                padding-left: 0; 
+                width: 100%; 
+                max-width: none; 
 
                 li {
-                    width: auto; /* Adjust width to auto */
-                    margin-bottom: 1rem; /* Add margin between items */
-                    text-align: center; /* Center text */
+                    width: auto; 
+                    margin-bottom: 1rem;
+                    text-align: center; 
                 }
             }
         }
 
         .open {
             transform: translateX(0);
-            z-index: 1100; /* Ensure menu is on top when opened */
+            z-index: 1100;
         }
 
         .closeButton {

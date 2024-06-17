@@ -1,4 +1,3 @@
-// src/components/Schedule.js
 import React, { useState } from "react";
 import ScheduleTable from "./ScheduleTable";
 import LessonForm from "./LessonForm";

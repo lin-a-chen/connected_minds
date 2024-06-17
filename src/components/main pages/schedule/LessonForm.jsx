@@ -1,4 +1,3 @@
-// src/components/LessonForm.js
 import React, { useState, useEffect } from "react";
 import styles from "./LessonForm.module.scss";
 import standartStyles from "@/styles/Styles.module.scss";

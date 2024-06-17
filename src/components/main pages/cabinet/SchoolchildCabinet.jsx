@@ -232,26 +232,6 @@ export default function SchoolchildCabinet({ user }) {
 				</div>
 
 				<p>{schoolchild && `${schoolchild.firstname} ${schoolchild.lastname}`}</p>
-				<div className={styles.widgets}>
-					{/* <div>
-						<a href="/cabinet/schoolchild/classes">
-							<SiGoogleclassroom />
-						</a>
-					</div> */}
-					{/* <div>
-						<a href="/cabinet/schoolchild/my-schedule">
-							<LuCalendarDays />
-						</a>
-					</div> */}
-					{/* <div>
-						<a href="/cabinet/teacher/homeworks">
-							<LuListTodo />
-						</a>
-					</div> */}
-					{/* <div>
-						<LuGanttChartSquare />
-					</div> */}
-				</div>
 			</div>
 
 			{user && schoolchild && (

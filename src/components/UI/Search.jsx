@@ -25,7 +25,7 @@ const Search = ({ onChange, dataToSearch, defaultValue, className, placeholder, 
   };
 
   const handleSelection = (result) => {
-    setSearchTerm(result[searchFields[0]]); // Display the first search field as the input value
+    setSearchTerm(result[searchFields[0]]);
     onChange(result);
     setDropdownVisible(false);
   };
@@ -40,7 +40,7 @@ const Search = ({ onChange, dataToSearch, defaultValue, className, placeholder, 
     const filteredResults = dataToSearch.filter(el => 
       searchFields.some(field => el[field]?.toLowerCase().includes(term.toLowerCase()))
     );
-    setResults(filteredResults.slice(0, 10)); // Limit results to improve performance
+    setResults(filteredResults.slice(0, 10)); 
     setDropdownVisible(filteredResults.length > 0);
   };
 

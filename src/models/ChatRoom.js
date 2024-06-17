@@ -39,7 +39,7 @@ class ChatRoom {
 		const connection = await connectToAppDatabase();
 
 		try {
-			const roomId = this.generateUUID(); // Assuming you generate the UUID here
+			const roomId = this.generateUUID();
 			const sql = `INSERT INTO chat_rooms (id, name, type) VALUES (?, ?, ?)`;
 			const values = [roomId, name, type];
 			const result = await connection.query(sql, values);
@@ -47,7 +47,7 @@ class ChatRoom {
 			await connection.end();
 
 			if (result[0].affectedRows > 0) {
-				return { success: true, data: { id: roomId } }; // Return the roomId
+				return { success: true, data: { id: roomId } };
 			} else {
 				return { success: false, data: null };
 			}

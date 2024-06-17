@@ -75,7 +75,7 @@
     .dropdownSubCheckbox:checked ~ .sectionDropdownSub {
       opacity: 1;
       visibility: visible;
-      max-height: 1000px; /* A large enough value to show all items */
+      max-height: 1000px; 
       transform: translateY(0);
     }
   

@@ -6,9 +6,6 @@ export const InfoPopup = ({ pictureSource, heading, text, linkForButtonOkay, act
     return(
         <div className={styles.popupBackdrop}>
             <div className={`${styles.popupWindow} ${styles.infoPopup}`}>
-                {/* <div className={styles.cross}>
-                    <IoIosClose/>
-                </div> */}
                 <div className={styles.header}>
                     <div className={styles.picture}>
                         <img src={pictureSource} />
@@ -37,9 +34,6 @@ export const ErrorPopup = ({ pictureSource, heading, text, actionForButtonOkay }
     return(
         <div className={styles.popupBackdrop}>
             <div className={`${styles.popupWindow} ${styles.errorPopup}`}>
-                {/* <div className={styles.cross}>
-                    <IoIosClose/>
-                </div> */}
                 <div className={styles.header}>
                     <div className={styles.picture}>
                         <img src={pictureSource} />

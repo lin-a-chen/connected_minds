@@ -55,7 +55,6 @@ export default function AddHomework({ onClose, isVisible, subjects, classLetters
 								<div>
 									<div className={standartStyles.icon}>
 										<TbSchool
-										// className={authStyles.icon}
 										/>
 									</div>
 									<label>Предмет*</label>
@@ -74,11 +73,6 @@ export default function AddHomework({ onClose, isVisible, subjects, classLetters
 											dataToSearch={subjects}
 											value={value}
 											onChange={onChange}
-											// defaultValue={
-											// 	watch().subject
-											// 		? watch().subject
-											// 		: "Природознавство"
-											// }
 										/>
 									)}
 								/>
@@ -116,7 +110,6 @@ export default function AddHomework({ onClose, isVisible, subjects, classLetters
 											min="1"
 											max="11"
 											placeholder="1"
-											// onChange={handleClassNumberChange}
 										/>
 										<select
                                         {...register("classLetter", {
@@ -125,7 +118,6 @@ export default function AddHomework({ onClose, isVisible, subjects, classLetters
 											className={
 												standartStyles.selectRegular
 											}
-											// onChange={handleClassLetterChange}
                                             >
 											{classLetters &&
 												classLetters.map(
