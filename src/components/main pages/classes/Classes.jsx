@@ -21,8 +21,6 @@ export default function InstitutionAdminClasses({ userRole }) {
 			console.error(classesResult.data);
 		}
 
-		console.log('classes', classesResult.data)
-
 		setClasses(classesResult.data);
 
 		const schoolchildrenResponse = await fetch(
@@ -149,7 +147,6 @@ export default function InstitutionAdminClasses({ userRole }) {
 									<div className={styles.teacherLine}>
 										<FaChalkboardTeacher />
 										<span>
-											{console.log('el', el)}
 											Класом керує:{" "}
 											<a
 												href={`/user/teacher/${el.teacher_id}`}>{`${el.lastname} ${el.firstname[0]}.${el.antroponym[0]}.`}</a>

@@ -97,7 +97,6 @@ export default function ChatPage({ currentUser }) {
 	}, []);
 
 	const handleSearchChange = async (result) => {
-		console.log('result', result);
 		if (window && result) {
 			if (currentUser.id !== result.id) {
 				if (result.role === "(Вчитель/ка)") {

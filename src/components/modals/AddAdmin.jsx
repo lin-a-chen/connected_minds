@@ -47,7 +47,11 @@ export default function AddAdmin({ onClose, isVisible }){
     
     return(
         <>
-            {isVisible && <div className={`${styles.popupBackdrop} ${styles.noBlur}`}>
+            {isVisible && <div onClick={(e) => {
+                if (e.target === e.currentTarget){
+                    onClose();
+                }
+            }} className={`${styles.popupBackdrop} ${styles.noBlur}`}>
                 <div className={`${styles.popupWindow} ${styles.errorPopup}`}>
                     <form className={standartStyles.form}>
                     <fieldset>

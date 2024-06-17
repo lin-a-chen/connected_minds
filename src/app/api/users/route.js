@@ -57,13 +57,17 @@ export async function GET(req) {
 export async function PUT(req) {
     const body = await req.json();
     try{
-        const result = await User.updateById(body.id, body.firstname, body.lastname, body.antroponym, body.username, body.email, body.phone_number, body.region, body.settlement, body.district, body.address);
-        if (result.success){
-            return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});
+        const findUserResult = await User.findById(body.id);
+        if (!findUserResult.success || !findUserResult.data){
+            return new Response(JSON.stringify({success: false, data: 'No users found'}), {status: 404});
         }
-        else{
-            return new Response(JSON.stringify({success: false, data: 'No users found'}), {status: 500});
+        const result = await User.updateById(body.id, body.email, body.phone_number, findUserResult.data.password, body.is_activated, findUserResult.data.email_token, findUserResult.data.email_token_expires_at);
+        if (!result.success){
+            return new Response(JSON.stringify({success: false, data: 'Couldn\'t update user'}), {status: 500});
         }
+
+        return new Response(JSON.stringify({success: true, data: result.data}), {status: 200});
+
     }
     catch(error){
     return new Response(JSON.stringify({success: false, data: 'Internal server error'}), {status: 500});

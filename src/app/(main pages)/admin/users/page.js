@@ -55,18 +55,18 @@ export default function Users() {
       <Search
         className={styles.autocompleteInput}
         dataToSearch={users}
-        searchFields={['id', 'username', 'email', 'phone_number']}
+        searchFields={['id', 'email', 'phone_number']}
         onChange={handleSearchChange}
         placeholder="Шукати користувача..."
       />
       <AdminTable
-        tableHeaders={['ID в базі даних', 'Username', 'Email', 'Номер телефону', 'Пароль', 'Статус (чи активовано)', 'Дата створення', 'Email токен', 'Email токен дійсний до:']}
+        tableHeaders={['ID в базі даних', 'Email', 'Номер телефону', 'Статус (чи активовано)', 'Дата створення', 'Email токен', 'Email токен дійсний до:', 'Фото']}
         crudLink={'/api/users'}
         items={currentUsers}
         onUpdateItems={handleCurrentItemsChange}
         uniqueField={'id'}
-        immutableFields={['id', 'password', 'created_at']}
-        fieldsToHide={[]}
+        immutableFields={['id', 'password', 'created_at', 'photo']}
+        fieldsToHide={['password']}
       />
       <Pagination
         onCurrentItemsChange={handleCurrentItemsChange}
