@@ -4,6 +4,7 @@ import Schedule from "@/components/main pages/schedule/Schedule";
 import { useEffect, useState } from "react";
 import styles from "./SchedulePage.module.scss";
 import standartStyles from "@/styles/Styles.module.scss";
+import NothingToShow from "@/components/modals/NothingToShow";
 
 export default function SchedulePageComponent({userRole}) {
 	const [week, setWeek] = useState([]);
@@ -21,6 +22,8 @@ export default function SchedulePageComponent({userRole}) {
 		const result = await response.json();
 		if (!result.success) {
 			console.error(result.data);
+			setWeek([]);
+			return;
 		} else {
 			const groupedByWeekday = result.data.reduce((acc, current) => {
 				const { weekday } = current;
@@ -70,8 +73,8 @@ export default function SchedulePageComponent({userRole}) {
 	};
 
 	useEffect(() => {
-		fetchSchedule();
-	}, [className]);
+			fetchSchedule();		
+	}, [className, className.letter, className.number, classLetters]);
 
 	return (
 		<div className={styles.schedulePage}>
@@ -101,11 +104,12 @@ export default function SchedulePageComponent({userRole}) {
 					</select>
 				</div>
 			</div>
-			<Schedule
+			{week.length !== 0 && <Schedule
 				week={week}
 				onUpdate={handleUpdate}
                 userRole={userRole}
-			/>
+			/>}
+			{week.length === 0 && <NothingToShow imageSource={'images/nothing.png'} message={'Схоже такого класу ще немає'}/>}
 		</div>
 	);
 }

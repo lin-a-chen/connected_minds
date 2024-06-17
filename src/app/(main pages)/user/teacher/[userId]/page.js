@@ -34,7 +34,6 @@ export default async function ViewTeacher() {
 	const teacher = await getTeacher(teacherUserId);
 	const user = await getUser();
 
-
 	return (
 		<>
 			{teacher && (

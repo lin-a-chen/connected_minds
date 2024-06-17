@@ -14,7 +14,6 @@ export default function SchoolchildHomeworks({ user, userRole }) {
 	const [subjects, setSubjects] = useState([]);
 	const [subject, setSubject] = useState("Природознавство");
 	const [homeworks, setHomeworks] = useState([]);
-	const [openAddHomework, setOpenAddHomework] = useState(false);
 	const [schoolchild, setSchoolchild] = useState(null);
 
 	const handleOnChangeSubject = (value) => {
@@ -28,12 +27,15 @@ export default function SchoolchildHomeworks({ user, userRole }) {
 		const result = await response.json();
 		if (!result.success) {
 			console.error(result.data);
+			return;
 		}
 
+		const classNumber = schoolchild.class_name.split('-')[0];
 		const formatted = [];
 
 		result.data.forEach((el) => {
-			if (el.classes_type === schoolchild.classes_type) {
+			const type = classNumber < 5 ? 'Молодша школа' : 'Старша школа';
+			if (el.classes_type === type) {
 				formatted.push(el.name);
 			}
 		});

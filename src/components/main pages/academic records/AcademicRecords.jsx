@@ -138,6 +138,8 @@ export default function AcademicRecords({ userRole, user }) {
 				[]
 			);
 
+			
+
 			setAcademicRecords(academicRecordsTransformed);
 		}
 	};
@@ -154,6 +156,7 @@ export default function AcademicRecords({ userRole, user }) {
 		const result = await response.json();
 		if (!result.success) {
 			console.error(result.data);
+			return;
 		}
 
 		setClassObj(result.data);
@@ -253,7 +256,7 @@ export default function AcademicRecords({ userRole, user }) {
 					};
 					if (
 						parseInt(event.target.value) &&
-						(parseInt(event.target.value) > 1 ||
+						(parseInt(event.target.value) > 1 &&
 							parseInt(event.target.value) < 12)
 					) {
 						data.present = 1;
@@ -265,9 +268,6 @@ export default function AcademicRecords({ userRole, user }) {
 						data.present = 1;
 						data.grade = null;
 					} else {
-						toast.error(
-							'В клітинці може бути лише оцінка від 1 до 12, "н-ка" або зовсім нічого'
-						);
 						toast.error(
 							'В клітинці може бути лише оцінка від 1 до 12, "н-ка" або зовсім нічого'
 						);
@@ -349,14 +349,7 @@ export default function AcademicRecords({ userRole, user }) {
 						}.`;
 
 						if (recordDate === date) {
-							if (record.present){
-								return record.grade !== undefined
-								? record.grade
-								: "";
-							}
-							else{
-								return 'н';
-							}
+							return record;
 						}
 					}
 				}
@@ -420,9 +413,9 @@ export default function AcademicRecords({ userRole, user }) {
 							}.`;
 
 							if (recordDate === date) {
-								return record.grade !== undefined
-									? record.grade
-									: "";
+								return record.present
+									? (record.grade ? record.grade : "")
+									: "н";
 							}
 						}
 					}
@@ -455,7 +448,7 @@ export default function AcademicRecords({ userRole, user }) {
 				cells.push(
 					<td key={`pib${i}`}>
 						<a
-							href={`/api/institution/schoolchild/${schoolchildren[i].id}`}>{`${schoolchildren[i].lastname} ${schoolchildren[i].firstname}`}</a>
+							href={`/user/schoolchild/${schoolchildren[i].id}`}>{`${schoolchildren[i].lastname} ${schoolchildren[i].firstname}`}</a>
 					</td>
 				);
 				for (let j = 0; j < daysInMonth; j++) {
@@ -509,7 +502,7 @@ export default function AcademicRecords({ userRole, user }) {
 			setShowTinyPopup(true);
 			setPopupData((prev) => ({
 				...prev,
-				teacherId: record.teacher_user_id,
+				teacherId: record.teacher_id,
 				teacherFirstname: record.teacher_firstname,
 				teacherLastname: record.teacher_lastname,
 				teacherAntroponym: record.teacher_antroponym,

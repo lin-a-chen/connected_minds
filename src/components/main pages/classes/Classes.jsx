@@ -216,7 +216,7 @@ export default function InstitutionAdminClasses({ userRole }) {
 																(window.location.href = `/user/schoolchild/${child.id}`)
 															}>
 															<img
-																src="/images/school-child.png"
+																src={child && child.photo ? child.photo : "/images/school-child1.png"}
 																alt="Child"
 															/>
 															{expandedClasses[
@@ -340,7 +340,7 @@ export default function InstitutionAdminClasses({ userRole }) {
 																)
 															}>
 															<img
-																src={child.photo ? child.photo : '/images/school-child.png'}
+																src={child && child.photo ? child.photo : "/images/school-child1.png"}
 																alt="Child"
 															/>
 															{expandedClasses[
