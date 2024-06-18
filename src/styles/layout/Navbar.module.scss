@@ -20,7 +20,8 @@
         text-decoration: none;
         color: black;
         flex-shrink: 0; 
-        z-index: 1200; 
+        z-index: 1200;
+        position: sticky; 
 
         a {
             text-decoration: none;

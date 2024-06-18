@@ -124,8 +124,8 @@ export default function TeacherHomeworks({ user, userRole }) {
 	useEffect(() => {}, [homeworks]);
 
 	const handleCloseAddHomework = () => {
-		setOpenAddHomework(false);
 		fetchHomework();
+		setOpenAddHomework(false);
 	};
 
 	const handleUpdate = () => {

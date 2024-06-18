@@ -14,31 +14,31 @@ export default function Institutions() {
   const [loading, setLoading] = useState(true);
   const [addAdminOpened, setAddAdminOpened] = useState(false);
 
-  useEffect(() => {
+  const fetchInstitutions = async () => {
+    try {
+      const response = await fetch(`/api/institutions`, { method: "GET" });
+      const result = await response.json();
 
-    const fetchInstitutions = async () => {
-      try {
-        const response = await fetch(`/api/institutions`, { method: "GET" });
-        const result = await response.json();
-
-        if (result.success) {
-          setInstitutions(result.data);
-          handleCurrentItemsChange(result.data.slice(0, 10));
-        } else {
-          console.error("Error fetching institutions:", result.data);
-        }
-      } catch (error) {
-        console.error("Fetch error:", error);
-      } finally {
-        setLoading(false);
+      if (result.success) {
+        setInstitutions(result.data);
+        handleCurrentItemsChange(result.data.slice(0, 10));
+      } else {
+        console.error("Error fetching institutions:", result.data);
       }
-    };
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchInstitutions();
   }, []);
 
   const handleCurrentItemsChange = (currentItems) => {
     setCurrenInstitutions(currentItems);
+    fetchInstitutions();
   };
 
   const handleSearchChange = (result) => {

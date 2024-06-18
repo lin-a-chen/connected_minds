@@ -12,29 +12,31 @@ export default function Users() {
   const [currentUsers, setCurrentUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch(`/api/users`, { method: "GET" });
-        const result = await response.json();
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch(`/api/users`, { method: "GET" });
+      const result = await response.json();
 
-        if (result.success) {
-          setUsers(result.data);
-          handleCurrentItemsChange(result.data.slice(0, 10));
-        } else {
-          console.error("Error fetching users:", result.data);
-        }
-      } catch (error) {
-        console.error("Fetch error:", error);
-      } finally {
-        setLoading(false);
+      if (result.success) {
+        setUsers(result.data);
+        handleCurrentItemsChange(result.data.slice(0, 10));
+      } else {
+        console.error("Error fetching users:", result.data);
       }
-    };
+    } catch (error) {
+      console.error("Fetch error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+
+  useEffect(() => {
     fetchUsers();
   }, []);
 
   const handleCurrentItemsChange = (currentItems) => {
+    fetchUsers();
     setCurrentUsers(currentItems);
   };
 

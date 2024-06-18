@@ -97,7 +97,7 @@ export async function PATCH(req) {
                 return new Response(JSON.stringify({success: false, data: "Користувача не знайдено"}), {status: 404});
             }
 
-            const isPassCorrect = bcrypt.compare(body.oldPassword, findUser.data.password);
+            const isPassCorrect = await bcrypt.compare(body.oldPassword, findUser.data.password);
 
             if (!isPassCorrect){
                 return new Response(JSON.stringify({success: false, data: "Пароль невірний"}), {status: 405});

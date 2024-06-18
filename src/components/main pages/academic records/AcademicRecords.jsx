@@ -257,8 +257,8 @@ export default function AcademicRecords({ userRole, user }) {
 					};
 					if (
 						parseInt(event.target.value) &&
-						(parseInt(event.target.value) > 1 &&
-							parseInt(event.target.value) < 12)
+						(parseInt(event.target.value) >= 1 &&
+							parseInt(event.target.value) <= 12)
 					) {
 						data.present = 1;
 						data.grade = parseInt(event.target.value);
