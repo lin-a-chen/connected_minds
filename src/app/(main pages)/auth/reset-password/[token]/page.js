@@ -101,7 +101,7 @@ export default function ResetPassword() {
 						<form
 							onSubmit={handleSubmit(onSubmit)}
 							className={standartStyles.form}>
-							<p>Reset Password</p>
+							<p>Скинути пароль</p>
 							<fieldset>
 								<div>
 									<MdOutlinePassword
@@ -177,7 +177,7 @@ export default function ResetPassword() {
 							<button
 								className={standartStyles.buttonRegular}
 								type="submit">
-								Save
+								Підтвердити
 							</button>
 						</form>
 					</div>

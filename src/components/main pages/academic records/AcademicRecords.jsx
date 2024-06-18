@@ -110,6 +110,7 @@ export default function AcademicRecords({ userRole, user }) {
 
 	const fetchRecords = async () => {
 		if (classObj && subject && subject.length > 0) {
+
 			const response = await fetch(
 				`/api/institution/academic-records?class=${classObj.name}&subject=${subject}`
 			);
@@ -175,7 +176,7 @@ export default function AcademicRecords({ userRole, user }) {
 
 	useEffect(() => {
 		fetchRecords();
-	}, [month, year, classObj]);
+	}, [month, year, classObj, subject]);
 
 	const handleOnChangeSubject = (value) => {
 		if (value) {

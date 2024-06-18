@@ -43,7 +43,8 @@ class AcademicRecord {
 	 INNER JOIN classes ON academic_records.class_id = classes.id
 	 INNER JOIN subjects ON academic_records.subject_id = subjects.id
 	 INNER JOIN teachers ON academic_records.teacher_id = teachers.id
-	 INNER JOIN users ON teachers.user_id = users.id`,
+	 INNER JOIN users ON teachers.user_id = users.id
+	 WHERE classes.id=? AND subjects.id=?`,
 				[classId, subjectId]
 			);
 			await connection.end();
