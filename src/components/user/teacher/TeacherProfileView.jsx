@@ -7,6 +7,7 @@ export default function TeacherProfileView({
 	teacherUser,
 	teacher,
 	currentUser,
+	currentRole
 }) {
 	const fetchChatRooms = async () => {
 		const response = await fetch(
@@ -70,10 +71,11 @@ export default function TeacherProfileView({
 							<TbSchool />
 							{teacher.position}
 						</div>
-						<button onClick={handleWriteLetter}>
+						{console.log('curentrole', currentRole)}
+						{(currentRole === 'TEACHER' || currentRole === 'SCHOOLCHILD') && <button onClick={handleWriteLetter}>
 							<TbMail />
 							Написати
-						</button>
+						</button>}
 					</div>
 				</div>
 			</div>

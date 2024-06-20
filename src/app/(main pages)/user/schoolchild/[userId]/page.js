@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import { getUser } from "@/lib/dal";
+import { getUser, getUserRole } from "@/lib/dal";
 import SchoolchildProfileView from "@/components/user/teacher/SchoolchildProfileView";
 
 const getSchoolchild = async (schoolchildId) => {
@@ -31,6 +31,7 @@ export default async function ViewSchoolchild() {
 
 	const schoolchild = await getSchoolchild(schoolchildUserId);
 	const user = await getUser();
+	const role = await getUserRole();
 
 	return (
 		<>
@@ -39,6 +40,7 @@ export default async function ViewSchoolchild() {
 					currentUser={user}
 					schoolchild={schoolchild.schoolchild}
 					schoolchildUser={schoolchild.schoolchildUser}
+					currentRole={role}
 				/>
 			)}
 		</>

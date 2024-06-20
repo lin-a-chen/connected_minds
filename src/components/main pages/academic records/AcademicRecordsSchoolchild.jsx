@@ -62,6 +62,7 @@ export default function AcademicRecords({ userRole, user }) {
 	};
 
 	const fetchRecords = async () => {
+		console.log('hiii')
 		if (classObj && subjects && subjects.length > 0) {
 			const response = await fetch(`/api/institution/academic-records?schoolchild=${schoolchild.id}`);
 			const result = await response.json();
@@ -82,6 +83,8 @@ export default function AcademicRecords({ userRole, user }) {
 					filteredByMonth.push(el);
 				}
 			});
+
+			console.log('filtered by month', filteredByMonth)
 		
 			setAcademicRecords(filteredByMonth);
 		}
@@ -97,7 +100,7 @@ export default function AcademicRecords({ userRole, user }) {
 
 	useEffect(() => {
 		fetchRecords();
-	}, [month, year, classObj]);
+	}, [month, year, classObj, subjects]);
 
 	const handleOnChangeSubject = (value) => {
 		if (value) {
@@ -324,7 +327,7 @@ export default function AcademicRecords({ userRole, user }) {
 			setShowTinyPopup(true);
 			setPopupData((prev) => ({
 				...prev,
-				teacherId: record.teacher_user_id,
+				teacherId: record.teacher_id,
 				teacherFirstname: record.teacher_firstname,
 				teacherLastname: record.teacher_lastname,
 				teacherAntroponym: record.teacher_antroponym,

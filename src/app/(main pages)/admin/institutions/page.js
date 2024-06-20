@@ -37,9 +37,14 @@ export default function Institutions() {
   }, []);
 
   const handleCurrentItemsChange = (currentItems) => {
-    setCurrenInstitutions(currentItems);
-    fetchInstitutions();
+    setCurrenInstitutions((prevItems) => {
+      if (JSON.stringify(prevItems) !== JSON.stringify(currentItems)) {
+        return currentItems;
+      }
+      return prevItems;
+    });
   };
+  
 
   const handleSearchChange = (result) => {
     if (result) {

@@ -439,9 +439,9 @@ export default function AddTeacher({ onClose, isVisible }) {
 								) : (
 									<input
 										type="text"
-										defaultValue={"Нижня Саксонія"}
+										defaultValue={"Житомирська область"}
 										className={`${standartStyles.inputRegular}`}
-										placeholder="Нижня Саксонія"
+										placeholder="Житомирська область"
 										{...register("region", {
 											required:
 												"Область чи інший регіон обов'язковий",

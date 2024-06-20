@@ -244,7 +244,7 @@ export default function InstitutionAdminClasses({ userRole }) {
 											onClick={() =>
 												toggleExpandedClass(el.id)
 											}>
-											Hide
+											Сховати
 										</button>
 									)}
 								</div>

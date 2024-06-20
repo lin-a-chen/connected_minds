@@ -33,6 +33,7 @@ export default function SchoolchildSchedulePageComponent({userRole, user}) {
 	};
 
 	const fetchSchedule = async () => {
+		console.log('schoolchild', schoolchild)
 		const response = await fetch(`/api/institution/schedule?class=${schoolchild.class_name}`);
 		const result = await response.json();
 		if (!result.success) {
@@ -40,6 +41,8 @@ export default function SchoolchildSchedulePageComponent({userRole, user}) {
 			return;
 		}
 	
+		console.log('result', result)
+
 		const groupedByWeekday = result.data.reduce((acc, current) => {
 			const { weekday } = current;
 			if (!acc[weekday]) {
@@ -52,6 +55,8 @@ export default function SchoolchildSchedulePageComponent({userRole, user}) {
 		const sortedWeekdays = Array.from({ length: 6 }, (_, i) => {
 			return groupedByWeekday[i] || [{ weekday: i }];
 		});
+
+		console.log('sortedWeekdays', sortedWeekdays)
 	
 		setWeek(sortedWeekdays);
 	};

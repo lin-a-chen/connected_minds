@@ -4,14 +4,18 @@ import Loading from "@/components/modals/Loading";
 
 const TeacherSchedule = ({ week, onUpdate, userRole, teacher }) => {
 	const weekFiltered = [];
+console.log('teacherWeek', week)
+console.log('teacher', teacher)
 
-	week.forEach((day) => {
+	week.forEach((day, index) => {
 		const dayFiltered = [];
 		day.map((lesson) => {
-			if (lesson.teacher_id === teacher.id) {
+			if (teacher && lesson.teacher_id === teacher?.id) {
 				dayFiltered.push(lesson);
 			}
 		});
+
+		console.log('day', day)
 
 		if (dayFiltered.length === 0) {
 			dayFiltered.push({
@@ -28,7 +32,7 @@ const TeacherSchedule = ({ week, onUpdate, userRole, teacher }) => {
 				subject_name: null,
 				teacher_email: null,
 				teacher_id: null,
-				weekday: day[0].weekday,
+				weekday: index,
 			});
 		}
 

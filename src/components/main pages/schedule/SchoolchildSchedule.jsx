@@ -5,7 +5,7 @@ import Loading from "../../modals/Loading";
 const SchoolchildSchedule = ({ week, onUpdate, userRole, schoolchild }) => {
 	const weekFiltered = [];
 
-	week.forEach((day) => {
+	week.forEach((day, index) => {
 		const dayFiltered = [];
 		day.map((lesson) => {
 			if (lesson.class_id === schoolchild.class_id) {
@@ -28,7 +28,7 @@ const SchoolchildSchedule = ({ week, onUpdate, userRole, schoolchild }) => {
 				subject_name: null,
 				teacher_email: null,
 				teacher_id: null,
-				weekday: day[0].weekday,
+				weekday: index,
 			});
 		}
 

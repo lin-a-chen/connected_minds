@@ -7,12 +7,12 @@ import Loading from "../../modals/Loading";
 const Schedule = ({ week, subjects, onUpdate, userRole }) => {
 
 	const weekdays = {
-		1: "Понеділок",
-		2: "Вівторок",
-		3: "Середа",
-		4: "Четвер",
-		5: "П'ятниця",
-		6: "Субота",
+		0: "Понеділок",
+		1: "Вівторок",
+		2: "Середа",
+		3: "Четвер",
+		4: "П'ятниця",
+		5: "Субота",
 	};
 
 	const handleUpdateLesson = (day, index, updatedLesson) => {
@@ -26,7 +26,7 @@ const Schedule = ({ week, subjects, onUpdate, userRole }) => {
 	return (
 		<>
 			{!week || week.length <= 0 && <Loading />}
-
+			{console.log('eweek', week)}
 			{week && week.length > 0 && (
 				<div className={styles.scheduleContainer}>
 					{week.map((day, index) => (

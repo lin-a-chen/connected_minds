@@ -60,12 +60,12 @@ export default function TeacherSchedulePageComponent({userRole, user}) {
 
 	return (
 		<div className={styles.schedulePage}>
-			<TeacherSchedule
+			{teacher && week && <TeacherSchedule
 				week={week}
 				onUpdate={handleUpdate}
                 userRole={userRole}
                 teacher={teacher}
-			/>
+			/>}
 		</div>
 	);
 }

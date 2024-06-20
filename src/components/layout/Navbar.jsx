@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "@/styles/layout/Navbar.module.scss";
 import Link from "next/link";
 
@@ -9,6 +9,10 @@ export default function NavbarAuthed({ navbarLinks }) {
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
+    };
+
+    const closeMenu = () => {
+        setMenuOpen(false);
     };
 
     const signOutHandler = async () => {
@@ -23,6 +27,19 @@ export default function NavbarAuthed({ navbarLinks }) {
         }
     };
 
+    useEffect(() => {
+        if (menuOpen) {
+            const handleRouteChange = () => {
+                closeMenu();
+            };
+
+            window.addEventListener('popstate', handleRouteChange);
+            return () => {
+                window.removeEventListener('popstate', handleRouteChange);
+            };
+        }
+    }, [menuOpen]);
+
     return (
         <div className={styles.navbarContainer}>
             <div className={styles.logo}>
@@ -32,10 +49,14 @@ export default function NavbarAuthed({ navbarLinks }) {
                 ☰
             </button>
             <nav className={`${styles.navbar} ${menuOpen ? styles.open : ""}`}>
+                <button className={styles.closeButton} onClick={closeMenu}>
+                    ✖
+                </button>
                 <ul>
                     {navbarLinks.map((link) => (
-                        <li key={link.text}>
-                            <Link href={link.source}>{link.text}</Link>
+                        <li key={link.text} onClick={() => {closeMenu(); window.location.href = link.source}} >
+                            {link.text}
+                            {/* <Link href={link.source} onClick={closeMenu}>{link.text}</Link> */}
                         </li>
                     ))}
                     <li>

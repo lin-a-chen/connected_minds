@@ -1,6 +1,6 @@
 import TeacherProfileView from "@/components/user/teacher/TeacherProfileView";
 import { headers } from "next/headers";
-import { getUser } from "@/lib/dal";
+import { getUser, getUserRole } from "@/lib/dal";
 
 const getTeacher = async (teacherId) => {
 	const base = "http://localhost:3000";
@@ -13,6 +13,8 @@ const getTeacher = async (teacherId) => {
 		console.error(teacherResult.data);
 		return;
 	}
+
+	{console.log('teacherresult', teacherResult)}
 
 	const userResponse = await fetch(
 		`${base}/api/users?id=${teacherResult.data.user_id}`
@@ -28,12 +30,12 @@ const getTeacher = async (teacherId) => {
 
 export default async function ViewTeacher() {
 	const headersList = headers();
-	const pathname = headersList.get("x-current-path") || "";
+  	const pathname = headersList.get("x-current-path") || "";
 	const teacherUserId = pathname.split("/").pop();
 
 	const teacher = await getTeacher(teacherUserId);
 	const user = await getUser();
-
+	const role = await getUserRole();
 	return (
 		<>
 			{teacher && (
@@ -41,6 +43,7 @@ export default async function ViewTeacher() {
 					currentUser={user}
 					teacher={teacher.teacher}
 					teacherUser={teacher.teacherUser}
+					currentRole={role}
 				/>
 			)}
 		</>

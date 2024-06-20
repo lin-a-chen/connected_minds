@@ -40,6 +40,7 @@ export default function LessonForm({ day, onAddLesson }) {
 			return;
 		}
 		toast.success('Урок успішно додано у розклад');
+		reset();
 		onAddLesson();
 	};
 
