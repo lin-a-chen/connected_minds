@@ -1,0 +1,102 @@
+@import "../../../styles/Styles.module.scss";
+
+.form {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.8rem;
+  width: 100%;
+  margin-top: 2rem;
+
+  & fieldset {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0.5rem;
+    width: fit-content;
+
+    &:first-child {
+      width: 7rem;
+      & label:not(& label:first-child) {
+        margin-top: 0.5rem;
+      }
+    }
+
+    &:nth-child(2) {
+      width: 12rem;
+    }
+
+    & > label {
+      color: #62627b;
+      font-weight: 200;
+      width: 100%;
+    }
+
+    & input {
+      &[type="time"] {
+        width: 5rem;
+      }
+      &[type="text"] {
+        width: 10rem;
+      }
+      &[type="email"] {
+        width: 10rem;
+      }
+    }
+
+    & select {
+      width: 11.5rem;
+    }
+  }
+
+  .buttonAdd {
+    border-radius: 10px;
+    border: 2px solid $bg-slate-blue;
+    background-color: $bg-main-sea-salt;
+    color: $cl-slate-blue;
+    padding: 0.5rem;
+    height: min-content;
+    width: min-content;
+    cursor: pointer;
+    margin-top: 2.1rem;
+
+    &:hover {
+      background-color: $bg-slate-blue;
+      color: $cl-sea-salt;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    & fieldset {
+      width: 100%;
+
+      &:first-child {
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+
+      &:nth-child(2) {
+        width: 100%;
+      }
+
+      & input {
+        &[type="time"],
+        &[type="text"],
+        &[type="email"] {
+          width: 100%;
+        }
+      }
+
+      & select {
+        width: 100%;
+      }
+    }
+
+    .buttonAdd {
+      width: 100%;
+      margin-top: 1.5rem;
+    }
+  }
+}

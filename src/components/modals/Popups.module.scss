@@ -1,0 +1,145 @@
+@import "../../styles/Styles.module.scss";
+
+.popupBackdrop{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    backdrop-filter: blur(5px);
+
+
+    
+    & .popupWindow{
+        font-family: "Evolventa";
+        width: 400px;
+        height: min-content;
+        border-radius: 15px;
+        border: 3px solid;
+        background-color: $bg-main-sea-salt;
+        margin: 10% auto;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 1rem 1rem 2rem;
+
+        & .form{
+            align-items: center;
+        }
+
+        & .cross{
+            margin-left: auto;
+            font-size: 2.5rem;
+            cursor: pointer;
+            line-height: 0%;
+
+            &:hover{
+                color: $bg-wisteria;
+            }
+        }
+
+        & .header{
+            display: flex;
+
+            & .headingContent{
+                display: flex;
+                flex-direction: column;
+                width: 60%;
+
+                & .heading{
+                    font-size: 1.2rem;
+                    margin-bottom: 1.5rem;
+                }
+
+                & .text{
+                    width: 100%;
+                    font-size: .9rem;
+                }
+
+                & > *{
+                    user-select: none;
+                    margin: 0;
+                }
+            }
+
+            & .picture{
+                width: 25%;
+                margin-right: 2rem;
+                img{
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            }
+        }
+
+        
+
+        & .buttons{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: 2rem;
+
+            & > *:first-child{
+                margin-right: 2rem;
+            }
+
+            & > * {
+                user-select: none;
+                display: block;
+                text-decoration: none;
+                width: fit-content;
+                height: fit-content;
+                padding: .75rem 1rem;
+                cursor: pointer;
+                border: none;
+                border-radius: 8px;
+                font-weight: 600;
+                color: $cl-sea-salt;
+                margin: 0;
+            }
+        }
+    }
+
+    & .popupWindow.infoPopup{
+        border-color: $bg-wisteria;
+        & .buttons{
+            & .approve{
+                background-color: $bg-wisteria;
+
+                &:hover{
+                    background-color: $bg-slate-blue;
+                }
+            } 
+        }
+    }
+
+    & .popupWindow.errorPopup{
+        border-color: $bg-cherry-blossom;
+        & .approve{
+            background-color: $bg-slate-blue;
+            color: $cl-sea-salt;
+
+            &:hover{
+                background-color: $bg-wisteria;
+            }
+        }
+
+        & .cancel{
+            background-color: $bg-main-sea-salt;
+                color: $cl-cherry-blossom;
+                border: 2px solid $bg-cherry-blossom;
+
+            &:hover{
+                background-color: $bg-cherry-blossom;
+                color: $cl-sea-salt;
+                border: 2px solid $bg-cherry-blossom;
+            }
+        }
+    }
+}
+
+.noBlur{
+    backdrop-filter: none;
+}

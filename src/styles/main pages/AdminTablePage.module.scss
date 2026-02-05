@@ -1,0 +1,46 @@
+@import "../Styles.module.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  font-family: "Arial";
+  background-color: $bg-main-sea-salt;
+  margin: 0 auto;
+
+  & > div:nth-child(3){
+    margin: 2rem auto;
+  }
+
+  & .autocompleteInput {
+    margin: 5% 10% 5% auto;
+  }
+
+  .topPanel{
+    margin: 0 auto;
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+    align-items: center;
+
+
+    & .addAdminButton{
+      width: fit-content;
+      height: fit-content;
+      padding: 1rem 1rem;
+      background-color: $bg-slate-blue;
+      color: $cl-sea-salt;
+      border: none;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+  
+      &:hover{
+        background-color: $bg-wisteria;
+        color: $cl-sea-salt;
+      }
+    }
+  }
+
+  
+}
+  

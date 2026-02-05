@@ -1,0 +1,30 @@
+@import "../../styles/Styles.module.scss";
+
+.loading {
+  margin: 40vh auto;
+    width: 120px;
+    height: 60px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    background: $bg-main-sea-salt;
+    filter: blur(5px) contrast(4);
+    mix-blend-mode: darken;
+
+    &:before,
+    &:after {
+      content: "";
+      width: 40px;
+      border-radius: 50%;
+      background: $bg-accent-chrysler-blue;
+      animation: l3 1s infinite alternate;
+    }
+    &:after {
+      --s:-1;
+    }
+    @keyframes l3{
+      90%,100% {transform: translate(calc(var(--s,1)*30px))}
+    }
+}
+

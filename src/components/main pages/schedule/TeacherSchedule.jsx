@@ -1,0 +1,81 @@
+import ScheduleTable from "./ScheduleTable";
+import styles from "./Schedule.module.scss";
+import Loading from "@/components/modals/Loading";
+
+const TeacherSchedule = ({ week, onUpdate, userRole, teacher }) => {
+	const weekFiltered = [];
+console.log('teacherWeek', week)
+console.log('teacher', teacher)
+
+	week.forEach((day, index) => {
+		const dayFiltered = [];
+		day.map((lesson) => {
+			if (teacher && lesson.teacher_id === teacher?.id) {
+				dayFiltered.push(lesson);
+			}
+		});
+
+		console.log('day', day)
+
+		if (dayFiltered.length === 0) {
+			dayFiltered.push({
+				antroponym: null,
+				class_id: null,
+				classes_type: null,
+				end_time: null,
+				firstname: null,
+				lastname: null,
+				lesson_id: null,
+				schedule_id: null,
+				start_time: null,
+				subject_id: null,
+				subject_name: null,
+				teacher_email: null,
+				teacher_id: null,
+				weekday: index,
+			});
+		}
+
+		weekFiltered.push(dayFiltered);
+	});
+
+	const weekdays = {
+		0: "Понеділок",
+		1: "Вівторок",
+		2: "Середа",
+		3: "Четвер",
+		4: "П'ятниця",
+		5: "Субота",
+	};
+
+	const handleUpdateLesson = () => {
+		onUpdate();
+	};
+
+	return (
+		<>
+			{!weekFiltered || (weekFiltered.length <= 0 && <Loading />)}
+
+			{weekFiltered && weekFiltered.length > 0 && (
+				<div className={styles.scheduleContainer}>
+					{weekFiltered.map((day, index) => (
+						<div
+							key={index}
+							className={styles.dayContainer}>
+							<h2>{weekdays[day[0].weekday]}</h2>
+							<ScheduleTable
+								day={day}
+								lessons={day}
+								onUpdateLesson={handleUpdateLesson}
+								userRole={userRole}
+								teacher={teacher}
+							/>
+						</div>
+					))}
+				</div>
+			)}
+		</>
+	);
+};
+
+export default TeacherSchedule;

@@ -1,0 +1,53 @@
+@import "../../../styles/Styles.module.scss";
+
+.schedulePage {
+    display: flex;
+    flex-direction: column;
+    padding: 2% 10%;
+  
+    @media (max-width: 768px) {
+      padding: 5%;
+    }
+  
+    @media (max-width: 480px) {
+      padding: 2%;
+    }
+  
+    .header {
+      display: flex;
+      flex-direction: column;
+      margin: 2% 0;
+  
+      & label {
+        color: #7766C6;
+        font-weight: 600;
+        font-family: "Evolventa";
+        font-size: 1.1rem;
+      }
+  
+      & > div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+  
+        @media (max-width: 768px) {
+          flex-direction: column;
+          align-items: stretch;
+        }
+  
+        input {
+          margin-right: 10px;
+  
+          @media (max-width: 768px) {
+            margin: 0 0 10px 0;
+          }
+        }
+  
+        select {
+          @media (max-width: 768px) {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }

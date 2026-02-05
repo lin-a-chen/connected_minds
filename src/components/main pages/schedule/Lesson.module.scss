@@ -1,0 +1,84 @@
+@import "../../../styles/Styles.module.scss";
+
+
+.lessonRow{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  align-items: flex-start;
+
+  fieldset{
+    border: none;
+  }
+
+  & td {
+    padding: .5rem;
+  };
+
+  .subjectTime{
+    display: block;
+
+    & p{
+      color: #62627b;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    & .dash{
+      width: 0px;
+      height: .5rem;
+      border: 1px dashed rgb(196, 196, 196);
+      margin: 2px auto;
+    }
+  }
+  
+  .subjectText{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    & > div{
+      display: flex;
+      width: 100%;
+    }
+    & p{
+      display: flex;
+      align-items: center;
+      margin: 0;
+      width: fit-content;
+
+      &:first-child{
+        color: $cl-slate-blue;
+        margin-bottom: .5rem;
+      }
+
+      &:last-child{
+        color: #62627b;
+        font-size: .9rem;
+      }
+
+      & .icon{
+        margin-right: .5rem;
+        height: min-content;
+        width: min-content;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  button:disabled{
+    color: gray;
+
+    &:hover{
+      background-color: gray;
+      color: $cl-sea-salt;
+    }
+
+  }
+  @media (max-width: 900px) {
+    .subjectTime, .subjectText{
+      max-width: fit-content;
+    }
+  }
+}
+

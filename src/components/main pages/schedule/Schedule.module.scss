@@ -1,0 +1,57 @@
+// src/components/Schedule.module.scss
+@import "../../../styles/Styles.module.scss";
+
+.scheduleContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 1rem;
+  font-family: 'Evolventa';
+  justify-items: center;
+
+  .dayContainer {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; 
+    max-width: 500px; 
+  }
+
+  h2 {
+    margin-bottom: 10px;
+    color: $cl-slate-blue;
+  }
+}
+
+
+@media (max-width: 1210px) {
+  .scheduleContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .scheduleContainer {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .dayContainer {
+    width: 80%; 
+    padding: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .scheduleContainer {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .dayContainer {
+    width: 100%; 
+    padding: 10px;
+  }
+}
